@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "required": [
+    "code",
+    "msg",
+    "data"
+  ],
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "msg": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "required": [
+        "list",
+        "pageInfo"
+      ],
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "pageInfo": {
+          "type": "object",
+          "required": [
+            "pages",
+            "current",
+            "size",
+            "total"
+          ],
+          "properties": {
+            "pages": {
+              "type": "number"
+            },
+            "current": {
+              "type": "number"
+            },
+            "size": {
+              "type": "number"
+            },
+            "total": {
+              "type": "number"
+            }
+          },
+          "$$ref": "#/definitions/pageInfo"
+        }
+      }
+    }
+  }
+}

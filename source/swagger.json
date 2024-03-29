@@ -1,0 +1,4418 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This page contains documentation of all API used in IM Application",
+    "version": "v1.0",
+    "title": "TEST API Documentation"
+  },
+  "host": "127.0.0.1:8082",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "充值相关",
+      "description": "C Recharge Controller"
+    },
+    {
+      "name": "关注",
+      "description": "C User Follow Controller"
+    },
+    {
+      "name": "反馈",
+      "description": "C Feedback Controller"
+    },
+    {
+      "name": "搭子/动态相关",
+      "description": "Moments Controller"
+    },
+    {
+      "name": "文件、图片上传",
+      "description": "Oss Controller"
+    },
+    {
+      "name": "文件管理",
+      "description": "C File Controller"
+    },
+    {
+      "name": "枚举值相关",
+      "description": "Metadata Controller"
+    },
+    {
+      "name": "照片管理",
+      "description": "C Photo Controller"
+    },
+    {
+      "name": "用户位置相关",
+      "description": "C User Location Controller"
+    },
+    {
+      "name": "用户相关",
+      "description": "C User Controller"
+    },
+    {
+      "name": "用户账户",
+      "description": "C User Account Controller"
+    },
+    {
+      "name": "用户限制相关",
+      "description": "C User Limit Controller"
+    },
+    {
+      "name": "评论",
+      "description": "Comment Controller"
+    },
+    {
+      "name": "钻石变更记录管理",
+      "description": "C Diamond Record Controller"
+    },
+    {
+      "name": "黑名单管理",
+      "description": "C Blacklist Controller"
+    }
+  ],
+  "paths": {
+    "/c-blacklist/add": {
+      "post": {
+        "tags": [
+          "黑名单管理"
+        ],
+        "summary": "添加到黑名单",
+        "operationId": "addUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseBlacklistReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-blacklist/myBlacklist": {
+      "post": {
+        "tags": [
+          "黑名单管理"
+        ],
+        "summary": "查询黑名单列表",
+        "operationId": "myBlacklistUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse«List«BaseUserVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-blacklist/remove": {
+      "post": {
+        "tags": [
+          "黑名单管理"
+        ],
+        "summary": "删除黑名单",
+        "operationId": "deleteBlacklistByIdUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseBlacklistReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-diamond-record/consumeDiamondRecord": {
+      "post": {
+        "tags": [
+          "钻石变更记录管理"
+        ],
+        "summary": "钻石消耗-查看微信联系方式",
+        "operationId": "consumeDiamondRecordUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "diamondReq",
+            "description": "diamondReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DiamondReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-feedback/commit-feedback": {
+      "post": {
+        "tags": [
+          "反馈"
+        ],
+        "summary": "提交反馈",
+        "operationId": "loginByUserNameUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CommitFeedbackReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-file/upload": {
+      "post": {
+        "tags": [
+          "文件管理"
+        ],
+        "summary": "添加附件",
+        "operationId": "uploadUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-photo/add": {
+      "post": {
+        "tags": [
+          "照片管理"
+        ],
+        "summary": "添加照片",
+        "operationId": "addUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddPhotoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-photo/find-mine-all": {
+      "post": {
+        "tags": [
+          "照片管理"
+        ],
+        "summary": "查询照片列表",
+        "operationId": "findMineAllUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CPhotoDto"
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-photo/remove-mine-photo": {
+      "post": {
+        "tags": [
+          "照片管理"
+        ],
+        "summary": "删除照片",
+        "operationId": "removeMinePhotoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RemovePhotoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-recharge/check-order": {
+      "post": {
+        "tags": [
+          "充值相关"
+        ],
+        "summary": "验证订单",
+        "operationId": "checkOrderUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckRechargeOrderReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CheckRechargeOrderResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-recharge/create-order": {
+      "post": {
+        "tags": [
+          "充值相关"
+        ],
+        "summary": "创建订单",
+        "operationId": "createOrderUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateRechargeOrderReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CreateRechargeOrderResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-account/get-mine": {
+      "post": {
+        "tags": [
+          "用户账户"
+        ],
+        "summary": "获取我的账户",
+        "operationId": "getOccupationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserAccountDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/diamond-get-info": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "砖石解锁用户信息",
+        "operationId": "diamondGetInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PublicUserDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/diamond-get-pri-chat": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "砖石解锁私聊信息",
+        "operationId": "diamondGetPriChatUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FlagResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/diamond-get-wechat": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "砖石解锁微信信息",
+        "operationId": "diamondGetWechatUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetWechatResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/get-info": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "解锁用户信息",
+        "operationId": "getInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PublicUserDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/get-mine-limit": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "获取我当前的限制信息",
+        "operationId": "getMineLimitUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserLimitDTO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/get-pri-chat": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "解锁私聊信息",
+        "operationId": "getPriChatUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FlagResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-limit/get-wechat": {
+      "post": {
+        "tags": [
+          "用户限制相关"
+        ],
+        "summary": "解锁微信信息",
+        "operationId": "getWechatUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseLimitReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GetWechatResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-location/add": {
+      "post": {
+        "tags": [
+          "用户位置相关"
+        ],
+        "summary": "添加用户位置",
+        "operationId": "addUsingPOST_3",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddLocationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-location/clear-expired": {
+      "post": {
+        "tags": [
+          "用户位置相关"
+        ],
+        "summary": "删除过期位置",
+        "operationId": "clearExpiredUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-location/find-nearby": {
+      "post": {
+        "tags": [
+          "用户位置相关"
+        ],
+        "summary": "查找附近的人",
+        "operationId": "findNearbyUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FindNearbyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageVo«FindUserListResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user-location/remove": {
+      "post": {
+        "tags": [
+          "用户位置相关"
+        ],
+        "summary": "移除用户位置",
+        "operationId": "removeUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/check-exist": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "验证用户是否存在",
+        "operationId": "checkExistUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BaseUserPhoneReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/check-register-sms": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "注册第一步-验证注册短信",
+        "operationId": "checkRegisterSmsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifySmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/edit-info": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "更新用户资料，包括注册的时候完善用户信息和个人页面资料更新",
+        "operationId": "editInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditInfoReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/editProfile": {
+      "get": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "编辑个人简介",
+        "operationId": "editProfileUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "profile",
+            "in": "query",
+            "description": "简介内容",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/find-user-active": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "根据活跃时间查询用户:活跃时间一个小时刷新一次",
+        "operationId": "findUserByActiveUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FindUserByActiveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageVo«FindUserListResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/find-user-register": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "根据注册时间查询用户",
+        "operationId": "findUserByRegisterUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FindUserByRegisterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageVo«FindUserListResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/get-by-id": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "根据用户id获取用户",
+        "operationId": "getByIdUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetUserByIdReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/index/page": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "首页分页查询",
+        "operationId": "pageIndexUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PageableRequest«IndexPageQuery»"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageableResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/login-by-phone": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "手机验证码登陆，返回体data中的registerStep表示注册了第几步，值分别是：2设置性别，3设置期待关系，4完善基本信息，5设置头像、昵称、生日",
+        "operationId": "loginByPhoneUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginByPhoneReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/login-by-username": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "用户名登陆",
+        "operationId": "loginByUserNameUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginByUserNameReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": true
+      }
+    },
+    "/c-user/login-out": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "登出",
+        "operationId": "loginOutUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/myHomePage": {
+      "get": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "我的主页",
+        "operationId": "myHomePageUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/offline": {
+      "get": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "下线，用户登出的时候不用调用，杀掉app的时候调用，进入后台不调用",
+        "operationId": "offlineUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/online": {
+      "get": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "上线，用户登录成功，不用调用此接口，用户杀掉app重新进入并且用户处于登录状态的时候调用",
+        "operationId": "onlineUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/send-sms": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "发送短信验证码type都传2",
+        "operationId": "sendSmsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendSmsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/set-city": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "设置城市",
+        "operationId": "setCityUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetCityReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/set-expect-relation": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "注册第三步-设置交友目的",
+        "operationId": "setExpectRelationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegisterReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/set-info": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "注册第四步-设置头像、昵称、生日",
+        "operationId": "setInfoUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegisterReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/set-sex": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "注册第二步-设置性别",
+        "operationId": "setSexUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserRegisterReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/set-wechat": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "设置微信",
+        "operationId": "setWeChatUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetWeChatReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/user-cert": {
+      "post": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "用户认证",
+        "operationId": "userCertUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserCertReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FlagResp"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/c-user/userHomePage": {
+      "get": {
+        "tags": [
+          "用户相关"
+        ],
+        "summary": "他人用户主页",
+        "operationId": "userHomePageUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "lookedUserId",
+            "in": "query",
+            "description": "被查看个人主页的用户id",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/comment/post": {
+      "post": {
+        "tags": [
+          "评论"
+        ],
+        "summary": "发表评论",
+        "operationId": "postUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "commentDTO",
+            "description": "commentDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CommentDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/follow/add": {
+      "post": {
+        "tags": [
+          "关注"
+        ],
+        "summary": "关注",
+        "operationId": "addUsingPOST_2",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "targetUserId",
+            "in": "query",
+            "description": "被关注用户ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/follow/attention-my": {
+      "post": {
+        "tags": [
+          "关注"
+        ],
+        "summary": "关注我的",
+        "operationId": "attentionMyUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "pageableRequest",
+            "description": "pageableRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PageableRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageableResponse«FindUserListResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/follow/my-attention": {
+      "post": {
+        "tags": [
+          "关注"
+        ],
+        "summary": "我的关注",
+        "operationId": "myAttentionUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "pageableRequest",
+            "description": "pageableRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PageableRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageableResponse«FindUserListResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/follow/remove": {
+      "post": {
+        "tags": [
+          "关注"
+        ],
+        "summary": "取消关注",
+        "operationId": "removeUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "targetUserId",
+            "in": "query",
+            "description": "被取消关注用户ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/metadata/dictionaryByCodes": {
+      "get": {
+        "tags": [
+          "枚举值相关"
+        ],
+        "summary": "获取下拉数据，1000：职业，2000：兴趣爱好，3000：星座，4000：学历，5000：婚恋状况,6000：搭子分类，7000：话题类型，8000：期待关系",
+        "operationId": "dictionaryByCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "specCode",
+            "in": "query",
+            "description": "specCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/addTopic": {
+      "get": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "添加话题",
+        "operationId": "addTopicUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "topic",
+            "in": "query",
+            "description": "topic",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/cancelLike": {
+      "get": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "取消点赞，为防止重复点赞，前端需要等接口返回才能做下一步操作",
+        "operationId": "cancelLikeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "themeId",
+            "in": "query",
+            "description": "搭子/动态、评论数据标识",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "点赞类型：1搭子/动态，2:评论",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/detail": {
+      "get": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "搭子/动态详情",
+        "operationId": "detailUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "搭子/动态标识",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/like": {
+      "get": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "点赞，为防止重复点赞，前端需要等接口返回才能做下一步操作，但是页面可以一直点，显示效果",
+        "operationId": "likeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "themeId",
+            "in": "query",
+            "description": "搭子/动态、评论数据标识",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "点赞类型：1搭子/动态，2:评论",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/page": {
+      "post": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "搭子/动态分页查询",
+        "operationId": "pageUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PageableRequest«MomentsPageQuery»"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PageableResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/postPartner": {
+      "post": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "发布搭子",
+        "operationId": "postPartnerUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "dto",
+            "description": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MomentsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/postStory": {
+      "post": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "发布动态",
+        "operationId": "postStoryUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "dto",
+            "description": "dto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MomentsDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/moments/signUp": {
+      "get": {
+        "tags": [
+          "搭子/动态相关"
+        ],
+        "summary": "报名加入",
+        "operationId": "signUpUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "partnerId",
+            "in": "query",
+            "description": "搭子标识",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/oss/getBucket": {
+      "get": {
+        "tags": [
+          "文件、图片上传"
+        ],
+        "summary": "获取oss桶，文件夹、文件命名规则，头像放入/用户id/日期/profile/文件，动态、搭子的文件放入/用户id/日期/moments/文件，文件名：时间戳+文件格式",
+        "operationId": "getBucketUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/oss/getTemporaryCredential": {
+      "get": {
+        "tags": [
+          "文件、图片上传"
+        ],
+        "summary": "获取oss凭证",
+        "operationId": "getTemporaryCredentialUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/oss/uploadFile": {
+      "post": {
+        "tags": [
+          "文件、图片上传"
+        ],
+        "summary": "文件上传",
+        "operationId": "uploadFileUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "filePath",
+            "in": "query",
+            "description": "filePath",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CommonResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Auth-Key": [
+              "Global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Auth-Key": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "AddLocationRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "string",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "string",
+          "description": "经度"
+        }
+      },
+      "title": "AddLocationRequest"
+    },
+    "AddPhotoReq": {
+      "type": "object",
+      "properties": {
+        "fileUrls": {
+          "type": "array",
+          "description": "照片",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "AddPhotoReq"
+    },
+    "BaseBlacklistReq": {
+      "type": "object",
+      "properties": {
+        "targetUserId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "目标用户ID"
+        }
+      },
+      "title": "BaseBlacklistReq"
+    },
+    "BaseLimitReq": {
+      "type": "object",
+      "properties": {
+        "targetUserId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "目标用户ID"
+        }
+      },
+      "title": "BaseLimitReq"
+    },
+    "BaseUserPhoneReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        }
+      },
+      "title": "BaseUserPhoneReq"
+    },
+    "BaseUserVO": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "description": "年龄"
+        },
+        "location": {
+          "type": "string",
+          "description": "位置"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "昵称"
+        },
+        "profilePhotoUrl": {
+          "type": "string",
+          "description": "头像地址"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别,0=女 1=男"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户标识"
+        }
+      },
+      "title": "BaseUserVO"
+    },
+    "CPhotoDto": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        },
+        "fileUrl": {
+          "type": "string",
+          "description": "文件ID"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "照片ID"
+        }
+      },
+      "title": "CPhotoDto"
+    },
+    "CheckRechargeOrderReq": {
+      "type": "object",
+      "properties": {
+        "orderNo": {
+          "type": "string",
+          "description": "订单号"
+        },
+        "receipt": {
+          "type": "string",
+          "description": "凭证号"
+        }
+      },
+      "title": "CheckRechargeOrderReq"
+    },
+    "CheckRechargeOrderResp": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "消息"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "状态：10.支付成功，9.支付失败.8.处理中(不确定成功或失败)"
+        }
+      },
+      "title": "CheckRechargeOrderResp"
+    },
+    "CommentDTO": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "被评论的评论标识,一级评论为0"
+        },
+        "content": {
+          "type": "string",
+          "description": "评论内容，长度不超过200字"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": "评论等级，搭子/动态下的第一层评论为1，第一层的子评论为2，子评论的评论叫回复，等级为3"
+        },
+        "themeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "搭子/动态主键"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "评论类型：1搭子，2动态"
+        }
+      },
+      "title": "CommentDTO"
+    },
+    "CommitFeedbackReq": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "反馈内容"
+        },
+        "enclosure": {
+          "type": "string",
+          "description": "附件"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "反馈类型1.无法充值 2.举报用户 3.问题反馈"
+        }
+      },
+      "title": "CommitFeedbackReq"
+    },
+    "CommonResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "具体数据"
+        },
+        "encryptData": {
+          "type": "string",
+          "description": "加密后的数据"
+        },
+        "resultCode": {
+          "type": "string",
+          "description": "响应码"
+        },
+        "resultMsg": {
+          "type": "string",
+          "description": "响应消息"
+        },
+        "signature": {
+          "type": "string",
+          "description": "签名"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "时间戳"
+        }
+      },
+      "title": "CommonResponse"
+    },
+    "CommonResponse«List«BaseUserVO»»": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "description": "具体数据",
+          "items": {
+            "$ref": "#/definitions/BaseUserVO"
+          }
+        },
+        "encryptData": {
+          "type": "string",
+          "description": "加密后的数据"
+        },
+        "resultCode": {
+          "type": "string",
+          "description": "响应码"
+        },
+        "resultMsg": {
+          "type": "string",
+          "description": "响应消息"
+        },
+        "signature": {
+          "type": "string",
+          "description": "签名"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "时间戳"
+        }
+      },
+      "title": "CommonResponse«List«BaseUserVO»»"
+    },
+    "CreateRechargeOrderReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "subType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "充值子类型"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "充值类型"
+        }
+      },
+      "title": "CreateRechargeOrderReq"
+    },
+    "CreateRechargeOrderResp": {
+      "type": "object",
+      "properties": {
+        "orderNo": {
+          "type": "string",
+          "description": "订单号"
+        },
+        "productId": {
+          "type": "string",
+          "description": "产品ID"
+        }
+      },
+      "title": "CreateRechargeOrderResp"
+    },
+    "DiamondReq": {
+      "type": "object",
+      "properties": {
+        "damount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "dtype": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "DiamondReq"
+    },
+    "EditInfoReq": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "description": "年龄"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "constellation": {
+          "type": "string",
+          "description": "星座"
+        },
+        "education": {
+          "type": "string",
+          "description": "学历"
+        },
+        "emotionalStatus": {
+          "type": "string",
+          "description": "感情状况"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "description": "身高"
+        },
+        "interest": {
+          "type": "array",
+          "description": "兴趣爱好",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nativePlace": {
+          "type": "string",
+          "description": "故乡详细地址"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "用户昵称"
+        },
+        "occupation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "职业"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "profile": {
+          "type": "string",
+          "description": "个人简介"
+        },
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "description": "体重"
+        },
+        "whatsUp": {
+          "type": "string",
+          "description": "个人签名"
+        },
+        "yearIncome": {
+          "type": "number",
+          "description": "年收入"
+        }
+      },
+      "title": "EditInfoReq"
+    },
+    "FindNearbyRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "经度"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FindNearbyRequest"
+    },
+    "FindUserByActiveRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "经度"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FindUserByActiveRequest"
+    },
+    "FindUserByRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "经度"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FindUserByRegisterRequest"
+    },
+    "FindUserListResp": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "string",
+          "description": "年龄"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "blackListFlag": {
+          "type": "boolean",
+          "description": "是否被对方拉黑"
+        },
+        "cert": {
+          "type": "boolean"
+        },
+        "certImage": {
+          "type": "string",
+          "description": "认证照片地址"
+        },
+        "city": {
+          "type": "string",
+          "description": "市"
+        },
+        "contactFlag": {
+          "type": "boolean",
+          "description": "是否是好友"
+        },
+        "distance": {
+          "type": "number",
+          "format": "double",
+          "description": "距离单位：米"
+        },
+        "height": {
+          "type": "string",
+          "description": "身高"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "用户昵称"
+        },
+        "occupation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "职业"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "photos": {
+          "type": "array",
+          "description": "照片信息",
+          "items": {
+            "$ref": "#/definitions/CPhotoDto"
+          }
+        },
+        "priChatFlag": {
+          "type": "boolean",
+          "description": "是否已经解锁私聊信息"
+        },
+        "province": {
+          "type": "string",
+          "description": "省"
+        },
+        "seeInfoFlag": {
+          "type": "boolean",
+          "description": "是否可以查看用户信息"
+        },
+        "seeWechatFlag": {
+          "type": "boolean",
+          "description": "是否已经解锁查询微信号"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "vip": {
+          "type": "boolean"
+        },
+        "vipExpireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "vip过期时间"
+        },
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        },
+        "weight": {
+          "type": "string",
+          "description": "体重"
+        },
+        "whatsUp": {
+          "type": "string",
+          "description": "个性签名"
+        }
+      },
+      "title": "FindUserListResp"
+    },
+    "FlagResp": {
+      "type": "object",
+      "properties": {
+        "flag": {
+          "type": "boolean",
+          "description": "true.false"
+        }
+      },
+      "title": "FlagResp"
+    },
+    "GetUserByIdReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        }
+      },
+      "title": "GetUserByIdReq"
+    },
+    "GetWechatResp": {
+      "type": "object",
+      "properties": {
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        }
+      },
+      "title": "GetWechatResp"
+    },
+    "IndexPageQuery": {
+      "type": "object",
+      "properties": {
+        "interest": {
+          "type": "array",
+          "description": "兴趣",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别,0=女 1=男,不限不传值"
+        }
+      },
+      "title": "IndexPageQuery"
+    },
+    "LoginByPhoneReq": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "string",
+          "description": "登录位置的GPS维度"
+        },
+        "lng": {
+          "type": "string",
+          "description": "登录位置的GPS经度"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "verifyCode": {
+          "type": "string",
+          "description": "验证码"
+        }
+      },
+      "title": "LoginByPhoneReq"
+    },
+    "LoginByUserNameReq": {
+      "type": "object",
+      "properties": {
+        "loginPwd": {
+          "type": "string",
+          "description": "登陆密码"
+        },
+        "userName": {
+          "type": "string",
+          "description": "用户名"
+        }
+      },
+      "title": "LoginByUserNameReq"
+    },
+    "MomentsDTO": {
+      "type": "object",
+      "properties": {
+        "activityPlace": {
+          "type": "string",
+          "description": "活动地点"
+        },
+        "activityTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "活动时间"
+        },
+        "content": {
+          "type": "string",
+          "description": "内容"
+        },
+        "label": {
+          "type": "string",
+          "description": "分类"
+        },
+        "lat": {
+          "type": "string",
+          "description": "GPS坐标纬度"
+        },
+        "lng": {
+          "type": "string",
+          "description": "GPS坐标经度"
+        },
+        "location": {
+          "type": "string",
+          "description": "发布位置，定位到市就可以，如深圳、上海"
+        },
+        "needMoon": {
+          "type": "integer",
+          "format": "int32",
+          "description": "moon币"
+        },
+        "needPeople": {
+          "type": "integer",
+          "format": "int32",
+          "description": "要求人数"
+        },
+        "photoUrl": {
+          "type": "array",
+          "description": "图片地址",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topic": {
+          "type": "array",
+          "description": "话题",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "MomentsDTO"
+    },
+    "MomentsPageQuery": {
+      "type": "object",
+      "properties": {
+        "activityEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "活动起始时间"
+        },
+        "activityPlace": {
+          "type": "string",
+          "description": "活动地点"
+        },
+        "activityStarTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "活动起始时间"
+        },
+        "myFollow": {
+          "type": "boolean",
+          "description": "是否查询动态中的关注"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "查询类型,1：搭子，2：动态"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "被查看人的用户id"
+        }
+      },
+      "title": "MomentsPageQuery"
+    },
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "PageInfo"
+    },
+    "PageVo«FindUserListResp»": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前页"
+        },
+        "dataList": {
+          "type": "array",
+          "description": "结果集",
+          "items": {
+            "$ref": "#/definitions/FindUserListResp"
+          }
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总页数"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64",
+          "description": "每页行数"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总记录数"
+        }
+      },
+      "title": "PageVo«FindUserListResp»"
+    },
+    "PageableRequest": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求的当前页"
+        },
+        "data": {
+          "type": "object",
+          "description": "具体请求参数"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求条数"
+        },
+        "sort": {
+          "type": "string"
+        }
+      },
+      "title": "PageableRequest"
+    },
+    "PageableRequest«IndexPageQuery»": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求的当前页"
+        },
+        "data": {
+          "description": "具体请求参数",
+          "$ref": "#/definitions/IndexPageQuery"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求条数"
+        },
+        "sort": {
+          "type": "string"
+        }
+      },
+      "title": "PageableRequest«IndexPageQuery»"
+    },
+    "PageableRequest«MomentsPageQuery»": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求的当前页"
+        },
+        "data": {
+          "description": "具体请求参数",
+          "$ref": "#/definitions/MomentsPageQuery"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求条数"
+        },
+        "sort": {
+          "type": "string"
+        }
+      },
+      "title": "PageableRequest«MomentsPageQuery»"
+    },
+    "PageableResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "返回码0成功，其他失败"
+        },
+        "data": {
+          "type": "array",
+          "description": "返回的具体数据",
+          "items": {
+            "type": "object"
+          }
+        },
+        "msg": {
+          "type": "string",
+          "description": "返回信息说明"
+        },
+        "pageInfo": {
+          "description": "分页信息封装",
+          "$ref": "#/definitions/PageInfo"
+        }
+      },
+      "title": "PageableResponse"
+    },
+    "PageableResponse«FindUserListResp»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "返回码0成功，其他失败"
+        },
+        "data": {
+          "type": "array",
+          "description": "返回的具体数据",
+          "items": {
+            "$ref": "#/definitions/FindUserListResp"
+          }
+        },
+        "msg": {
+          "type": "string",
+          "description": "返回信息说明"
+        },
+        "pageInfo": {
+          "description": "分页信息封装",
+          "$ref": "#/definitions/PageInfo"
+        }
+      },
+      "title": "PageableResponse«FindUserListResp»"
+    },
+    "PublicUserDTO": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "string",
+          "description": "年龄"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "cert": {
+          "type": "boolean"
+        },
+        "certImage": {
+          "type": "string",
+          "description": "认证照片地址"
+        },
+        "city": {
+          "type": "string",
+          "description": "市"
+        },
+        "height": {
+          "type": "string",
+          "description": "身高"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "用户昵称"
+        },
+        "occupation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "职业"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "province": {
+          "type": "string",
+          "description": "省"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "vip": {
+          "type": "boolean"
+        },
+        "vipExpireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "vip过期时间"
+        },
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        },
+        "weight": {
+          "type": "string",
+          "description": "体重"
+        },
+        "whatsUp": {
+          "type": "string",
+          "description": "个性签名"
+        }
+      },
+      "title": "PublicUserDTO"
+    },
+    "RemovePhotoReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "description": "照片ID",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "title": "RemovePhotoReq"
+    },
+    "SendSmsReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "类型:1.注册2.登陆"
+        }
+      },
+      "title": "SendSmsReq"
+    },
+    "SetCityReq": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string",
+          "description": "城市"
+        }
+      },
+      "title": "SetCityReq"
+    },
+    "SetWeChatReq": {
+      "type": "object",
+      "properties": {
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        }
+      },
+      "title": "SetWeChatReq"
+    },
+    "UserAccountDTO": {
+      "type": "object",
+      "properties": {
+        "diamond": {
+          "type": "integer",
+          "description": "砖石余额"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "账户状态"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        }
+      },
+      "title": "UserAccountDTO"
+    },
+    "UserCertReq": {
+      "type": "object",
+      "properties": {
+        "imageDataA": {
+          "type": "string",
+          "description": "base64图片"
+        },
+        "imageDataB": {
+          "type": "string",
+          "description": "base64图片"
+        }
+      },
+      "title": "UserCertReq"
+    },
+    "UserLimitDTO": {
+      "type": "object",
+      "properties": {
+        "priChatCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "priChatLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeInfoCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeInfoLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeWxCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeWxLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserLimitDTO"
+    },
+    "UserRegisterReq": {
+      "type": "object",
+      "properties": {
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "expectRelation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "交友目的"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "昵称"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别:0=女 1=男"
+        }
+      },
+      "title": "UserRegisterReq"
+    },
+    "VerifySmsReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "verifyCode": {
+          "type": "string",
+          "description": "验证码"
+        }
+      },
+      "title": "VerifySmsReq"
+    }
+  }
+}

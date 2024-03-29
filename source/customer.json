@@ -1,0 +1,848 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "客户中心",
+    "version": "last"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "公共分类",
+      "description": "公共分类"
+    },
+    {
+      "name": "黑名单",
+      "description": null
+    },
+    {
+      "name": "评价、投诉",
+      "description": null
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/customer/driverIsAuthentication": {
+      "post": {
+        "tags": ["公共分类"],
+        "summary": "查询司机资料是否完备",
+        "description": "返回的是map数据结构，key是userId，value为true和flase代表资料是否完备",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "title": "用户标识集合"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "53": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/driver/searchList": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "检索条件司机下拉",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "司机名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "keys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["keys", "value"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/vehicle/searchList": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "检索条件车牌下拉",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "车牌号",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "keys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["keys", "value"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/motorcade/searchList": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "检索条件车队下拉",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "车队名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "keys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["keys", "value"]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/driver/getUserId": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "通过司机标识获取用户标识",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "司机信息",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "number",
+                  "title": "用户标识"
+                }
+              },
+              "required": ["code", "data"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/motorcade/getUserId": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "通过车队标识获取用户标识",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "车队标识",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "number",
+                  "title": "用户标识"
+                }
+              },
+              "required": ["code", "data"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/black/pageList": {
+      "post": {
+        "tags": ["黑名单"],
+        "summary": "分页查询",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "driverId": {
+                      "type": "number",
+                      "title": "司机标识"
+                    },
+                    "vehicleId": {
+                      "type": "number",
+                      "title": "车辆标识"
+                    }
+                  }
+                }
+              },
+              "required": ["current", "size", "data"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "title": "数据标识"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机姓名"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌"
+                      },
+                      "createdTime": {
+                        "type": "string",
+                        "title": "创建时间"
+                      },
+                      "remark": {
+                        "type": "string",
+                        "title": "备注"
+                      }
+                    }
+                  }
+                },
+                "pageInfo": {
+                  "type": "object",
+                  "properties": {
+                    "current": {
+                      "type": "number"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "pages": {
+                      "type": "number"
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": ["code", "data", "pageInfo"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/black/remark": {
+      "get": {
+        "tags": ["黑名单"],
+        "summary": "备注",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "remark",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/black/add": {
+      "post": {
+        "tags": ["黑名单"],
+        "summary": "新增拉黑",
+        "description": "blackUserId、driverId、vehicleId为 新增黑名单检索司机、电话，新增黑名单检索车牌中的userid、driverId、vehicleId。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "blackUserId": {
+                  "type": "number",
+                  "title": "被拉黑用户标识"
+                },
+                "remark": {
+                  "type": "string",
+                  "title": "拉黑备注"
+                },
+                "driverId": {
+                  "type": "number",
+                  "title": "司机标识"
+                },
+                "vehicleId": {
+                  "type": "number",
+                  "title": "用户标识"
+                }
+              },
+              "required": ["blackUserId", "driverId", "vehicleId"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/customer/black/remove": {
+      "get": {
+        "tags": ["黑名单"],
+        "summary": "解除黑名单",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/driver/blackSearch": {
+      "get": {
+        "tags": ["黑名单"],
+        "summary": "黑名单检索司机、电话下拉",
+        "description": "列表页查询的时候司机使用driverId作为入参",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "tel",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "vehicleId": {
+                        "type": "number",
+                        "title": "车辆标识"
+                      },
+                      "driverId": {
+                        "type": "number",
+                        "title": "司机标识"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌号"
+                      },
+                      "userId": {
+                        "type": "number",
+                        "title": "用户标识"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机姓名"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      }
+                    },
+                    "required": ["vehicleId", "driverId", "tractorNo", "userId", "driverName", "driverTel"]
+                  }
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/vehicle/blackSearch": {
+      "get": {
+        "tags": ["黑名单"],
+        "summary": "黑名单检索车牌下拉",
+        "description": "列表页查询使用vehicleId作为搜索入参",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "vehicleId": {
+                        "type": "number",
+                        "title": "车辆标识"
+                      },
+                      "driverId": {
+                        "type": "number",
+                        "title": "司机标识"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌号"
+                      },
+                      "userId": {
+                        "type": "number",
+                        "title": "用户标识"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机姓名"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      }
+                    },
+                    "required": ["vehicleId", "driverId", "tractorNo", "userId", "driverName", "driverTel"]
+                  }
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/complaintsSuggestion/add": {
+      "post": {
+        "tags": ["评价、投诉"],
+        "summary": "新增评价投诉",
+        "description": "1、grade打分中的所有入参的参数值是1-5；\n\n2、评价和投诉时候先去调用[原来的评价或者投诉](https://api.zaitugongda.com/project/529/interface/api/7119)，如果是评价且数据存在，不让用户存在，如果是投诉，展示原来的数据，用户还可以继续投诉。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "title": "2投诉，3评价"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "orderNo": {
+                  "type": "string",
+                  "title": "订单号"
+                },
+                "grade": {
+                  "type": "object",
+                  "properties": {
+                    "punctuality": {
+                      "type": "number",
+                      "title": "准时度"
+                    },
+                    "rule": {
+                      "type": "number",
+                      "title": "遵守规则"
+                    },
+                    "service": {
+                      "type": "number",
+                      "title": "服务态度"
+                    },
+                    "reputation": {
+                      "type": "number",
+                      "title": "名誉"
+                    },
+                    "securityLevel": {
+                      "type": "number",
+                      "title": "安全等级"
+                    },
+                    "fullEvaluation": {
+                      "type": "number",
+                      "title": "综合评价"
+                    }
+                  },
+                  "title": "评价时候必传"
+                }
+              },
+              "required": ["type", "orderNo"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/complaintsSuggestion/getByOrderNo": {
+      "get": {
+        "tags": ["评价、投诉"],
+        "summary": "获取评价或者投诉",
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "订单号",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "description": "2投诉，3评价",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "$schema": "http://json-schema.org/draft-04/schema#",
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "title": "2投诉，3评价"
+                    },
+                    "content": {
+                      "type": "string"
+                    },
+                    "orderNo": {
+                      "type": "string",
+                      "title": "订单号"
+                    },
+                    "grade": {
+                      "type": "object",
+                      "properties": {
+                        "punctuality": {
+                          "type": "number",
+                          "title": "准时度"
+                        },
+                        "rule": {
+                          "type": "number",
+                          "title": "遵守规则"
+                        },
+                        "service": {
+                          "type": "number",
+                          "title": "服务态度"
+                        },
+                        "reputation": {
+                          "type": "number",
+                          "title": "名誉"
+                        },
+                        "securityLevel": {
+                          "type": "number",
+                          "title": "安全等级"
+                        },
+                        "fullEvaluation": {
+                          "type": "number",
+                          "title": "综合评价"
+                        }
+                      },
+                      "title": "评价时候必传"
+                    }
+                  }
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

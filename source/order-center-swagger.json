@@ -1,0 +1,4131 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "订单中心",
+    "version": "last"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "公共分类",
+      "description": "公共分类"
+    },
+    {
+      "name": "发单方",
+      "description": null
+    },
+    {
+      "name": "订单更新",
+      "description": null
+    }
+  ],
+  "schemes": ["http"],
+  "paths": {
+    "/order-center/batchCheckOrderIsStandard": {
+      "post": {
+        "tags": ["公共分类"],
+        "summary": "批量查询订单是否规范",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "title": "订单号"
+              },
+              "title": "订单号集合"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "title": "map结构，key是订单号，value是true和false"
+                }
+              },
+              "required": ["code", "msg", "data"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/wuKong/toSplit": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "拆分订单",
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "拼单订单号",
+            "type": "string"
+          },
+          {
+            "name": "importOrderDispatchPrice",
+            "in": "query",
+            "required": true,
+            "description": "进口单派单价",
+            "type": "string"
+          },
+          {
+            "name": "exportOrderDestination",
+            "in": "query",
+            "required": true,
+            "description": "出口单去向，1内部单，2平台单",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/customer/driver/preciseSearch": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "指派订单精准搜索司机",
+        "description": "精准检索司机用于用户指派订单时候用，使用场景有，用户新建订单指派、在订单列表页平台单搜索司机时候用，列表页发送平台弹出框里面用。",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "车队名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "dispatchMotorcadeId": {
+                      "type": "null",
+                      "title": "车队标识"
+                    },
+                    "motorcadeName": {
+                      "type": "string",
+                      "title": "车队名称"
+                    },
+                    "vehicleId": {
+                      "type": "number",
+                      "title": "车辆标识"
+                    },
+                    "driverId": {
+                      "type": "number",
+                      "title": "司机标识"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "title": "车牌号"
+                    },
+                    "userId": {
+                      "type": "number",
+                      "title": "用户标识"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机姓名"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "title": "司机电话"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/vehicle/preciseSearch": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "指派订单精准搜索车牌",
+        "description": "精准检索车牌用于用户指派订单时候用，使用场景有，用户新建订单指派、在订单列表页平台单搜索车牌时候用，列表页发送平台弹出框里面用。",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "车牌号",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "dispatchMotorcadeId": {
+                        "type": "null",
+                        "title": "车队标识"
+                      },
+                      "motorcadeName": {
+                        "type": "string",
+                        "title": "车队名称"
+                      },
+                      "vehicleId": {
+                        "type": "number",
+                        "title": "车辆标识"
+                      },
+                      "driverId": {
+                        "type": "number",
+                        "title": "司机标识"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌号"
+                      },
+                      "userId": {
+                        "type": "number",
+                        "title": "用户标识"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机姓名"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/motorcade/preciseSearch": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "指派订单精准搜索车队",
+        "description": "精准检索车队用于用户指派订单时候用，使用场景有，用户新建订单指派、在订单列表页平台单搜索车队时候用，列表页发送平台弹出框里面用。",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "车队名称",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "dispatchMotorcadeId": {
+                      "type": "number",
+                      "title": "车队标识"
+                    },
+                    "motorcadeName": {
+                      "type": "string",
+                      "title": "车队名称"
+                    },
+                    "vehicleId": {
+                      "type": "null",
+                      "title": "车辆标识"
+                    },
+                    "driverId": {
+                      "type": "null",
+                      "title": "司机标识"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "title": "车牌号"
+                    },
+                    "userId": {
+                      "type": "number",
+                      "title": "用户标识"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机姓名"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "title": "司机电话"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order-center/order/changeNodeTime": {
+      "post": {
+        "tags": ["公共分类"],
+        "summary": "更改订单流节点时间",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "orderNo": {
+                  "type": "string",
+                  "title": "订单号"
+                },
+                "date": {
+                  "type": "string",
+                  "title": "修改后的时间"
+                },
+                "nodeId": {
+                  "type": "string",
+                  "title": "节点标识"
+                }
+              },
+              "required": ["date", "orderNo", "nodeId"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/?": {
+      "get": {
+        "tags": ["公共分类"],
+        "summary": "订单列表页复用2.0接口",
+        "description": "订单列表页复用2.0或者维持不变的接口：\n1、内部派单，接口参数不变，批量派单的时候只能针对内部单；\n\n2、批量备注，保存，批量作废，复制订单逻辑不变；\n\n3、报箱封号改为批量操作，多工厂的时候，按照工厂拆分信息；\n\n4、生成托运单，港口订单多工厂以前是按工厂拆分成多个托运单，现在要集成到一张托运单上。",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/order/pageList": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "分页查询",
+        "description": "业务逻辑：\n\n1、invoiceType开票类型，1专票，2普票，3不开票，前端根据返回的数字值来显示文字，可能为null；\n\n2、returnReceiptConfirm，回单确认，前端根据返回的数字值来显示文字，0未确认，1已确认，已确认的订单不能在确认；\n\n3、新加3个字段invoiceType，quotedPrice，returnReceiptConfirm；\n\n4、平台单订单状态为1的时候，才可以编辑车队、车牌、司机，电话不让编辑，其他的编辑项和内部单一样，returnReceiptConfirm回单确认之后任何单都不可以编辑，车队和司机、车牌时候互斥的，平台单和内部单可以编辑派单信息的条件是\n    订单状态为1的时候；\n\n5、内部单的车队、司机、车牌、电话接口还是不变；\n\n6、平台单可以编辑车队、车牌、司机的信息检索接口和新建外派订单的指派一样；\n\n7、内部单都不显示价格和开票类型；\n\n8、司机下拉[司机下拉](https://api.zaitugongda.com/project/529/interface/api/7126)、车牌下拉[车牌下拉](https://api.zaitugongda.com/project/529/interface/api/7127)、车队下拉[车队下拉](https://api.zaitugongda.com/project/529/interface/api/7128)，以前选择订单属性为平台单的时候，这三个搜索条件的数据会从另外的接口获取，现在不用。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderType": {
+                      "type": "integer",
+                      "title": "订单类型"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "title": "到厂开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "title": "到厂结束时间"
+                    },
+                    "businessNo": {
+                      "type": "string",
+                      "title": "提单号/订舱号/承运编号"
+                    },
+                    "customerId": {
+                      "type": "integer",
+                      "title": "客户"
+                    },
+                    "customerNo": {
+                      "type": "string",
+                      "title": "客户编号"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "title": "柜号"
+                    },
+                    "orderMaker": {
+                      "type": "integer",
+                      "title": "录单员"
+                    },
+                    "follower": {
+                      "type": "string",
+                      "title": "跟单员"
+                    },
+                    "vehicleIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "title": "车牌标识"
+                    },
+                    "driverIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "title": "司机标识"
+                    },
+                    "dispatchMotorcadeIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "title": "车队标识"
+                    },
+                    "customsBrokerId": {
+                      "type": "integer",
+                      "title": "报关行"
+                    },
+                    "factoryId": {
+                      "type": "integer",
+                      "title": "工厂"
+                    },
+                    "loadOrUnloadFactoryId": {
+                      "type": "integer",
+                      "title": "装卸货地址"
+                    },
+                    "orderClassification": {
+                      "type": "integer",
+                      "title": "订单归属"
+                    },
+                    "pickupTerminalId": {
+                      "type": "integer",
+                      "title": "提柜堆场"
+                    },
+                    "returnTerminalId": {
+                      "type": "integer",
+                      "title": "还柜堆场"
+                    },
+                    "shippingCompanyId": {
+                      "type": "number",
+                      "title": "船公司"
+                    },
+                    "containerTypeId": {
+                      "type": "number",
+                      "title": "柜型"
+                    },
+                    "transportStatus": {
+                      "type": "integer",
+                      "title": "运输状态",
+                      "description": "11已提柜，13已到厂，15进口已到厂，16已卸货，20出口已到厂，21已装货，22已还柜"
+                    },
+                    "orderStatus": {
+                      "type": "integer",
+                      "title": "订单状态",
+                      "description": "1已下单，3审核中，4不通过，5待接单，6、已派单，7已接单，9运输中，10已完成；"
+                    }
+                  },
+                  "required": ["startArrivingTime"]
+                }
+              },
+              "required": ["current", "size", "data"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderNo": {
+                      "type": "string"
+                    },
+                    "orderType": {
+                      "type": "number",
+                      "title": "订单类型"
+                    },
+                    "orderTypeName": {
+                      "type": "string",
+                      "title": "订单类型名称"
+                    },
+                    "orderStatus": {
+                      "type": "number",
+                      "title": "订单状态"
+                    },
+                    "orderStatusName": {
+                      "type": "string",
+                      "title": "订单状态名称"
+                    },
+                    "arrivingTime": {
+                      "type": "string",
+                      "title": "到厂时间"
+                    },
+                    "businessNo": {
+                      "type": "string",
+                      "title": "提单号/订舱号/承运编号"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "title": "柜号"
+                    },
+                    "sealNo": {
+                      "type": "string",
+                      "title": "封条"
+                    },
+                    "nettWeight": {
+                      "type": "number",
+                      "title": "货重"
+                    },
+                    "containerWeight": {
+                      "type": "number"
+                    },
+                    "containerTypeName": {
+                      "type": "string",
+                      "title": "柜型"
+                    },
+                    "customerName": {
+                      "type": "string",
+                      "title": "客户"
+                    },
+                    "factoryName": {
+                      "type": "string",
+                      "title": "工厂"
+                    },
+                    "customerNo": {
+                      "type": "string",
+                      "title": "客户编号"
+                    },
+                    "dispatchMotorcadeId": {
+                      "type": "number",
+                      "title": "车队标识"
+                    },
+                    "dispatchMotorcadeName": {
+                      "type": "string",
+                      "title": "车队"
+                    },
+                    "vehicleId": {
+                      "type": "number",
+                      "title": "车辆标识"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "title": "车牌"
+                    },
+                    "driverId": {
+                      "type": "number",
+                      "title": "司机标识"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机名称"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "title": "司机电话"
+                    },
+                    "customsBrokerName": {
+                      "type": "string",
+                      "title": "报关行"
+                    },
+                    "shippingCompanyName": {
+                      "type": "string",
+                      "title": "船公司"
+                    },
+                    "followRemark": {
+                      "type": "string",
+                      "title": "跟单备注"
+                    },
+                    "pickupTerminalId": {
+                      "type": "number",
+                      "title": "提柜堆场标识"
+                    },
+                    "pickupTerminalName": {
+                      "type": "string",
+                      "title": "提柜堆场"
+                    },
+                    "loadAddress": {
+                      "type": "string",
+                      "title": "装货点"
+                    },
+                    "unloadAddress": {
+                      "type": "string",
+                      "title": "卸货点"
+                    },
+                    "returnTerminalId": {
+                      "type": "number",
+                      "title": "还柜堆场标识"
+                    },
+                    "returnTerminalName": {
+                      "type": "string",
+                      "title": "还柜堆场"
+                    },
+                    "orderMakerName": {
+                      "type": "string",
+                      "title": "录单员"
+                    },
+                    "detentionDaysUpto": {
+                      "type": "string",
+                      "title": "截提柜"
+                    },
+                    "storageUpto": {
+                      "type": "string",
+                      "title": "截还柜"
+                    },
+                    "cyClosingDate": {
+                      "type": "string",
+                      "title": "截关日期"
+                    },
+                    "siCutoffDate": {
+                      "type": "string",
+                      "title": "补料日期"
+                    },
+                    "cyCutoffDate": {
+                      "type": "string",
+                      "title": "截重日期"
+                    },
+                    "effectiveTime": {
+                      "type": "string",
+                      "title": "时效"
+                    },
+                    "volume": {
+                      "type": "number",
+                      "title": "体积"
+                    },
+                    "vehicleTypeName": {
+                      "type": "string",
+                      "title": "车型"
+                    },
+                    "vehicleLength": {
+                      "type": "number",
+                      "title": "车长"
+                    },
+                    "pickupTerminalTime": {
+                      "type": "string",
+                      "title": "提柜时间"
+                    },
+                    "returnTerminalTime": {
+                      "type": "string",
+                      "title": "还柜时间"
+                    },
+                    "invoiceType": {
+                      "type": "number",
+                      "title": "开票类型，1专票，2普票，3不开票",
+                      "description": "前端根据返回的数字值来显示文字，可能为null"
+                    },
+                    "quotedPrice": {
+                      "type": "number",
+                      "title": "外发价"
+                    },
+                    "returnReceiptConfirm": {
+                      "type": "number",
+                      "description": "0未确认，1已确认",
+                      "title": "回单确认"
+                    },
+                    "dispatchIsCancelable": {
+                      "type": "number",
+                      "title": "是否可以取消派单，内部单叫取消派单，平台单叫取消外发"
+                    },
+                    "vehicleRoutes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "行驶路线集合"
+                    }
+                  },
+                  "required": [
+                    "orderNo",
+                    "orderTypeName",
+                    "orderStatusName",
+                    "arrivingTime",
+                    "customerName",
+                    "factoryName",
+                    "orderMakerName",
+                    "orderType",
+                    "orderStatus"
+                  ]
+                },
+                "pageInfo": {
+                  "type": "object",
+                  "properties": {
+                    "current": {
+                      "type": "number"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "pages": {
+                      "type": "number"
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": ["pageInfo"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/order/toPlatform": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "发送平台",
+        "description": "发送平台订单，数据预览的时候数据从表格带过去，提交数据的时候，如果值没有变，原来是什么就是什么。状态是1和4才可以发送平台",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "isDesignative": {
+                    "type": "number"
+                  },
+                  "orderToPlatformDTO": {
+                    "type": "object",
+                    "properties": {
+                      "quotedPrice": {
+                        "type": "number",
+                        "title": "下单价"
+                      },
+                      "invoiceType": {
+                        "type": "number",
+                        "title": "开票类型，1专票，2普票，3不开票"
+                      },
+                      "taxation": {
+                        "type": "number",
+                        "title": "税费"
+                      },
+                      "priceWithTax": {
+                        "type": "number",
+                        "title": "含税价"
+                      },
+                      "contactor": {
+                        "type": "string",
+                        "title": "发单联系人"
+                      },
+                      "contactorNo": {
+                        "type": "string",
+                        "title": "发单联系电话"
+                      },
+                      "platformRemark": {
+                        "type": "string",
+                        "title": "发单备注"
+                      },
+                      "isShare": {
+                        "type": "integer",
+                        "title": "是否拼单：0否，1是"
+                      },
+                      "matchDeadlineTime": {
+                        "type": "string",
+                        "title": "截止匹配时间"
+                      },
+                      "dispatch": {
+                        "type": "object",
+                        "properties": {
+                          "dispatchMotorcadeId": {
+                            "type": "number",
+                            "title": "车队标识"
+                          },
+                          "vehicleId": {
+                            "type": "number",
+                            "title": "车牌标识"
+                          },
+                          "driverId": {
+                            "type": "number",
+                            "title": "车辆标识"
+                          },
+                          "userId": {
+                            "type": "number",
+                            "title": "指派的接单人标识"
+                          }
+                        },
+                        "title": "指派信息",
+                        "required": ["userId"]
+                      }
+                    },
+                    "title": "外发信息",
+                    "description": "快捷外发新建订单时候用",
+                    "required": ["quotedPrice", "invoiceType", "taxation", "priceWithTax", "contactor", "isShare"]
+                  },
+                  "orderType": {
+                    "type": "number",
+                    "title": "订单类型"
+                  },
+                  "orderNo": {
+                    "type": "string",
+                    "title": "订单号"
+                  },
+                  "arrivingFactoryTime": {
+                    "type": "string",
+                    "title": "到厂时间"
+                  },
+                  "businessNo": {
+                    "type": "string",
+                    "title": "业务单号"
+                  },
+                  "nettWeight": {
+                    "type": "number",
+                    "title": "货重"
+                  },
+                  "containerNo": {
+                    "type": "string",
+                    "title": "柜号"
+                  }
+                },
+                "required": [
+                  "isDesignative",
+                  "orderToPlatformDTO",
+                  "orderType",
+                  "orderNo",
+                  "arrivingFactoryTime",
+                  "nettWeight"
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "$schema": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "properties": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "msg": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/cancelPlatform": {
+      "get": {
+        "tags": ["发单方"],
+        "summary": "取消外发",
+        "description": "\n可否取消外发需要根据列表页的字段**dispatchIsCancelable**来判断，不能取消的原因提示，您的订单处于[statusName]状态，不能取消外发，如果仍需取消外发，请联系平台客服。",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/cancelMatch": {
+      "get": {
+        "tags": ["发单方"],
+        "summary": "取消配柜",
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/batchConfirmReturnReceipt": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "回单确认-批量",
+        "description": "",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "title": "订单号"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/page/waitingInvoice": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "待开票列表数据",
+        "description": "业务逻辑：\n\n1、invoiceType开票类型，1专票，2普票，3不开票，前端根据返回的数字值来显示文字，可能为null；\n\n2、承运人信息按照 dispatchMotorcadeName+driverName+tractorNo+driverTel显示，dispatchMotorcadeName可能为空，其他三个字段不为空；\n\n3、行驶路线按照innerViewRoutes集合的顺序拼接元素；\n\n4、车队检索信息接口[车队检索](https://api.zaitugongda.com/project/52/interface/api/7021)；\n\n5、司机信息检索接口[司机检索](https://api.zaitugongda.com/project/52/interface/api/7019)；\n\n6、车牌信息检索接口[车牌检索](/customer/vehicle/matchByNameOfPlatform)。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderType": {
+                      "type": "integer",
+                      "title": "订单类型"
+                    },
+                    "invoiceType": {
+                      "type": "number",
+                      "title": "开票类型，1专票，2普票，3不开票"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "title": "到厂开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "title": "到厂结束时间"
+                    },
+                    "businessNo": {
+                      "type": "string",
+                      "title": "提单号/订舱号/承运编号"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "title": "柜号"
+                    },
+                    "vehicleId": {
+                      "type": "integer",
+                      "title": "车牌"
+                    },
+                    "driverId": {
+                      "type": "integer",
+                      "title": "司机"
+                    },
+                    "dispatchMotorcadeId": {
+                      "type": "integer",
+                      "title": "车队"
+                    }
+                  }
+                }
+              },
+              "required": ["current", "size", "data"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "orderNo": {
+                        "type": "string"
+                      },
+                      "orderTypeName": {
+                        "type": "string",
+                        "title": "订单类型名称"
+                      },
+                      "arrivingTime": {
+                        "type": "string",
+                        "title": "到厂时间"
+                      },
+                      "businessNo": {
+                        "type": "string",
+                        "title": "提单号/订舱号/承运编号"
+                      },
+                      "containerNo": {
+                        "type": "string",
+                        "title": "柜号"
+                      },
+                      "dispatchMotorcadeName": {
+                        "type": "string",
+                        "title": "车队"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机名称"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      },
+                      "invoiceType": {
+                        "type": "number",
+                        "title": "开票类型，1专票，2普票，3不开票",
+                        "description": "前端根据返回的数字值来显示文字，可能为null"
+                      },
+                      "innerViewRoutes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "行驶路线"
+                      },
+                      "transportationFee": {
+                        "type": "number",
+                        "title": "运费"
+                      },
+                      "otherFee": {
+                        "type": "number",
+                        "title": "其他费用"
+                      },
+                      "taxFee": {
+                        "type": "number",
+                        "title": "税费"
+                      },
+                      "totalFeeIncludingTax": {
+                        "type": "number",
+                        "title": "含税总费用"
+                      }
+                    },
+                    "required": [
+                      "orderNo",
+                      "orderTypeName",
+                      "arrivingTime",
+                      "innerViewRoutes",
+                      "transportationFee",
+                      "otherFee",
+                      "taxFee",
+                      "totalFeeIncludingTax"
+                    ]
+                  }
+                },
+                "pageInfo": {
+                  "type": "object",
+                  "properties": {
+                    "current": {
+                      "type": "number"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "pages": {
+                      "type": "number"
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": ["pageInfo"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/order/batchCreate": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "批量下单",
+        "description": "业务逻辑；\n1、新增计划（内部单）和快捷外发（平台单）都是公用此接口，快捷外发的专用字段在文档上有标注；\n\n2、exportPortOrders、importPortOrders、domesticOrders 字段大部分相同，因此相同字段的名称解释只写了一个；\n\n3、快捷外发（平台单）指派订单的时候，车队和后面的车牌、司机姓名是互斥的，即车队是一个整体，车牌、司机姓名、电话是一个整体，检索车牌的时候在下面显示的是\n    车牌+司机姓名+电话，如“浙F7PQ33+王炸+18969129262”，检索司机姓名的时候也是一样的显示风格，车队检索只会出现一个结果，车牌或者司机姓名检索会出现过个结果；\n\n4、快捷外发（平台单）指派订单的时候入参userId必填，接口会返回，其他根据参数如果是指派车队，那么orderToPlatformDTO.dispacth中的dispatchMotorcadeId不能为空，其他的vehicleId和driverId的值为null，不能是0，\n    如果是指派车队，那么orderToPlatformDTO.dispacth中的dispatchMotorcadeId为null，不能是0，vehicleId和driverId的不能是0和null；\n\n5、快捷外发（平台单）指派订单，精准检索车队接口[精准检索车队](https://api.zaitugongda.com/project/520/interface/api/7068)；\n\n6、快捷外发（平台单）指派订单，精准检索车牌接口[精准检索车牌](https://api.zaitugongda.com/project/520/interface/api/7070)；\n\n7、快捷外发（平台单）指派订单，精准检索司机接口[精准检索司机](https://api.zaitugongda.com/project/520/interface/api/7069)；\n\n8、客户是非必选项，因此选择工厂的时候如果选择了客户就带上客户标识，没选择就不带客户标识；\n\n9、发单联系人和联系电话，默认是当前登录用户的姓名和电话。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "classification": {
+                  "type": "number",
+                  "title": "订单类别，1内部单，2平台单"
+                },
+                "isImmediatelyToPlatform": {
+                  "type": "number",
+                  "title": "是否发送平台，0暂存，1发送平台",
+                  "description": "快捷外发新建订单保存时候用，暂存和立即发送"
+                },
+                "exportPortOrders": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "isDesignative": {
+                        "type": "number",
+                        "title": "是否指派接单人，0否，1是",
+                        "description": "快捷外发新建订单指派时候用"
+                      },
+                      "orderToPlatformDTO": {
+                        "type": "object",
+                        "properties": {
+                          "quotedPrice": {
+                            "type": "number",
+                            "title": "下单价"
+                          },
+                          "invoiceType": {
+                            "type": "number",
+                            "title": "开票类型，1专票，2普票，3不开票"
+                          },
+                          "taxation": {
+                            "type": "number",
+                            "title": "税费"
+                          },
+                          "priceWithTax": {
+                            "type": "number",
+                            "title": "含税价"
+                          },
+                          "contactor": {
+                            "type": "string",
+                            "title": "发单联系人"
+                          },
+                          "contactorNo": {
+                            "type": "string",
+                            "title": "发单联系电话"
+                          },
+                          "platformRemark": {
+                            "type": "string",
+                            "title": "发单备注"
+                          },
+                          "isShare": {
+                            "type": "integer",
+                            "title": "0否，1是"
+                          },
+                          "matchDeadlineTime": {
+                            "type": "string",
+                            "title": "截止匹配时间"
+                          },
+                          "dispatch": {
+                            "type": "object",
+                            "properties": {
+                              "dispatchMotorcadeId": {
+                                "type": "number",
+                                "title": "车队标识"
+                              },
+                              "vehicleId": {
+                                "type": "number",
+                                "title": "车牌标识"
+                              },
+                              "driverId": {
+                                "type": "number",
+                                "title": "车辆标识"
+                              },
+                              "userId": {
+                                "type": "number",
+                                "title": "指派的接单人标识"
+                              }
+                            },
+                            "title": "指派信息",
+                            "required": ["userId"]
+                          }
+                        },
+                        "title": "快捷外发信息",
+                        "description": "快捷外发新建订单时候用",
+                        "required": ["quotedPrice", "invoiceType", "taxation", "priceWithTax", "contactor", "isShare"]
+                      },
+                      "orderType": {
+                        "type": "number",
+                        "title": "订单类型"
+                      },
+                      "customerId": {
+                        "type": "number",
+                        "title": "客户标识"
+                      },
+                      "customerNo": {
+                        "type": "string",
+                        "title": "客户编号"
+                      },
+                      "commodityType": {
+                        "type": "string",
+                        "title": "货物类型"
+                      },
+                      "nettWeight": {
+                        "type": "string",
+                        "title": "货重"
+                      },
+                      "followRemark": {
+                        "type": "string",
+                        "title": "跟单备注"
+                      },
+                      "consignmentBillRemark": {
+                        "type": "string",
+                        "title": "托运单备注"
+                      },
+                      "appendices": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "filePath": {
+                              "type": "string",
+                              "title": "路径"
+                            },
+                            "fileType": {
+                              "type": "string",
+                              "title": "文件类型，同上个版本"
+                            }
+                          }
+                        },
+                        "title": "做单文件"
+                      },
+                      "pickupTerminalId": {
+                        "type": "number",
+                        "title": "提柜地址标识"
+                      },
+                      "pickupPlaceId": {
+                        "type": "number",
+                        "title": "提柜地址所属地区标识"
+                      },
+                      "returnTerminalId": {
+                        "type": "number",
+                        "title": "还柜地址标识"
+                      },
+                      "returnPlaceId": {
+                        "type": "number",
+                        "title": "还柜地址所属地区标识"
+                      },
+                      "factories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "factoryId": {
+                              "type": "number",
+                              "title": "标识"
+                            },
+                            "contactor": {
+                              "type": "string",
+                              "title": "联系人"
+                            },
+                            "contactorNo": {
+                              "type": "string",
+                              "title": "联系电话"
+                            },
+                            "placeId": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "title": "工厂信息"
+                      },
+                      "shippingCompanyId": {
+                        "type": "number",
+                        "title": "船公司"
+                      },
+                      "containerTypeId": {
+                        "type": "number",
+                        "title": "柜型",
+                        "description": "新建平台单，必填"
+                      },
+                      "arrivingFactoryTime": {
+                        "type": "string",
+                        "title": "到厂时间"
+                      },
+                      "businessNo": {
+                        "type": "string",
+                        "title": "订舱号"
+                      },
+                      "containerNo": {
+                        "type": "string",
+                        "title": "柜号"
+                      },
+                      "sealNo": {
+                        "type": "string",
+                        "title": "封条号"
+                      },
+                      "customsBrokerId": {
+                        "type": "number",
+                        "title": "报关行"
+                      },
+                      "takeOrderAddress": {
+                        "type": "string",
+                        "title": "拿单地址"
+                      },
+                      "returnOrderAddress": {
+                        "type": "string",
+                        "title": "还单地址"
+                      },
+                      "exportOrderAdditionalDTO": {
+                        "type": "object",
+                        "properties": {
+                          "cyClosingDate": {
+                            "type": "string",
+                            "title": "截关日期\t"
+                          },
+                          "siCutoffDate": {
+                            "type": "string",
+                            "title": "补料日期\t"
+                          },
+                          "cyCutoffDate": {
+                            "type": "string",
+                            "title": "截重日期\t"
+                          },
+                          "cargoReceivingDate": {
+                            "type": "string",
+                            "title": "开舱时间\t"
+                          }
+                        },
+                        "title": "出口单信息"
+                      }
+                    },
+                    "required": [
+                      "orderType",
+                      "pickupTerminalId",
+                      "returnTerminalId",
+                      "arrivingFactoryTime",
+                      "businessNo",
+                      "factories"
+                    ]
+                  },
+                  "title": "出口单集合"
+                },
+                "importPortOrders": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "isDesignative": {
+                        "type": "number",
+                        "title": "是否指派接单人，0否，1是",
+                        "description": "快捷外发新建订单指派时候用"
+                      },
+                      "orderToPlatformDTO": {
+                        "type": "object",
+                        "properties": {
+                          "quotedPrice": {
+                            "type": "number",
+                            "title": "下单价"
+                          },
+                          "invoiceType": {
+                            "type": "number",
+                            "title": "开票类型，1专票，2普票，3不开票"
+                          },
+                          "taxation": {
+                            "type": "number",
+                            "title": "税费"
+                          },
+                          "priceWithTax": {
+                            "type": "number",
+                            "title": "含税价"
+                          },
+                          "contactor": {
+                            "type": "string",
+                            "title": "发单联系人"
+                          },
+                          "contactorNo": {
+                            "type": "string",
+                            "title": "发单联系电话"
+                          },
+                          "platformRemark": {
+                            "type": "string",
+                            "title": "发单备注"
+                          },
+                          "dispatch": {
+                            "type": "object",
+                            "properties": {
+                              "dispatchMotorcadeId": {
+                                "type": "number",
+                                "title": "车队标识"
+                              },
+                              "vehicleId": {
+                                "type": "number",
+                                "title": "车牌标识"
+                              },
+                              "driverId": {
+                                "type": "number",
+                                "title": "车辆标识"
+                              },
+                              "userId": {
+                                "type": "number",
+                                "title": "指派的接单人标识"
+                              }
+                            },
+                            "title": "指派信息",
+                            "required": ["userId"]
+                          }
+                        },
+                        "title": "快捷外发信息",
+                        "description": "快捷外发新建订单时候用",
+                        "required": ["quotedPrice", "invoiceType", "taxation", "priceWithTax", "contactor"]
+                      },
+                      "orderType": {
+                        "type": "number",
+                        "title": "订单类型"
+                      },
+                      "customerId": {
+                        "type": "number",
+                        "title": "客户标识"
+                      },
+                      "customerNo": {
+                        "type": "string",
+                        "title": "客户编号"
+                      },
+                      "commodityType": {
+                        "type": "string",
+                        "title": "货物类型"
+                      },
+                      "nettWeight": {
+                        "type": "number",
+                        "title": "货重",
+                        "description": "快捷外发新建必填"
+                      },
+                      "followRemark": {
+                        "type": "string",
+                        "title": "跟单备注"
+                      },
+                      "consignmentBillRemark": {
+                        "type": "string",
+                        "title": "托运单备注"
+                      },
+                      "appendices": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "filePath": {
+                              "type": "string",
+                              "title": "路径"
+                            },
+                            "fileType": {
+                              "type": "string",
+                              "title": "文件类型，同上个版本"
+                            }
+                          }
+                        },
+                        "title": "做单文件"
+                      },
+                      "pickupTerminalId": {
+                        "type": "number",
+                        "title": "提柜地址标识"
+                      },
+                      "pickupPlaceId": {
+                        "type": "number",
+                        "title": "提柜地址所属地区标识"
+                      },
+                      "returnTerminalId": {
+                        "type": "number",
+                        "title": "还柜地址标识"
+                      },
+                      "returnPlaceId": {
+                        "type": "number",
+                        "title": "还柜地址所属地区标识"
+                      },
+                      "factories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "factoryId": {
+                              "type": "number",
+                              "title": "标识"
+                            },
+                            "contactor": {
+                              "type": "string",
+                              "title": "联系人"
+                            },
+                            "contactorNo": {
+                              "type": "string",
+                              "title": "联系电话"
+                            },
+                            "placeId": {
+                              "type": "number"
+                            }
+                          }
+                        },
+                        "title": "工厂信息"
+                      },
+                      "shippingCompanyId": {
+                        "type": "number",
+                        "title": "船公司"
+                      },
+                      "containerTypeId": {
+                        "type": "number",
+                        "title": "柜型",
+                        "description": "新建平台单，必填"
+                      },
+                      "arrivingFactoryTime": {
+                        "type": "string",
+                        "title": "到厂时间"
+                      },
+                      "businessNo": {
+                        "type": "string",
+                        "title": "订舱号"
+                      },
+                      "containerNo": {
+                        "type": "string",
+                        "title": "柜号"
+                      },
+                      "sealNo": {
+                        "type": "string",
+                        "title": "封条号"
+                      },
+                      "customsBrokerId": {
+                        "type": "number",
+                        "title": "报关行"
+                      },
+                      "takeOrderAddress": {
+                        "type": "string",
+                        "title": "拿单地址"
+                      },
+                      "returnOrderAddress": {
+                        "type": "string",
+                        "title": "还单地址"
+                      },
+                      "importOrderAdditionalDTO": {
+                        "type": "object",
+                        "properties": {
+                          "storageUpto": {
+                            "type": "string",
+                            "title": "截还柜"
+                          },
+                          "detentionDaysUpto": {
+                            "type": "string",
+                            "title": "截提柜"
+                          }
+                        },
+                        "title": "进口单补充信息",
+                        "required": []
+                      }
+                    },
+                    "required": [
+                      "orderType",
+                      "pickupTerminalId",
+                      "returnTerminalId",
+                      "arrivingFactoryTime",
+                      "businessNo",
+                      "factories"
+                    ]
+                  },
+                  "title": "出口单集合"
+                },
+                "domesticOrders": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "isDesignative": {
+                        "type": "number"
+                      },
+                      "orderToPlatformDTO": {
+                        "type": "object",
+                        "properties": {
+                          "quotedPrice": {
+                            "type": "number"
+                          },
+                          "invoiceType": {
+                            "type": "number"
+                          },
+                          "taxation": {
+                            "type": "number"
+                          },
+                          "priceWithTax": {
+                            "type": "number"
+                          },
+                          "contactor": {
+                            "type": "string"
+                          },
+                          "contactorNo": {
+                            "type": "string"
+                          },
+                          "platformRemark": {
+                            "type": "string"
+                          },
+                          "dispatch": {
+                            "type": "object",
+                            "properties": {
+                              "dispatchMotorcadeId": {
+                                "type": "null"
+                              },
+                              "vehicleId": {
+                                "type": "number"
+                              },
+                              "driverId": {
+                                "type": "number"
+                              },
+                              "userId": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "orderType": {
+                        "type": "number"
+                      },
+                      "customerId": {
+                        "type": "number"
+                      },
+                      "customerNo": {
+                        "type": "string"
+                      },
+                      "follower": {
+                        "type": "number"
+                      },
+                      "containerTypeId": {
+                        "type": "number"
+                      },
+                      "containerNo": {
+                        "type": "string"
+                      },
+                      "sealNo": {
+                        "type": "string"
+                      },
+                      "customsBrokerId": {
+                        "type": "null"
+                      },
+                      "commodityType": {
+                        "type": "string"
+                      },
+                      "nettWeight": {
+                        "type": "number"
+                      },
+                      "followRemark": {
+                        "type": "string"
+                      },
+                      "consignmentBillRemark": {
+                        "type": "string"
+                      },
+                      "appendices": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "filePath": {
+                              "type": "string"
+                            },
+                            "fileType": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      "loadFactories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "factoryId": {
+                              "type": "number"
+                            },
+                            "contactor": {
+                              "type": "string"
+                            },
+                            "contactorNo": {
+                              "type": "string"
+                            },
+                            "placeId": {
+                              "type": "null"
+                            }
+                          }
+                        },
+                        "title": "装货工厂"
+                      },
+                      "unloadFactories": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "factoryId": {
+                              "type": "number"
+                            },
+                            "contactor": {
+                              "type": "string"
+                            },
+                            "contactorNo": {
+                              "type": "string"
+                            },
+                            "placeId": {
+                              "type": "null"
+                            }
+                          }
+                        },
+                        "title": "卸货工厂"
+                      },
+                      "businessNo": {
+                        "type": "string",
+                        "title": "承运编号"
+                      },
+                      "arrivingFactoryTime": {
+                        "type": "string",
+                        "title": "到厂时间"
+                      },
+                      "effectiveTime": {
+                        "type": "number",
+                        "title": "时效"
+                      },
+                      "volume": {
+                        "type": "number",
+                        "title": "体积"
+                      },
+                      "vehicleType": {
+                        "type": "string",
+                        "title": "车型"
+                      },
+                      "vehicleLength": {
+                        "type": "number",
+                        "title": "车长"
+                      }
+                    },
+                    "required": ["orderType"]
+                  },
+                  "title": "国内物流单集合"
+                }
+              },
+              "required": ["classification"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/order/detail/export/info": {
+      "get": {
+        "tags": ["发单方"],
+        "summary": "订单详情-出口",
+        "description": "1、复制订单和订单详情都用此接口，维持上个版本的复制信息就行；\n\n2、变动的地方，**baseInfo**里面添加了orderToPlatformDTO对象，订单为平台单的时候用，字段订舱号字段名称变为businessNo；\n\n3、将地址/order\\-center/sender/order/detail\\_1661341722391后面的\\_1661341722391去掉\\~\\~\\~\\~；\n\n4、~~~~returnReceiptConfirm回单确认，如果状态是1，那么就不允许编辑了，如果是0都可以编辑，目前平台单都按这么处理，后续如果有需求，在变动。",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "baseInfo": {
+                      "type": "object",
+                      "properties": {
+                        "orderNo": {
+                          "type": "number",
+                          "title": "订单号"
+                        },
+                        "orderType": {
+                          "type": "number",
+                          "title": "订单类型"
+                        },
+                        "customerId": {
+                          "type": "number",
+                          "title": "客户标识"
+                        },
+                        "returnReceiptConfirm": {
+                          "type": "number",
+                          "title": "回单确认状态"
+                        },
+                        "customerNo": {
+                          "type": "string",
+                          "title": "客户编号"
+                        },
+                        "commodityType": {
+                          "type": "string",
+                          "title": "货物类型"
+                        },
+                        "nettWeight": {
+                          "type": "number",
+                          "title": "货重"
+                        },
+                        "remark": {
+                          "type": "string",
+                          "title": "跟单备注"
+                        },
+                        "consignmentBillRemark": {
+                          "type": "string",
+                          "title": "托运单备注"
+                        },
+                        "pickupTerminalId": {
+                          "type": "number",
+                          "title": "提柜堆场标识"
+                        },
+                        "returnTerminalId": {
+                          "type": "number",
+                          "title": "还柜堆场标识"
+                        },
+                        "factories": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "title": "工厂标识"
+                        },
+                        "contacts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "contactor": {
+                                "type": "string"
+                              },
+                              "contactorNo": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "shippingCompanyId": {
+                          "type": "number",
+                          "title": "船公司标识"
+                        },
+                        "containerTypeId": {
+                          "type": "number",
+                          "title": "柜型标识"
+                        },
+                        "arrivingFactoryTime": {
+                          "type": "string",
+                          "title": "到厂时间"
+                        },
+                        "businessNo": {
+                          "type": "string",
+                          "title": "提单号"
+                        },
+                        "containerNo": {
+                          "type": "string",
+                          "title": "柜号"
+                        },
+                        "sealNo": {
+                          "type": "string",
+                          "title": "封条"
+                        },
+                        "containerWeight": {
+                          "type": "number",
+                          "title": "柜重"
+                        },
+                        "customsBrokerId": {
+                          "type": "number",
+                          "title": "报关行"
+                        },
+                        "takeOrderAddress": {
+                          "type": "string",
+                          "title": "拿单地址"
+                        },
+                        "returnOrderAddress": {
+                          "type": "string",
+                          "title": "还单地址"
+                        },
+                        "appendices": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "fileType": {
+                                "type": "integer"
+                              },
+                              "fileTypeName": {
+                                "type": "string"
+                              },
+                              "filePath": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "pickupTerminalTime": {
+                          "type": "string",
+                          "title": "提柜时间"
+                        },
+                        "returnTerminalTime": {
+                          "type": "string",
+                          "title": "还柜时间"
+                        },
+                        "orderToPlatformDTO": {
+                          "type": "object",
+                          "properties": {
+                            "quotedPrice": {
+                              "type": "number",
+                              "title": "下单价"
+                            },
+                            "invoiceType": {
+                              "type": "number",
+                              "title": "开票类型，1专票，2普票，3不开票"
+                            },
+                            "taxation": {
+                              "type": "number",
+                              "title": "税费"
+                            },
+                            "priceWithTax": {
+                              "type": "number",
+                              "title": "含税价"
+                            },
+                            "contactor": {
+                              "type": "string",
+                              "title": "发单联系人"
+                            },
+                            "contactorNo": {
+                              "type": "string",
+                              "title": "发单联系电话"
+                            },
+                            "platformRemark": {
+                              "type": "string",
+                              "title": "发单备注"
+                            }
+                          },
+                          "title": "平台单信息",
+                          "required": [
+                            "quotedPrice",
+                            "invoiceType",
+                            "taxation",
+                            "priceWithTax",
+                            "contactor",
+                            "contactorNo"
+                          ]
+                        }
+                      },
+                      "title": "基础信息",
+                      "required": [
+                        "orderNo",
+                        "orderType",
+                        "pickupTerminalId",
+                        "returnTerminalId",
+                        "factories",
+                        "shippingCompanyId",
+                        "containerTypeId",
+                        "arrivingFactoryTime",
+                        "businessNo"
+                      ]
+                    },
+                    "orderStatus": {
+                      "type": "integer",
+                      "title": "订单状态"
+                    },
+                    "orderClassification": {
+                      "type": "integer",
+                      "title": "订单类别"
+                    },
+                    "containerTypeName": {
+                      "type": "string",
+                      "title": "柜型名称"
+                    },
+                    "customerName": {
+                      "type": "string",
+                      "title": "客户名称"
+                    },
+                    "commodityTypeName": {
+                      "type": "string",
+                      "title": "货物名称"
+                    },
+                    "dispatchMotorcadeName": {
+                      "type": "string",
+                      "title": "车队名称"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "title": "车牌号"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机姓名"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "title": "司机电话"
+                    },
+                    "settlement": {
+                      "type": "string",
+                      "title": "结算方式"
+                    },
+                    "quotedPrice": {
+                      "type": "number",
+                      "title": "下单价",
+                      "description": "平台单用"
+                    },
+                    "pickupTerminal": {
+                      "type": "object",
+                      "properties": {
+                        "terminalName": {
+                          "type": "string",
+                          "title": "名称"
+                        },
+                        "terminalAddress": {
+                          "type": "string",
+                          "title": "地址"
+                        }
+                      },
+                      "title": "提柜堆场",
+                      "required": ["terminalName", "terminalAddress"]
+                    },
+                    "returnTerminal": {
+                      "type": "object",
+                      "properties": {
+                        "terminalName": {
+                          "type": "string",
+                          "title": "名称"
+                        },
+                        "terminalAddress": {
+                          "type": "string",
+                          "title": "地址"
+                        }
+                      },
+                      "title": "还柜堆场",
+                      "required": ["terminalName", "terminalAddress"]
+                    },
+                    "loadFactories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "factoryId": {
+                            "type": "number"
+                          },
+                          "factoryName": {
+                            "type": "string"
+                          },
+                          "factoryContact": {
+                            "type": "string"
+                          },
+                          "contactNo": {
+                            "type": "string"
+                          },
+                          "province": {
+                            "type": "string"
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "district": {
+                            "type": "string"
+                          },
+                          "detailAddress": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["factoryId", "factoryName", "province", "city", "district", "detailAddress"]
+                      },
+                      "title": "装货工厂"
+                    },
+                    "customsBrokerName": {
+                      "type": "string",
+                      "title": "报关行名称"
+                    },
+                    "shippingCompanyName": {
+                      "type": "string",
+                      "title": "船公司名称"
+                    },
+                    "exportOrderAdditionalVo": {
+                      "type": "object",
+                      "properties": {
+                        "cyClosingDate": {
+                          "type": "string",
+                          "title": "截关日期"
+                        },
+                        "siCutoffDate": {
+                          "type": "string",
+                          "title": "补料日期"
+                        },
+                        "cyCutoffDate": {
+                          "type": "string",
+                          "title": "截重日期"
+                        },
+                        "cargoReceivingDate": {
+                          "type": "string",
+                          "title": "开舱日期"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "baseInfo",
+                    "pickupTerminal",
+                    "returnTerminal",
+                    "loadFactories",
+                    "shippingCompanyName",
+                    "orderStatus",
+                    "orderClassification"
+                  ]
+                }
+              },
+              "required": ["code", "data"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/order/detail_1661342573508": {
+      "get": {
+        "tags": ["发单方"],
+        "summary": "订单详情-国内",
+        "description": "1、复制订单和订单详情都用此接口，维持上个版本的复制信息就行；\n\n2、变动的地方，**baseInfo**里面添加了orderToPlatformDTO对象，订单为平台单的时候用，字段承运编号字段名称变为businessNo，装货时间变为arrivingFactoryTime；\n\n3、将地址/order\\-center/sender/order/detail\\_1661342573508后面的\\_1661342573508去掉\\~\\~\\~\\~；\n\n4、~~~~returnReceiptConfirm回单确认，如果状态是1，那么就不允许编辑了，如果是0都可以编辑，目前平台单都按这么处理，后续如果有需求，在变动。",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "baseInfo": {
+                      "type": "object",
+                      "properties": {
+                        "orderNo": {
+                          "type": "number",
+                          "title": "订单号"
+                        },
+                        "orderType": {
+                          "type": "number",
+                          "title": "订单类型"
+                        },
+                        "returnReceiptConfirm": {
+                          "type": "number",
+                          "title": "回单确认"
+                        },
+                        "customerId": {
+                          "type": "number",
+                          "title": "客户标识"
+                        },
+                        "customerNo": {
+                          "type": "string",
+                          "title": "客户编号"
+                        },
+                        "customsBrokerId": {
+                          "type": "number",
+                          "title": "报关行标识"
+                        },
+                        "follower": {
+                          "type": "number",
+                          "title": "跟单员标识"
+                        },
+                        "commodityType": {
+                          "type": "string",
+                          "title": "货物类型"
+                        },
+                        "nettWeight": {
+                          "type": "number",
+                          "title": "货重"
+                        },
+                        "followRemark": {
+                          "type": "string",
+                          "title": "跟单备注"
+                        },
+                        "consignmentBillRemark": {
+                          "type": "string",
+                          "title": "托运单备注"
+                        },
+                        "loadFactories": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "title": "装货工厂标识"
+                        },
+                        "loadContacts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "contactor": {
+                                "type": "string"
+                              },
+                              "contactorNo": {
+                                "type": "string"
+                              },
+                              "palceId": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "title": "装货联系人"
+                        },
+                        "unloadFactories": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "title": "卸货工厂标识"
+                        },
+                        "unloadContacts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "contactor": {
+                                "type": "string"
+                              },
+                              "contactorNo": {
+                                "type": "string"
+                              },
+                              "palceId": {
+                                "type": "string"
+                              }
+                            },
+                            "required": []
+                          },
+                          "title": "装货联系人"
+                        },
+                        "businessNo": {
+                          "type": "string",
+                          "title": "承运编号"
+                        },
+                        "arrivingFactoryTime": {
+                          "type": "string",
+                          "title": "装货时间"
+                        },
+                        "containerTypeId": {
+                          "type": "number",
+                          "title": "柜型标识"
+                        },
+                        "containerNo": {
+                          "type": "string",
+                          "title": "柜号"
+                        },
+                        "sealNo": {
+                          "type": "string",
+                          "title": "封条"
+                        },
+                        "effectiveTime": {
+                          "type": "number",
+                          "title": "时效"
+                        },
+                        "volume": {
+                          "type": "number",
+                          "title": "体积"
+                        },
+                        "vehicleType": {
+                          "type": "string",
+                          "title": "车型"
+                        },
+                        "vehicleLength": {
+                          "type": "number",
+                          "title": "车长"
+                        },
+                        "appendices": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "fileType": {
+                                "type": "integer"
+                              },
+                              "fileTypeName": {
+                                "type": "string"
+                              },
+                              "filePath": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "orderToPlatformDTO": {
+                          "type": "object",
+                          "properties": {
+                            "quotedPrice": {
+                              "type": "number",
+                              "title": "下单价"
+                            },
+                            "invoiceType": {
+                              "type": "number",
+                              "title": "开票类型，1专票，2普票，3不开票"
+                            },
+                            "taxation": {
+                              "type": "number",
+                              "title": "税费"
+                            },
+                            "priceWithTax": {
+                              "type": "number",
+                              "title": "含税价"
+                            },
+                            "contactor": {
+                              "type": "string",
+                              "title": "发单联系人"
+                            },
+                            "contactorNo": {
+                              "type": "string",
+                              "title": "发单联系电话"
+                            },
+                            "platformRemark": {
+                              "type": "string",
+                              "title": "发单备注"
+                            }
+                          },
+                          "title": "平台单信息",
+                          "required": [
+                            "quotedPrice",
+                            "invoiceType",
+                            "taxation",
+                            "priceWithTax",
+                            "contactor",
+                            "contactorNo"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "orderNo",
+                        "orderType",
+                        "follower",
+                        "loadFactories",
+                        "unloadFactories",
+                        "arrivingFactoryTime",
+                        "effectiveTime",
+                        "returnReceiptConfirm"
+                      ],
+                      "title": "订单基础信息"
+                    },
+                    "orderStatus": {
+                      "type": "integer",
+                      "title": "订单状态"
+                    },
+                    "orderClassification": {
+                      "type": "integer",
+                      "title": "订单类别"
+                    },
+                    "containerTypeName": {
+                      "type": "string",
+                      "title": "柜型名称"
+                    },
+                    "customerName": {
+                      "type": "string",
+                      "title": "客户名称"
+                    },
+                    "commodityTypeName": {
+                      "type": "string",
+                      "title": "货物类型名称"
+                    },
+                    "followerName": {
+                      "type": "string",
+                      "title": "跟单员名称"
+                    },
+                    "dispatchMotorcadeName": {
+                      "type": "string",
+                      "title": "车队名称"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "title": "车牌号"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机姓名"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "title": "司机电话"
+                    },
+                    "loadFactories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      },
+                      "title": "装货工厂"
+                    },
+                    "unloadFactories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {}
+                      },
+                      "title": "卸货工厂"
+                    },
+                    "vehicleTypeName": {
+                      "type": "string",
+                      "title": "车型名称"
+                    }
+                  },
+                  "required": [
+                    "baseInfo",
+                    "customerName",
+                    "followerName",
+                    "loadFactories",
+                    "unloadFactories",
+                    "orderStatus",
+                    "orderClassification"
+                  ]
+                }
+              },
+              "required": ["data"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/order/detail": {
+      "get": {
+        "tags": ["发单方"],
+        "summary": "订单详情-进口",
+        "description": "1、复制订单和订单详情都用此接口，维持上个版本的复制信息就行；\n\n2、变动的地方，**baseInfo**里面添加了orderToPlatformDTO对象，订单为平台单的时候用，字段提单号字段名称变为businessNo；\n\n3、returnReceiptConfirm回单确认，如果状态是1，那么就不允许编辑了，如果是0都可以编辑，目前平台单都按这么处理，后续如果有需求，在变动。",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "订单号",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "baseInfo": {
+                      "type": "object",
+                      "properties": {
+                        "orderNo": {
+                          "type": "number",
+                          "title": "订单号"
+                        },
+                        "orderType": {
+                          "type": "number",
+                          "title": "订单类型"
+                        },
+                        "returnReceiptConfirm": {
+                          "type": "number",
+                          "title": "回单确认，0否，1是"
+                        },
+                        "customerId": {
+                          "type": "number",
+                          "title": "客户标识"
+                        },
+                        "customerNo": {
+                          "type": "string",
+                          "title": "客户编号"
+                        },
+                        "commodityType": {
+                          "type": "string",
+                          "title": "货物类型"
+                        },
+                        "nettWeight": {
+                          "type": "number",
+                          "title": "货重"
+                        },
+                        "followRemark": {
+                          "type": "string",
+                          "title": "跟单备注"
+                        },
+                        "consignmentBillRemark": {
+                          "type": "string",
+                          "title": "托运单备注"
+                        },
+                        "pickupTerminalId": {
+                          "type": "number",
+                          "title": "提柜堆场标识"
+                        },
+                        "returnTerminalId": {
+                          "type": "number",
+                          "title": "还柜堆场标识"
+                        },
+                        "factories": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          },
+                          "title": "工厂标识"
+                        },
+                        "contacts": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "contactor": {
+                                "type": "string"
+                              },
+                              "contactorNo": {
+                                "type": "string"
+                              },
+                              "palceId": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "shippingCompanyId": {
+                          "type": "number",
+                          "title": "船公司标识"
+                        },
+                        "containerTypeId": {
+                          "type": "number",
+                          "title": "柜型标识"
+                        },
+                        "arrivingFactoryTime": {
+                          "type": "string",
+                          "title": "到厂时间"
+                        },
+                        "businessNo": {
+                          "type": "string",
+                          "title": "提单号"
+                        },
+                        "containerNo": {
+                          "type": "string",
+                          "title": "柜号"
+                        },
+                        "sealNo": {
+                          "type": "string",
+                          "title": "封条"
+                        },
+                        "containerWeight": {
+                          "type": "number",
+                          "title": "柜重"
+                        },
+                        "customsBrokerId": {
+                          "type": "number",
+                          "title": "报关行"
+                        },
+                        "takeOrderAddress": {
+                          "type": "string",
+                          "title": "拿单地址"
+                        },
+                        "returnOrderAddress": {
+                          "type": "string",
+                          "title": "还单地址"
+                        },
+                        "appendices": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "fileType": {
+                                "type": "integer",
+                                "title": "文件类型"
+                              },
+                              "fileTypeName": {
+                                "type": "string",
+                                "title": "文件类型名称"
+                              },
+                              "filePath": {
+                                "type": "string",
+                                "title": "文件路劲"
+                              }
+                            }
+                          },
+                          "title": "附件"
+                        },
+                        "pickupTerminalTime": {
+                          "type": "string",
+                          "title": "提柜时间"
+                        },
+                        "returnTerminalTime": {
+                          "type": "string",
+                          "title": "还柜时间"
+                        },
+                        "orderToPlatformDTO": {
+                          "type": "object",
+                          "properties": {
+                            "quotedPrice": {
+                              "type": "number",
+                              "title": "下单价"
+                            },
+                            "invoiceType": {
+                              "type": "number",
+                              "title": "开票类型，1专票，2普票，3不开票"
+                            },
+                            "taxation": {
+                              "type": "number",
+                              "title": "税费"
+                            },
+                            "priceWithTax": {
+                              "type": "number",
+                              "title": "含税价"
+                            },
+                            "contactor": {
+                              "type": "string",
+                              "title": "发单联系人"
+                            },
+                            "contactorNo": {
+                              "type": "string",
+                              "title": "发单联系电话"
+                            },
+                            "platformRemark": {
+                              "type": "string",
+                              "title": "发单备注"
+                            }
+                          },
+                          "title": "平台单信息",
+                          "required": [
+                            "quotedPrice",
+                            "invoiceType",
+                            "taxation",
+                            "priceWithTax",
+                            "contactor",
+                            "contactorNo"
+                          ]
+                        }
+                      },
+                      "title": "基础信息",
+                      "required": [
+                        "orderNo",
+                        "orderType",
+                        "pickupTerminalId",
+                        "returnTerminalId",
+                        "factories",
+                        "shippingCompanyId",
+                        "containerTypeId",
+                        "arrivingFactoryTime",
+                        "businessNo",
+                        "returnReceiptConfirm"
+                      ]
+                    },
+                    "orderStatus": {
+                      "type": "integer",
+                      "title": "订单状态"
+                    },
+                    "orderClassification": {
+                      "type": "integer",
+                      "title": "订单类别"
+                    },
+                    "containerTypeName": {
+                      "type": "string",
+                      "title": "柜型名称"
+                    },
+                    "customerName": {
+                      "type": "string",
+                      "title": "客户名称"
+                    },
+                    "commodityTypeName": {
+                      "type": "string",
+                      "title": "货物名称"
+                    },
+                    "unloadFactories": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "factoryId": {
+                            "type": "number",
+                            "title": "工厂标识"
+                          },
+                          "factoryName": {
+                            "type": "string",
+                            "title": "工厂名称"
+                          },
+                          "factoryContact": {
+                            "type": "string",
+                            "title": "联系人"
+                          },
+                          "contactNo": {
+                            "type": "string",
+                            "title": "联系电话"
+                          },
+                          "province": {
+                            "type": "string",
+                            "title": "省"
+                          },
+                          "city": {
+                            "type": "string",
+                            "title": "市"
+                          },
+                          "district": {
+                            "type": "string",
+                            "title": "区"
+                          },
+                          "detailAddress": {
+                            "type": "string",
+                            "title": "详细地址"
+                          }
+                        },
+                        "required": ["factoryId", "factoryName", "city", "detailAddress", "province"]
+                      },
+                      "title": "卸货工厂信息"
+                    },
+                    "dispatchMotorcadeName": {
+                      "type": "string",
+                      "title": "车队名称"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "title": "车牌号"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "title": "司机姓名"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "title": "司机电话"
+                    },
+                    "quotedPrice": {
+                      "type": "string",
+                      "title": "下单价",
+                      "description": "平台单用"
+                    },
+                    "pickupTerminal": {
+                      "type": "object",
+                      "properties": {
+                        "terminalName": {
+                          "type": "string",
+                          "title": "名称"
+                        },
+                        "terminalAddress": {
+                          "type": "string",
+                          "title": "地址"
+                        }
+                      },
+                      "title": "提柜堆场",
+                      "required": ["terminalName", "terminalAddress"]
+                    },
+                    "returnTerminal": {
+                      "type": "object",
+                      "properties": {
+                        "terminalName": {
+                          "type": "string",
+                          "title": "名称"
+                        },
+                        "terminalAddress": {
+                          "type": "string",
+                          "title": "地址"
+                        }
+                      },
+                      "title": "还柜堆场",
+                      "required": ["terminalName", "terminalAddress"]
+                    },
+                    "factoryNames": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "title": "工厂名称",
+                      "description": "和前面的工厂标识是一一对应的"
+                    },
+                    "customsBrokerName": {
+                      "type": "string",
+                      "title": "报关行名称"
+                    },
+                    "shippingCompanyName": {
+                      "type": "string",
+                      "title": "船公司名称"
+                    },
+                    "importOrderAdditionalVo": {
+                      "type": "object",
+                      "properties": {
+                        "storageUpto": {
+                          "type": "string",
+                          "title": "截还柜"
+                        },
+                        "detentionDaysUpto": {
+                          "type": "string",
+                          "title": "截提柜\t"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "baseInfo",
+                    "pickupTerminal",
+                    "returnTerminal",
+                    "factoryNames",
+                    "importOrderAdditionalVo",
+                    "shippingCompanyName",
+                    "orderStatus",
+                    "orderClassification",
+                    "unloadFactories"
+                  ]
+                }
+              },
+              "required": ["code", "data"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/changePrice": {
+      "get": {
+        "tags": ["发单方"],
+        "summary": "调价",
+        "description": "1、订单状态在 7（已接单之前）才可以调价，其他状态，按钮置灰；\n\n2、如果价格没改变，不需要调用后端接口。",
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "orderType",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/page/needPay": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "运费支付列表数据",
+        "description": "业务逻辑：\n\n1、invoiceType开票类型，1专票，2普票，3不开票，前端根据返回的数字值来显示文字，可能为null；\n\n2、承运人信息按照 dispatchMotorcadeName+driverName+tractorNo+driverTel显示，dispatchMotorcadeName可能为空，其他三个字段不为空；\n\n3、行驶路线按照innerViewRoutes集合的顺序拼接元素；\n\n4、车队检索信息接口[车队检索](https://api.zaitugongda.com/project/52/interface/api/7021)；\n\n5、司机信息检索接口[司机检索](https://api.zaitugongda.com/project/52/interface/api/7019)；\n\n6、车牌信息检索接口[车牌检索](/customer/vehicle/matchByNameOfPlatform)。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderType": {
+                      "type": "integer",
+                      "title": "订单类型"
+                    },
+                    "invoiceType": {
+                      "type": "number",
+                      "title": "开票类型，1专票，2普票，3不开票"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "title": "到厂开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "title": "到厂结束时间"
+                    },
+                    "businessNo": {
+                      "type": "string",
+                      "title": "提单号/订舱号/承运编号"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "title": "柜号"
+                    },
+                    "vehicleId": {
+                      "type": "integer",
+                      "title": "车牌"
+                    },
+                    "driverId": {
+                      "type": "integer",
+                      "title": "司机"
+                    },
+                    "dispatchMotorcadeId": {
+                      "type": "integer",
+                      "title": "车队"
+                    }
+                  },
+                  "required": ["startArrivingTime"]
+                }
+              },
+              "required": ["current", "size", "data"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "orderNo": {
+                        "type": "string"
+                      },
+                      "orderTypeName": {
+                        "type": "string",
+                        "title": "订单类型名称"
+                      },
+                      "orderStatusName": {
+                        "type": "string",
+                        "title": "订单状态名称"
+                      },
+                      "arrivingTime": {
+                        "type": "string",
+                        "title": "到厂时间"
+                      },
+                      "businessNo": {
+                        "type": "string",
+                        "title": "提单号/订舱号/承运编号"
+                      },
+                      "containerNo": {
+                        "type": "string",
+                        "title": "柜号"
+                      },
+                      "sealNo": {
+                        "type": "string",
+                        "title": "封条"
+                      },
+                      "nettWeight": {
+                        "type": "number",
+                        "title": "货重"
+                      },
+                      "dispatchMotorcadeName": {
+                        "type": "string",
+                        "title": "车队"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机名称"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      },
+                      "invoiceType": {
+                        "type": "number",
+                        "title": "开票类型，1专票，2普票，3不开票",
+                        "description": "前端根据返回的数字值来显示文字，可能为null"
+                      },
+                      "innerViewRoutes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "行驶路线"
+                      },
+                      "transportationFee": {
+                        "type": "number",
+                        "title": "运费"
+                      },
+                      "otherFee": {
+                        "type": "number",
+                        "title": "其他费用"
+                      },
+                      "totalFee": {
+                        "type": "number",
+                        "title": "总费用"
+                      },
+                      "totalFeeIncludingTax": {
+                        "type": "number",
+                        "title": "含税总费用"
+                      }
+                    },
+                    "required": [
+                      "orderNo",
+                      "orderTypeName",
+                      "orderStatusName",
+                      "arrivingTime",
+                      "transportationFee",
+                      "otherFee",
+                      "totalFee",
+                      "totalFeeIncludingTax",
+                      "innerViewRoutes"
+                    ]
+                  }
+                },
+                "pageInfo": {
+                  "type": "object",
+                  "properties": {
+                    "current": {
+                      "type": "number"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "pages": {
+                      "type": "number"
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": ["pageInfo"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/page/otherFee": {
+      "post": {
+        "tags": ["发单方"],
+        "summary": "额外费用审核列表数据",
+        "description": "业务逻辑：\n\n1、invoiceType开票类型，1专票，2普票，3不开票，前端根据返回的数字值来显示文字，可能为null；\n\n2、承运人信息按照 dispatchMotorcadeName+driverName+tractorNo+driverTel显示，dispatchMotorcadeName可能为空，其他三个字段不为空；\n\n3、行驶路线按照innerViewRoutes集合的顺序拼接元素；\n\n4、车队检索信息接口[车队检索](https://api.zaitugongda.com/project/52/interface/api/7021)；\n\n5、司机信息检索接口[司机检索](https://api.zaitugongda.com/project/52/interface/api/7019)；\n\n6、车牌信息检索接口[车牌检索](/customer/vehicle/matchByNameOfPlatform)；\n\n7、费用状态checkStatus，1审核中，2审核通过；3驳回，前端按照返回值显示对应的状态名称。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderType": {
+                      "type": "integer",
+                      "title": "订单类型"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "title": "到厂开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "title": "到厂结束时间"
+                    },
+                    "businessNo": {
+                      "type": "string",
+                      "title": "提单号/订舱号/承运编号"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "title": "柜号"
+                    },
+                    "vehicleId": {
+                      "type": "integer",
+                      "title": "车牌"
+                    },
+                    "driverId": {
+                      "type": "integer",
+                      "title": "司机"
+                    },
+                    "dispatchMotorcadeId": {
+                      "type": "integer",
+                      "title": "车队"
+                    }
+                  },
+                  "required": ["startArrivingTime"]
+                }
+              },
+              "required": ["current", "size", "data"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "orderNo": {
+                        "type": "string"
+                      },
+                      "orderTypeName": {
+                        "type": "string",
+                        "title": "订单类型名称"
+                      },
+                      "orderStatusName": {
+                        "type": "string",
+                        "title": "订单状态名称"
+                      },
+                      "arrivingTime": {
+                        "type": "string",
+                        "title": "到厂时间"
+                      },
+                      "businessNo": {
+                        "type": "string",
+                        "title": "提单号/订舱号/承运编号"
+                      },
+                      "containerNo": {
+                        "type": "string",
+                        "title": "柜号"
+                      },
+                      "dispatchMotorcadeName": {
+                        "type": "string",
+                        "title": "车队"
+                      },
+                      "tractorNo": {
+                        "type": "string",
+                        "title": "车牌"
+                      },
+                      "driverName": {
+                        "type": "string",
+                        "title": "司机名称"
+                      },
+                      "driverTel": {
+                        "type": "string",
+                        "title": "司机电话"
+                      },
+                      "innerViewRoutes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "title": "行驶路线"
+                      },
+                      "otherFees": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number",
+                              "title": "额外费用标识"
+                            },
+                            "feeName": {
+                              "type": "string",
+                              "title": "费用名称"
+                            },
+                            "amount": {
+                              "type": "number",
+                              "title": "金额"
+                            },
+                            "checkStatus": {
+                              "type": "number",
+                              "title": "费用状态"
+                            },
+                            "credentialPath": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "费用凭证"
+                            }
+                          },
+                          "required": ["id", "feeName", "amount", "checkStatus", "credentialPath"]
+                        },
+                        "title": "费用信息"
+                      }
+                    },
+                    "required": [
+                      "orderNo",
+                      "orderTypeName",
+                      "orderStatusName",
+                      "arrivingTime",
+                      "innerViewRoutes",
+                      "tractorNo",
+                      "driverName",
+                      "driverTel",
+                      "otherFees"
+                    ]
+                  }
+                },
+                "pageInfo": {
+                  "type": "object",
+                  "properties": {
+                    "current": {
+                      "type": "number"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "pages": {
+                      "type": "number"
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  }
+                }
+              },
+              "required": ["pageInfo"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/order/export/update": {
+      "post": {
+        "tags": ["订单更新"],
+        "summary": "出口单更新",
+        "description": "业务逻辑：\n1、编辑的时候把所有字段的值都带上，原来为空的可以传，可以传，建议不传，属于平台单的特有字段更新内部单的时候就没必要带，如果用户想清空某一个值，数字类型的入参传0，字符类型的传空字符串，时间类型的传null。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "orderType": {
+                  "type": "number",
+                  "title": "订单类型，1进口单，2出口单，3直拼单，4间拼单，5国内物流"
+                },
+                "orderNo": {
+                  "type": "string",
+                  "title": "订单号"
+                },
+                "customerId": {
+                  "type": "number",
+                  "title": "客户"
+                },
+                "nettWeight": {
+                  "type": "number",
+                  "title": "货重",
+                  "description": "小数点后一位"
+                },
+                "commodityType": {
+                  "type": "string",
+                  "title": "货物类型"
+                },
+                "followRemark": {
+                  "type": "string",
+                  "title": "跟单备注"
+                },
+                "consignmentBillRemark": {
+                  "type": "string",
+                  "title": "托运单备注"
+                },
+                "appendices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fileType": {
+                        "type": "integer",
+                        "title": "文件类型",
+                        "description": "1、提单文件，2、提柜文件，3、还柜文件，4、托运单文件"
+                      },
+                      "filePath": {
+                        "type": "string",
+                        "title": "文件oss路径"
+                      }
+                    }
+                  },
+                  "title": "附件"
+                },
+                "pickupTerminalId": {
+                  "type": "integer",
+                  "title": "提柜堆场/码头"
+                },
+                "pickupPlaceId": {
+                  "type": "number",
+                  "title": "提柜地址所属地区标识"
+                },
+                "returnTerminalId": {
+                  "type": "integer",
+                  "title": "还柜堆场/码头"
+                },
+                "returnPlaceId": {
+                  "type": "string",
+                  "title": "还柜地址所属地区标识"
+                },
+                "pickupTerminalTime": {
+                  "type": "string",
+                  "title": "提柜时间"
+                },
+                "returnTerminalTime": {
+                  "type": "string",
+                  "title": "还柜时间"
+                },
+                "factories": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "title": "卸货工厂"
+                },
+                "contacts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "factoryId": {
+                        "type": "number",
+                        "title": "标识"
+                      },
+                      "contactor": {
+                        "type": "string",
+                        "title": "联系人"
+                      },
+                      "contactorNo": {
+                        "type": "string",
+                        "title": "联系电话"
+                      },
+                      "placeId": {
+                        "type": "number",
+                        "title": "地区标识"
+                      }
+                    }
+                  },
+                  "title": "联系人"
+                },
+                "shippingCompanyId": {
+                  "type": "integer",
+                  "title": "船公司"
+                },
+                "containerTypeId": {
+                  "type": "integer",
+                  "title": "柜型"
+                },
+                "arrivingFactoryTime": {
+                  "type": "string",
+                  "title": "到厂时间"
+                },
+                "businessNo": {
+                  "type": "string",
+                  "title": "提单号"
+                },
+                "containerNo": {
+                  "type": "string",
+                  "title": "柜号"
+                },
+                "sealNo": {
+                  "type": "string",
+                  "title": "封条"
+                },
+                "containerWeight": {
+                  "type": "number",
+                  "title": "柜重",
+                  "description": "小数点后一位"
+                },
+                "customsBrokerId": {
+                  "type": "number",
+                  "title": "报关行"
+                },
+                "takeOrderAddress": {
+                  "type": "string",
+                  "title": "拿单地址"
+                },
+                "returnOrderAddress": {
+                  "type": "string",
+                  "title": "还单地址"
+                },
+                "exportOrderAdditionalDTO": {
+                  "type": "object",
+                  "properties": {
+                    "cyClosingDate": {
+                      "type": "string",
+                      "title": "截关日期"
+                    },
+                    "siCutoffDate": {
+                      "type": "string",
+                      "title": "补料日期"
+                    },
+                    "cyCutoffDate": {
+                      "type": "string",
+                      "title": "截重日期"
+                    },
+                    "cargoReceivingDate": {
+                      "type": "string",
+                      "title": "开舱日期"
+                    }
+                  }
+                },
+                "orderToPlatformDTO": {
+                  "type": "object",
+                  "properties": {
+                    "quotedPrice": {
+                      "type": "number",
+                      "title": "下单价"
+                    },
+                    "invoiceType": {
+                      "type": "number",
+                      "title": "开票类型，1专票，2普票，3不开票"
+                    },
+                    "taxation": {
+                      "type": "number",
+                      "title": "税费"
+                    },
+                    "priceWithTax": {
+                      "type": "number",
+                      "title": "含税价"
+                    },
+                    "contactor": {
+                      "type": "string",
+                      "title": "发单联系人"
+                    },
+                    "contactorNo": {
+                      "type": "string",
+                      "title": "发单联系电话"
+                    },
+                    "platformRemark": {
+                      "type": "string",
+                      "title": "发单备注"
+                    }
+                  },
+                  "title": "快捷外发信息",
+                  "description": "更新平台单时候用"
+                }
+              },
+              "required": ["orderType", "orderNo"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    },
+    "/order-center/order/domestic/update": {
+      "post": {
+        "tags": ["订单更新"],
+        "summary": "国内单更新",
+        "description": "业务逻辑：\n1、编辑的时候把所有字段的值都带上，原来为空的可以传，可以传，建议不传，属于平台单的特有字段更新内部单的时候就没必要带，如果用户想清空某一个值，数字类型的入参传0，字符类型的传空字符串，时间类型的传null。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "orderType": {
+                  "type": "number",
+                  "title": "订单类型值为5"
+                },
+                "orderNo": {
+                  "type": "string",
+                  "title": "订单号"
+                },
+                "customerId": {
+                  "type": "integer",
+                  "title": "客户"
+                },
+                "nettWeight": {
+                  "type": "number",
+                  "title": "货重"
+                },
+                "containerTypeId": {
+                  "type": "number",
+                  "title": "柜型"
+                },
+                "commodityType": {
+                  "type": "string",
+                  "title": "货物类型"
+                },
+                "customsBrokerId": {
+                  "type": "number",
+                  "title": "报关行标识"
+                },
+                "followRemark": {
+                  "type": "string",
+                  "title": "跟单备注"
+                },
+                "consignmentBillRemark": {
+                  "type": "string",
+                  "title": "托运单备注"
+                },
+                "appendices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fileType": {
+                        "type": "string",
+                        "description": "4、托运单文件，5、承运单文件"
+                      },
+                      "filePath": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "title": "做单资料"
+                },
+                "loadFactories": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "title": "装货工厂"
+                },
+                "loadContacts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "factoryId": {
+                        "type": "number"
+                      },
+                      "contactor": {
+                        "type": "string"
+                      },
+                      "contactorNo": {
+                        "type": "string"
+                      },
+                      "placeId": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                },
+                "unloadFactories": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "title": "卸货工厂"
+                },
+                "unloadContacts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "factoryId": {
+                        "type": "number"
+                      },
+                      "contactor": {
+                        "type": "string"
+                      },
+                      "contactorNo": {
+                        "type": "string"
+                      },
+                      "placeId": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                },
+                "businessNo": {
+                  "type": "string",
+                  "title": "承运编号"
+                },
+                "arrivingFactoryTime": {
+                  "type": "string",
+                  "title": "装货时间"
+                },
+                "effectiveTime": {
+                  "type": "number",
+                  "title": "时效"
+                },
+                "volume": {
+                  "type": "number",
+                  "title": "体积"
+                },
+                "vehicleType": {
+                  "type": "string",
+                  "title": "车型"
+                },
+                "vehicleLength": {
+                  "type": "number",
+                  "title": "车长"
+                },
+                "orderToPlatformDTO": {
+                  "type": "object",
+                  "properties": {
+                    "quotedPrice": {
+                      "type": "number",
+                      "title": "下单价"
+                    },
+                    "invoiceType": {
+                      "type": "number",
+                      "title": "开票类型，1专票，2普票，3不开票"
+                    },
+                    "taxation": {
+                      "type": "number",
+                      "title": "税费"
+                    },
+                    "priceWithTax": {
+                      "type": "number",
+                      "title": "含税价"
+                    },
+                    "contactor": {
+                      "type": "string",
+                      "title": "发单联系人"
+                    },
+                    "contactorNo": {
+                      "type": "string",
+                      "title": "发单联系电话"
+                    },
+                    "platformRemark": {
+                      "type": "string",
+                      "title": "发单备注"
+                    }
+                  },
+                  "title": "快捷外发信息",
+                  "description": "更新平台单时候用",
+                  "required": ["quotedPrice", "invoiceType", "taxation", "priceWithTax", "contactor", "contactorNo"]
+                }
+              },
+              "required": ["orderType", "orderNo"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "title": "title",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/order-center/order/import/update": {
+      "post": {
+        "tags": ["订单更新"],
+        "summary": "进口单更新",
+        "description": "业务逻辑：\n1、编辑的时候把所有字段的值都带上，原来为空的可以传，可以传，建议不传，属于平台单的特有字段更新内部单的时候就没必要带，如果用户想清空某一个值，数字类型的入参传0，字符类型的传空字符串，时间类型的传null。",
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "orderType": {
+                  "type": "number",
+                  "title": "订单类型，1进口单，2出口单，3直拼单，4间拼单，5国内物流"
+                },
+                "orderNo": {
+                  "type": "string",
+                  "title": "订单号"
+                },
+                "customerId": {
+                  "type": "number",
+                  "title": "客户"
+                },
+                "follower": {
+                  "type": "number",
+                  "title": "跟单员"
+                },
+                "nettWeight": {
+                  "type": "number",
+                  "title": "货重",
+                  "description": "小数点后一位"
+                },
+                "commodityType": {
+                  "type": "string",
+                  "title": "货物类型"
+                },
+                "followRemark": {
+                  "type": "string",
+                  "title": "跟单备注"
+                },
+                "consignmentBillRemark": {
+                  "type": "string",
+                  "title": "托运单备注"
+                },
+                "appendices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fileType": {
+                        "type": "integer",
+                        "title": "文件类型",
+                        "description": "1、提单文件，2、提柜文件，3、还柜文件，4、托运单文件"
+                      },
+                      "filePath": {
+                        "type": "string",
+                        "title": "文件oss路径"
+                      }
+                    },
+                    "required": ["fileType", "filePath"]
+                  },
+                  "title": "附件"
+                },
+                "pickupTerminalId": {
+                  "type": "integer",
+                  "title": "提柜堆场/码头"
+                },
+                "pickupPlaceId": {
+                  "type": "number",
+                  "title": "提柜地址所属地区标识"
+                },
+                "returnTerminalId": {
+                  "type": "integer",
+                  "title": "还柜堆场/码头"
+                },
+                "returnPlaceId": {
+                  "type": "string",
+                  "title": "还柜地址所属地区标识"
+                },
+                "pickupTerminalTime": {
+                  "type": "string",
+                  "title": "提柜时间"
+                },
+                "returnTerminalTime": {
+                  "type": "string",
+                  "title": "还柜时间"
+                },
+                "factories": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "title": "卸货工厂"
+                },
+                "contacts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "factoryId": {
+                        "type": "number",
+                        "title": "标识"
+                      },
+                      "contactor": {
+                        "type": "string",
+                        "title": "联系人"
+                      },
+                      "contactorNo": {
+                        "type": "string",
+                        "title": "联系电话"
+                      },
+                      "placeId": {
+                        "type": "number",
+                        "title": "地区标识"
+                      }
+                    }
+                  },
+                  "title": "联系人"
+                },
+                "shippingCompanyId": {
+                  "type": "integer",
+                  "title": "船公司"
+                },
+                "containerTypeId": {
+                  "type": "integer",
+                  "title": "柜型"
+                },
+                "arrivingFactoryTime": {
+                  "type": "string",
+                  "title": "到厂时间"
+                },
+                "businessNo": {
+                  "type": "string",
+                  "title": "提单号"
+                },
+                "containerNo": {
+                  "type": "string",
+                  "title": "柜号"
+                },
+                "sealNo": {
+                  "type": "string",
+                  "title": "封条"
+                },
+                "containerWeight": {
+                  "type": "number",
+                  "title": "柜重",
+                  "description": "小数点后一位"
+                },
+                "customsBrokerId": {
+                  "type": "number",
+                  "title": "报关行"
+                },
+                "takeOrderAddress": {
+                  "type": "string",
+                  "title": "拿单地址"
+                },
+                "returnOrderAddress": {
+                  "type": "string",
+                  "title": "还单地址"
+                },
+                "importOrderAdditionalDTO": {
+                  "type": "object",
+                  "properties": {
+                    "storageUpto": {
+                      "type": "string",
+                      "title": "截还柜"
+                    },
+                    "detentionDaysUpto": {
+                      "type": "string",
+                      "title": "截提柜"
+                    }
+                  },
+                  "title": "进口信息"
+                },
+                "orderToPlatformDTO": {
+                  "type": "object",
+                  "properties": {
+                    "quotedPrice": {
+                      "type": "number",
+                      "title": "下单价"
+                    },
+                    "invoiceType": {
+                      "type": "number",
+                      "title": "开票类型，1专票，2普票，3不开票"
+                    },
+                    "taxation": {
+                      "type": "number",
+                      "title": "税费"
+                    },
+                    "priceWithTax": {
+                      "type": "number",
+                      "title": "含税价"
+                    },
+                    "contactor": {
+                      "type": "string",
+                      "title": "发单联系人"
+                    },
+                    "contactorNo": {
+                      "type": "string",
+                      "title": "发单联系电话"
+                    },
+                    "platformRemark": {
+                      "type": "string",
+                      "title": "发单备注"
+                    }
+                  },
+                  "title": "快捷外发信息",
+                  "description": "更新平台单时候用",
+                  "required": ["quotedPrice", "invoiceType", "taxation", "priceWithTax", "contactor", "contactorNo"]
+                }
+              },
+              "required": ["orderType", "orderNo"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": ["code"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

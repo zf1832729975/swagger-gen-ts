@@ -1,0 +1,5944 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "后端接口",
+    "version": "last"
+  },
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "系统设置",
+      "description": null
+    },
+    {
+      "name": "登录注册相关",
+      "description": null
+    },
+    {
+      "name": "基础资料",
+      "description": "基础资料"
+    },
+    {
+      "name": "集装箱管理",
+      "description": "集装箱管理"
+    },
+    {
+      "name": "表格字段自定义",
+      "description": null
+    },
+    {
+      "name": "basefunc",
+      "description": "basefunc"
+    },
+    {
+      "name": "数据统计",
+      "description": null
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/hyxt/system/createAuthority": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "创建角色",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "authorityName": {
+                  "type": "string",
+                  "description": "角色名字"
+                },
+                "authorityDescription": {
+                  "type": "string",
+                  "description": "角色描述"
+                }
+              },
+              "required": [
+                "authorityName",
+                "authorityDescription"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/getAuthorityList": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "获取角色",
+        "description": "isCommon=1时，那表示是默认的菜单，不让用户删除。",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number",
+                  "description": "当前页"
+                },
+                "size": {
+                  "type": "number",
+                  "description": "每页多少条"
+                }
+              },
+              "required": [
+                "current",
+                "size"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "角色id"
+                          },
+                          "created_time": {
+                            "type": "string"
+                          },
+                          "updated_time": {
+                            "type": "string"
+                          },
+                          "authorityName": {
+                            "type": "string",
+                            "description": "角色名称"
+                          },
+                          "authorityDescription": {
+                            "type": "string",
+                            "description": "角色描述"
+                          },
+                          "userMainId": {
+                            "type": "number",
+                            "description": "用户主账号id"
+                          },
+                          "isCommon": {
+                            "type": "number",
+                            "description": "1共用，0不共用"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_time",
+                          "updated_time",
+                          "authorityName",
+                          "authorityDescription",
+                          "userMainId",
+                          "isCommon"
+                        ]
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "properties": {
+                        "current": {
+                          "type": "number"
+                        },
+                        "pages": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "current",
+                        "pages",
+                        "size",
+                        "total"
+                      ],
+                      "description": "分页数据"
+                    }
+                  },
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/deleteAuthority": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "删除角色",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "authorityId": {
+                  "type": "number",
+                  "description": "角色id"
+                }
+              },
+              "required": [
+                "authorityId"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/updateAuthority": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "更新角色",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "角色id"
+                },
+                "authorityName": {
+                  "type": "string",
+                  "description": "角色名称"
+                },
+                "authorityDescription": {
+                  "type": "string",
+                  "description": "角色描述"
+                }
+              },
+              "required": [
+                "id",
+                "authorityName",
+                "authorityDescription"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/copyAuthority": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "拷贝角色",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "oldAuthorityId": {
+                  "type": "number",
+                  "description": "旧角色id"
+                },
+                "authorityName": {
+                  "type": "string",
+                  "description": "角色名称"
+                },
+                "authorityDescription": {
+                  "type": "string",
+                  "description": "角色描述"
+                }
+              },
+              "required": [
+                "oldAuthorityId",
+                "authorityName",
+                "authorityDescription"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/getMenu": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "获取菜单（登录后立即调用）",
+        "description": "1、菜单图标，你看着给就行了\n2、记得带上token\n<span class=\"colour\" style=\"color: rgb(80, 80, 80);\">Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJR</span>",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "menus": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "菜单id"
+                          },
+                          "created_time": {
+                            "type": "string"
+                          },
+                          "updated_time": {
+                            "type": "string"
+                          },
+                          "parentId": {
+                            "type": "number",
+                            "description": "父菜单id"
+                          },
+                          "path": {
+                            "type": "string",
+                            "description": "路由path"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "路由名字（eg:dashbord）"
+                          },
+                          "component": {
+                            "type": "string",
+                            "description": "对应前端文件路径"
+                          },
+                          "sort": {
+                            "type": "number",
+                            "description": "排序"
+                          },
+                          "keepAlive": {
+                            "type": "number",
+                            "description": "keepAlive我也不知道前端怎么用的，参考下运运通"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "菜单名字"
+                          },
+                          "children": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "created_time": {
+                                  "type": "string"
+                                },
+                                "updated_time": {
+                                  "type": "string"
+                                },
+                                "parentId": {
+                                  "type": "number"
+                                },
+                                "path": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "component": {
+                                  "type": "string"
+                                },
+                                "sort": {
+                                  "type": "number"
+                                },
+                                "keepAlive": {
+                                  "type": "number"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "children": {
+                                  "type": "null"
+                                }
+                              }
+                            },
+                            "description": "子菜单"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_time",
+                          "updated_time",
+                          "parentId",
+                          "path",
+                          "name",
+                          "component",
+                          "sort",
+                          "keepAlive",
+                          "title",
+                          "children"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/getBaseMenuTree": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "获取所有菜单",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "menus": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "菜单id"
+                          },
+                          "created_time": {
+                            "type": "string"
+                          },
+                          "updated_time": {
+                            "type": "string"
+                          },
+                          "parentId": {
+                            "type": "number",
+                            "description": "父菜单id"
+                          },
+                          "path": {
+                            "type": "string",
+                            "description": "路由path"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "路由名字（eg:dashbord）"
+                          },
+                          "component": {
+                            "type": "string",
+                            "description": "对应前端文件路径"
+                          },
+                          "sort": {
+                            "type": "number",
+                            "description": "排序"
+                          },
+                          "keepAlive": {
+                            "type": "number",
+                            "description": "keepAlive我也不知道前端怎么用的，参考下运运通"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "菜单名字"
+                          },
+                          "icon": {
+                            "type": "string",
+                            "description": "icon"
+                          },
+                          "children": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "created_time": {
+                                  "type": "string"
+                                },
+                                "updated_time": {
+                                  "type": "string"
+                                },
+                                "parentId": {
+                                  "type": "number"
+                                },
+                                "path": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "component": {
+                                  "type": "string"
+                                },
+                                "sort": {
+                                  "type": "number"
+                                },
+                                "keepAlive": {
+                                  "type": "number"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "children": {
+                                  "type": "null"
+                                }
+                              }
+                            },
+                            "description": "子菜单"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_time",
+                          "updated_time",
+                          "parentId",
+                          "path",
+                          "name",
+                          "component",
+                          "sort",
+                          "keepAlive",
+                          "title",
+                          "children",
+                          "icon"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/getMenuAuthority": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "根据菜单id获取菜单列表",
+        "description": "菜单图标，你看着给就行了",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "authorityId": {
+                  "type": "number",
+                  "description": "菜单id"
+                }
+              },
+              "required": [
+                "authorityId"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "menus": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "菜单id"
+                          },
+                          "created_time": {
+                            "type": "string"
+                          },
+                          "updated_time": {
+                            "type": "string"
+                          },
+                          "parentId": {
+                            "type": "number",
+                            "description": "父菜单id"
+                          },
+                          "path": {
+                            "type": "string",
+                            "description": "路由path"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "路由名字（eg:dashbord）"
+                          },
+                          "component": {
+                            "type": "string",
+                            "description": "对应前端文件路径"
+                          },
+                          "sort": {
+                            "type": "number",
+                            "description": "排序"
+                          },
+                          "keepAlive": {
+                            "type": "number",
+                            "description": "keepAlive我也不知道前端怎么用的，参考下运运通"
+                          },
+                          "title": {
+                            "type": "string",
+                            "description": "菜单名字"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_time",
+                          "updated_time",
+                          "parentId",
+                          "path",
+                          "name",
+                          "component",
+                          "sort",
+                          "keepAlive",
+                          "title"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/updateMenuAuthority": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "更新角色的菜单",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "authorityId": {
+                  "type": "number",
+                  "description": "角色id"
+                },
+                "menuIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "该角色对应的所有菜单id，以列表传入：[1,2,3]"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/userPageList": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "用户管理-获取用户列表",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "userName": {
+                      "type": "string",
+                      "description": "用户名"
+                    },
+                    "mobileNumber": {
+                      "type": "string",
+                      "description": "登录手机号"
+                    },
+                    "authorityId": {
+                      "type": "number",
+                      "description": "权限id"
+                    },
+                    "isActive": {
+                      "type": "number",
+                      "description": "1激活；0休眠"
+                    }
+                  },
+                  "required": [
+                    "isActive"
+                  ]
+                }
+              },
+              "required": [
+                "current",
+                "size"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "用户id"
+                          },
+                          "created_time": {
+                            "type": "string",
+                            "description": "创建时间"
+                          },
+                          "updated_time": {
+                            "type": "string"
+                          },
+                          "authorityId": {
+                            "type": "number",
+                            "description": "权限ID"
+                          },
+                          "parentId": {
+                            "type": "number",
+                            "description": "父用户id，可不管"
+                          },
+                          "accountType": {
+                            "type": "number"
+                          },
+                          "mobileNumber": {
+                            "type": "string",
+                            "description": "登录手机号"
+                          },
+                          "password": {
+                            "type": "string"
+                          },
+                          "userName": {
+                            "type": "string",
+                            "description": "用户名"
+                          },
+                          "email": {
+                            "type": "string",
+                            "description": "邮箱"
+                          },
+                          "headerImg": {
+                            "type": "string"
+                          },
+                          "isActive": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_time",
+                          "updated_time",
+                          "authorityId",
+                          "parentId",
+                          "accountType",
+                          "mobileNumber",
+                          "password",
+                          "userName",
+                          "email",
+                          "headerImg",
+                          "isActive"
+                        ]
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "properties": {
+                        "current": {
+                          "type": "number"
+                        },
+                        "pages": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "current",
+                        "pages",
+                        "size",
+                        "total"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/createUser": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "用户管理-创建用户",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "authorityId": {
+                  "type": "number",
+                  "description": "权限i"
+                },
+                "mobileNumber": {
+                  "type": "string",
+                  "description": "登录手机号"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "密码规则，字母+字符7位以上。随机五位字符+32位md5"
+                },
+                "userName": {
+                  "type": "string",
+                  "description": "用户名"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "邮箱"
+                }
+              },
+              "required": [
+                "authorityId",
+                "mobileNumber",
+                "password",
+                "userName",
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/getUserDetail": {
+      "get": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "用户管理-根据用户id获取详情",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "用户id",
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "authorityId": {
+                  "type": "number",
+                  "description": "权限i"
+                },
+                "mobileNumber": {
+                  "type": "string",
+                  "description": "登录手机号"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "密码规则，字母+字符7位以上。随机五位字符+32位md5"
+                },
+                "userName": {
+                  "type": "string",
+                  "description": "用户名"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "邮箱"
+                }
+              },
+              "required": [
+                "authorityId",
+                "mobileNumber",
+                "password",
+                "userName",
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "created_time": {
+                      "type": "string"
+                    },
+                    "updated_time": {
+                      "type": "string"
+                    },
+                    "authorityId": {
+                      "type": "number"
+                    },
+                    "parentId": {
+                      "type": "number"
+                    },
+                    "accountType": {
+                      "type": "number"
+                    },
+                    "mobileNumber": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "userName": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "headerImg": {
+                      "type": "string"
+                    },
+                    "isActive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "created_time",
+                    "updated_time",
+                    "authorityId",
+                    "parentId",
+                    "accountType",
+                    "mobileNumber",
+                    "password",
+                    "userName",
+                    "email",
+                    "headerImg",
+                    "isActive"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/batchActive": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "用户管理-批量激活用户",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "用户id",
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "description": "如：[1,2]",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "如：[1,2]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/batchInActive": {
+      "post": {
+        "tags": [
+          "系统设置"
+        ],
+        "summary": "用户管理-批量休眠用户",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "用户id",
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "description": "如：[1,2]",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "如：[1,2]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/public/system/login": {
+      "post": {
+        "tags": [
+          "登录注册相关"
+        ],
+        "summary": "登录",
+        "description": "测试账号如下：\n    \"账号\": \"17348547593\",\n    \"密码\": \"a123456\"\n传入password到后端的时候记得：求下md5(32位)后，再往前面加五个随机字符",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "loginType": {
+                  "type": "number",
+                  "description": "直接写入1；1用户密码登录；2手机号登录（预留后续用）"
+                },
+                "mobileNumber": {
+                  "type": "string",
+                  "description": "登录手机号"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "密码。随机五位字符+md5(用户输入的密码)"
+                }
+              },
+              "required": [
+                "loginType",
+                "mobileNumber",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "authorityId": {
+                          "type": "number",
+                          "description": "角色id"
+                        },
+                        "accountType": {
+                          "type": "number",
+                          "description": "账号类型；1主要账号；2子账号；"
+                        },
+                        "mobileNumber": {
+                          "type": "string",
+                          "description": "手机号"
+                        },
+                        "userName": {
+                          "type": "string",
+                          "description": "用户名，用这个显示在用户头像旁边；"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "邮箱"
+                        },
+                        "headerImg": {
+                          "type": "string",
+                          "description": "头像链接"
+                        }
+                      },
+                      "required": [
+                        "authorityId",
+                        "accountType",
+                        "mobileNumber",
+                        "userName",
+                        "email",
+                        "headerImg"
+                      ]
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "token "
+                    },
+                    "expiresAt": {
+                      "type": "number",
+                      "description": "token过期时间"
+                    }
+                  },
+                  "required": [
+                    "user",
+                    "token",
+                    "expiresAt"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/create": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "创建客户",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "customerName"
+              ],
+              "properties": {
+                "customerName": {
+                  "type": "string",
+                  "description": "客户名称"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "速记码"
+                },
+                "customerType": {
+                  "type": "number",
+                  "description": "客户类型"
+                },
+                "settlementType": {
+                  "type": "number",
+                  "description": "结算方式"
+                },
+                "contractLife": {
+                  "type": "string",
+                  "description": "合同截止日期"
+                },
+                "province": {
+                  "type": "string",
+                  "description": "省"
+                },
+                "city": {
+                  "type": "string",
+                  "description": "市"
+                },
+                "district": {
+                  "type": "string",
+                  "description": "区"
+                },
+                "detailAddress": {
+                  "type": "string",
+                  "description": "地址"
+                },
+                "contact": {
+                  "type": "string",
+                  "description": "联系人"
+                },
+                "telephone": {
+                  "type": "string",
+                  "description": "联系电话"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                }
+              },
+              "$$ref": "#/definitions/CustomerReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/commodity/create": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "创建货物",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "commodityName"
+              ],
+              "properties": {
+                "commodityName": {
+                  "type": "string",
+                  "description": "客户名称"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "速记码"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                }
+              },
+              "$$ref": "#/definitions/CommodityReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/fee/create": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "创建费用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "feeName"
+              ],
+              "properties": {
+                "feeName": {
+                  "type": "string",
+                  "description": "费用名称"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "速记码"
+                },
+                "defaultFees": {
+                  "type": "number",
+                  "description": "默认金额"
+                },
+                "isDefaultGenerate": {
+                  "type": "boolean",
+                  "description": "1是，0否"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                }
+              },
+              "$$ref": "#/definitions/FeeReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/pageList": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "客户列表分页查询",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "current",
+                "size",
+                "data"
+              ],
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "客户名称/速记码"
+                    },
+                    "creator": {
+                      "type": "string",
+                      "description": "创建人"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "状态"
+                    },
+                    "startArrivingTime": {
+                      "example": "2019-10-11 16:10:12",
+                      "type": "string",
+                      "description": "开始时间"
+                    },
+                    "endArrivingTime": {
+                      "example": "2019-10-11 16:10:12",
+                      "type": "string",
+                      "description": "结束时间"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "客户id"
+                          },
+                          "createdTime": {
+                            "type": "string",
+                            "description": "创建时间"
+                          },
+                          "updatedTime": {
+                            "type": "string",
+                            "description": "更新时间"
+                          },
+                          "customerName": {
+                            "type": "string",
+                            "description": "客户名称"
+                          },
+                          "creator": {
+                            "type": "string",
+                            "description": "创建者"
+                          },
+                          "userMainId": {
+                            "type": "string",
+                            "description": "厂商"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "速记码"
+                          },
+                          "customerType": {
+                            "type": "number",
+                            "description": "客户类型"
+                          },
+                          "settlementType": {
+                            "type": "number",
+                            "description": "结算方式"
+                          },
+                          "province": {
+                            "type": "string",
+                            "description": "省"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "市"
+                          },
+                          "district": {
+                            "type": "string",
+                            "description": "区"
+                          },
+                          "detailAddress": {
+                            "type": "string",
+                            "description": "详细地址"
+                          },
+                          "contact": {
+                            "type": "string",
+                            "description": "联系人"
+                          },
+                          "telephone": {
+                            "type": "string",
+                            "description": "联系电话"
+                          },
+                          "remark": {
+                            "type": "string",
+                            "description": "备注"
+                          },
+                          "isActive": {
+                            "type": "boolean",
+                            "description": "状态"
+                          }
+                        },
+                        "$$ref": "#/definitions/Customer"
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "required": [
+                        "pages",
+                        "current",
+                        "size",
+                        "total"
+                      ],
+                      "properties": {
+                        "pages": {
+                          "type": "number"
+                        },
+                        "current": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "$$ref": "#/definitions/pageInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/batchActive": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "客户批量启用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "id列表"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/batchInactive": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "客户批量禁用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "description": "id列表"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/update": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "更新客户",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "客户id"
+                },
+                "customerName": {
+                  "type": "string",
+                  "description": "客户名称"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "速记码"
+                },
+                "customerType": {
+                  "type": "number",
+                  "description": "客户类型"
+                },
+                "settlementType": {
+                  "type": "number",
+                  "description": "结算方式"
+                },
+                "province": {
+                  "type": "string",
+                  "description": "省"
+                },
+                "city": {
+                  "type": "string",
+                  "description": "市"
+                },
+                "district": {
+                  "type": "string",
+                  "description": "区"
+                },
+                "detailAddress": {
+                  "type": "string",
+                  "description": "详细地址"
+                },
+                "contact": {
+                  "type": "string",
+                  "description": "联系人"
+                },
+                "telephone": {
+                  "type": "string",
+                  "description": "联系电话"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                }
+              },
+              "$$ref": "#/definitions/CustomerUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/commodity/update": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "更新货物",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "货物id"
+                },
+                "commodityName": {
+                  "type": "string",
+                  "description": "客户名称"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "速记码"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                }
+              },
+              "$$ref": "#/definitions/CommodityUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/fee/update": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "更新费用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "费用id"
+                },
+                "feeName": {
+                  "type": "string",
+                  "description": "费用名称"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "速记码"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                },
+                "defaultFees": {
+                  "type": "number",
+                  "description": "默认金额"
+                },
+                "isDefaultGenerate": {
+                  "type": "boolean",
+                  "description": "1是，0否"
+                }
+              },
+              "$$ref": "#/definitions/FeeUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/detail": {
+      "get": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "查询指定id客户",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "customer id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "客户id"
+                    },
+                    "createdTime": {
+                      "type": "string",
+                      "description": "创建时间"
+                    },
+                    "updatedTime": {
+                      "type": "string",
+                      "description": "更新时间"
+                    },
+                    "customerName": {
+                      "type": "string",
+                      "description": "客户名称"
+                    },
+                    "creator": {
+                      "type": "string",
+                      "description": "创建者"
+                    },
+                    "userMainId": {
+                      "type": "string",
+                      "description": "厂商"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "速记码"
+                    },
+                    "customerType": {
+                      "type": "number",
+                      "description": "客户类型"
+                    },
+                    "settlementType": {
+                      "type": "number",
+                      "description": "结算方式"
+                    },
+                    "province": {
+                      "type": "string",
+                      "description": "省"
+                    },
+                    "city": {
+                      "type": "string",
+                      "description": "市"
+                    },
+                    "district": {
+                      "type": "string",
+                      "description": "区"
+                    },
+                    "detailAddress": {
+                      "type": "string",
+                      "description": "详细地址"
+                    },
+                    "contact": {
+                      "type": "string",
+                      "description": "联系人"
+                    },
+                    "telephone": {
+                      "type": "string",
+                      "description": "联系电话"
+                    },
+                    "remark": {
+                      "type": "string",
+                      "description": "备注"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "状态"
+                    }
+                  },
+                  "$$ref": "#/definitions/Customer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/commodity/detail": {
+      "get": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "查询指定id货物",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "commodity id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "货物id"
+                    },
+                    "createdTime": {
+                      "type": "string",
+                      "description": "创建时间"
+                    },
+                    "updatedTime": {
+                      "type": "string",
+                      "description": "更新时间"
+                    },
+                    "commodityName": {
+                      "type": "string",
+                      "description": "客户名称"
+                    },
+                    "creator": {
+                      "type": "string",
+                      "description": "创建者"
+                    },
+                    "userMainId": {
+                      "type": "string",
+                      "description": "厂商"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "速记码"
+                    },
+                    "remark": {
+                      "type": "string",
+                      "description": "备注"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "状态"
+                    }
+                  },
+                  "$$ref": "#/definitions/Commodity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/fee/detail": {
+      "get": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "查询指定id费用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "fee id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "费用id"
+                    },
+                    "createdTime": {
+                      "type": "string",
+                      "description": "创建时间"
+                    },
+                    "updatedTime": {
+                      "type": "string",
+                      "description": "更新时间"
+                    },
+                    "feeName": {
+                      "type": "string",
+                      "description": "费用名称"
+                    },
+                    "creator": {
+                      "type": "string",
+                      "description": "创建者"
+                    },
+                    "userMainId": {
+                      "type": "string",
+                      "description": "厂商"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "速记码"
+                    },
+                    "remark": {
+                      "type": "string",
+                      "description": "备注"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "状态"
+                    },
+                    "defaultFees": {
+                      "type": "number",
+                      "description": "默认金额"
+                    },
+                    "isDefaultGenerate": {
+                      "type": "boolean",
+                      "description": "1是，0否"
+                    }
+                  },
+                  "$$ref": "#/definitions/Fee"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/customer/list": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "查询用户id和name",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "current",
+                "size",
+                "data"
+              ],
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "客户名称/速记码"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "required": [
+                        "pages",
+                        "current",
+                        "size",
+                        "total"
+                      ],
+                      "properties": {
+                        "pages": {
+                          "type": "number"
+                        },
+                        "current": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "$$ref": "#/definitions/pageInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/commodity/pageList": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "货物列表分页查询",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "current",
+                "size",
+                "data"
+              ],
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "货物名称"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "速记码"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "状态"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "货物id"
+                          },
+                          "createdTime": {
+                            "type": "string",
+                            "description": "创建时间"
+                          },
+                          "updatedTime": {
+                            "type": "string",
+                            "description": "更新时间"
+                          },
+                          "commodityName": {
+                            "type": "string",
+                            "description": "客户名称"
+                          },
+                          "creator": {
+                            "type": "string",
+                            "description": "创建者"
+                          },
+                          "userMainId": {
+                            "type": "string",
+                            "description": "厂商"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "速记码"
+                          },
+                          "remark": {
+                            "type": "string",
+                            "description": "备注"
+                          },
+                          "isActive": {
+                            "type": "boolean",
+                            "description": "状态"
+                          }
+                        },
+                        "$$ref": "#/definitions/Commodity"
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "required": [
+                        "pages",
+                        "current",
+                        "size",
+                        "total"
+                      ],
+                      "properties": {
+                        "pages": {
+                          "type": "number"
+                        },
+                        "current": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "$$ref": "#/definitions/pageInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/commodity/batchActive": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "货物批量启用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "type": "array",
+              "description": "id列表",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/commodity/batchInactive": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "货物批量禁用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "type": "array",
+              "description": "id列表",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/fee/pageList": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "费用列表分页查询",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "current",
+                "size",
+                "data"
+              ],
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "费用名称"
+                    },
+                    "code": {
+                      "type": "string",
+                      "description": "速记码"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "状态"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "费用id"
+                          },
+                          "createdTime": {
+                            "type": "string",
+                            "description": "创建时间"
+                          },
+                          "updatedTime": {
+                            "type": "string",
+                            "description": "更新时间"
+                          },
+                          "feeName": {
+                            "type": "string",
+                            "description": "费用名称"
+                          },
+                          "creator": {
+                            "type": "string",
+                            "description": "创建者"
+                          },
+                          "userMainId": {
+                            "type": "string",
+                            "description": "厂商"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "速记码"
+                          },
+                          "remark": {
+                            "type": "string",
+                            "description": "备注"
+                          },
+                          "isActive": {
+                            "type": "boolean",
+                            "description": "状态"
+                          },
+                          "defaultFees": {
+                            "type": "number",
+                            "description": "默认金额"
+                          },
+                          "isDefaultGenerate": {
+                            "type": "boolean",
+                            "description": "1是，0否"
+                          }
+                        },
+                        "$$ref": "#/definitions/Fee"
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "required": [
+                        "pages",
+                        "current",
+                        "size",
+                        "total"
+                      ],
+                      "properties": {
+                        "pages": {
+                          "type": "number"
+                        },
+                        "current": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "$$ref": "#/definitions/pageInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/fee/batchActive": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "费用批量启用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "type": "array",
+              "description": "id列表",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basicInfo/fee/batchInactive": {
+      "post": {
+        "tags": [
+          "基础资料"
+        ],
+        "summary": "费用批量禁用",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "description": "id列表",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/quarantineCredentials/create": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "上传检疫图片",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "orderNo",
+                "quarantineCredentials"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "入场信息id"
+                },
+                "orderNo": {
+                  "type": "string",
+                  "description": "订单号"
+                },
+                "quarantineCredentials": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "检疫照片oss链接列表"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/pageList": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "入场信息分页查询",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "current",
+                "size",
+                "data"
+              ],
+              "properties": {
+                "current": {
+                  "type": "number"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "startArrivingTime": {
+                      "type": "string",
+                      "description": "最早到厂时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "description": "最迟到厂时间"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "description": "柜号"
+                    },
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "orderType": {
+                      "type": "number",
+                      "description": "订单类型（1进口；2出口）"
+                    },
+                    "billStatus": {
+                      "type": "boolean",
+                      "description": "费用状态，默认0；0未缴费；1已缴费；"
+                    },
+                    "releaseStatus": {
+                      "type": "boolean",
+                      "description": "放行状态，默认O；0未放行；1已放行；"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "description": "司机姓名"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "description": "车牌号"
+                    },
+                    "creator": {
+                      "type": "string",
+                      "description": "创建者"
+                    },
+                    "processingStatus": {
+                      "type": "boolean",
+                      "description": "处理状态，默认0；0未完成；1已完成；"
+                    },
+                    "businessType": {
+                      "type": "number",
+                      "description": "业务类型（1蒸汽热处理；2气调热处理）"
+                    }
+                  },
+                  "$$ref": "#/definitions/EntryInfoPageListReq"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number",
+                            "description": "订单 ID"
+                          },
+                          "orderNo": {
+                            "type": "string",
+                            "description": "订单编号（具有唯一性）"
+                          },
+                          "userMainId": {
+                            "type": "number",
+                            "description": "订单归属人（公司的总账号ID）"
+                          },
+                          "businessNo": {
+                            "type": "string",
+                            "description": "订舱号"
+                          },
+                          "containerNo": {
+                            "type": "string",
+                            "description": "柜号"
+                          },
+                          "sealNo": {
+                            "type": "string",
+                            "description": "封条号"
+                          },
+                          "customerId": {
+                            "type": "number",
+                            "description": "客户ID"
+                          },
+                          "customerName": {
+                            "type": "string",
+                            "description": "客户名称"
+                          },
+                          "businessType": {
+                            "type": "number",
+                            "description": "业务类型（1蒸汽热处理；2气调热处理）"
+                          },
+                          "orderType": {
+                            "type": "number",
+                            "description": "订单类型（1进口；2出口）"
+                          },
+                          "commodityId": {
+                            "type": "number",
+                            "description": "货物ID"
+                          },
+                          "commodityName": {
+                            "type": "string",
+                            "description": "货物名称"
+                          },
+                          "containerPosition": {
+                            "type": "number",
+                            "description": "堆位号"
+                          },
+                          "arrivingTime": {
+                            "type": "string",
+                            "description": "到厂时间"
+                          },
+                          "leaveTime": {
+                            "type": "string",
+                            "description": "出厂时间"
+                          },
+                          "containerTypeId": {
+                            "type": "number",
+                            "description": "柜型（1、20GP 2、40GP 3、40HQ 4、45HQ）"
+                          },
+                          "sreeStorage": {
+                            "type": "string",
+                            "description": "仓期（免堆存期）"
+                          },
+                          "checkStatus": {
+                            "type": "boolean",
+                            "description": "查验状态，默认1；0未查验；1已查验；"
+                          },
+                          "billStatus": {
+                            "type": "boolean",
+                            "description": "费用状态，默认0；0未缴费；1已缴费；"
+                          },
+                          "processingStatus": {
+                            "type": "boolean",
+                            "description": "处理状态，默认0；0未完成；1已完成；"
+                          },
+                          "releaseStatus": {
+                            "type": "boolean",
+                            "description": "放行状态，默认O；0未放行；1已放行；"
+                          },
+                          "highestTemperatures": {
+                            "type": "number",
+                            "description": "最高温度"
+                          },
+                          "driverName": {
+                            "type": "string",
+                            "description": "司机姓名"
+                          },
+                          "tractorNo": {
+                            "type": "string",
+                            "description": "车牌号"
+                          },
+                          "driverTel": {
+                            "type": "string",
+                            "description": "司机电话号码"
+                          },
+                          "vessel": {
+                            "type": "number",
+                            "description": "船公司,1601-1607:马士基、长荣、ONE、中远、地中海、达飞、其它"
+                          },
+                          "voyage": {
+                            "type": "string",
+                            "description": "航次"
+                          },
+                          "remark": {
+                            "type": "string",
+                            "description": "备注"
+                          },
+                          "projectTechnology": {
+                            "type": "string",
+                            "description": "项目技术"
+                          },
+                          "isActive": {
+                            "type": "boolean",
+                            "description": "默认1；删除后置为0；"
+                          },
+                          "orderCredentials": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "入场信息附件照片"
+                          },
+                          "quarantineCredentials": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "检疫照片"
+                          },
+                          "createdTime": {
+                            "type": "string",
+                            "description": "创建时间"
+                          },
+                          "updatedTime": {
+                            "type": "string",
+                            "description": "更新时间"
+                          },
+                          "customsDeclarationNum": {
+                            "type": "string",
+                            "description": "报关单号"
+                          }
+                        },
+                        "$$ref": "#/definitions/ContainerEntryInfo"
+                      }
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "required": [
+                        "pages",
+                        "current",
+                        "size",
+                        "total"
+                      ],
+                      "properties": {
+                        "pages": {
+                          "type": "number"
+                        },
+                        "current": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "$$ref": "#/definitions/pageInfo"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/release": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "出场放行",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id",
+                "driverName",
+                "tractorNo",
+                "driverTel"
+              ],
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "需要放行的ID"
+                },
+                "driverName": {
+                  "type": "string",
+                  "description": "司机姓名"
+                },
+                "tractorNo": {
+                  "type": "string",
+                  "description": "车牌号"
+                },
+                "driverTel": {
+                  "type": "string",
+                  "description": "司机电话号码"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/batchInactive": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "批量作废",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "description": "id列表",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/create": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "新增入场信息",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "businessNo": {
+                  "type": "string",
+                  "description": "订舱号"
+                },
+                "containerNo": {
+                  "type": "string",
+                  "description": "柜号"
+                },
+                "sealNo": {
+                  "type": "string",
+                  "description": "封条号"
+                },
+                "customerId": {
+                  "type": "number",
+                  "description": "客户ID"
+                },
+                "businessType": {
+                  "type": "number",
+                  "description": "业务类型（1蒸汽热处理；2气调热处理）"
+                },
+                "orderType": {
+                  "type": "number",
+                  "description": "订单类型（1进口；2出口）"
+                },
+                "commodityId": {
+                  "type": "number",
+                  "description": "货物ID"
+                },
+                "containerPosition": {
+                  "type": "number",
+                  "description": "堆位号"
+                },
+                "arrivingTime": {
+                  "type": "string",
+                  "description": "入场时间"
+                },
+                "containerTypeId": {
+                  "type": "number",
+                  "description": "柜型（1、20GP 2、40GP 3、40HQ 4、45HQ）"
+                },
+                "sreeStorage": {
+                  "type": "string",
+                  "description": "仓期（免堆存期）"
+                },
+                "checkStatus": {
+                  "type": "boolean",
+                  "description": "查验状态，默认1；0未查验；1已查验"
+                },
+                "vessel": {
+                  "type": "number",
+                  "description": "船公司,1601-1607:马士基、长荣、ONE、中远、地中海、达飞、其它"
+                },
+                "voyage": {
+                  "type": "string",
+                  "description": "航次"
+                },
+                "orderCredentials": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "入场信息附件照片"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                },
+                "customsDeclarationNum": {
+                  "type": "string",
+                  "description": "报关单号"
+                }
+              },
+              "required": [
+                "containerNo",
+                "customerId",
+                "businessType",
+                "commodityId",
+                "arrivingTime"
+              ],
+              "$$ref": "#/definitions/ContainerReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/update": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "更新入场信息",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "required": [
+                "id",
+                "customsDeclarationNum"
+              ],
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "入场信息ID"
+                },
+                "orderNo": {
+                  "type": "string",
+                  "description": "订单号"
+                },
+                "containerNo": {
+                  "type": "string",
+                  "description": "柜号"
+                },
+                "customerId": {
+                  "type": "number",
+                  "description": "客户ID"
+                },
+                "businessType": {
+                  "type": "number",
+                  "description": "业务类型（1蒸汽热处理；2气调热处理）"
+                },
+                "commodityId": {
+                  "type": "number",
+                  "description": "货物ID"
+                },
+                "containerPosition": {
+                  "type": "number",
+                  "description": "堆位号"
+                },
+                "arrivingTime": {
+                  "type": "string",
+                  "description": "进场时间"
+                },
+                "containerTypeId": {
+                  "type": "number",
+                  "description": "柜型（1、20GP 2、40GP 3、40HQ 4、45HQ）"
+                },
+                "sreeStorage": {
+                  "type": "string",
+                  "description": "仓期（免堆存期）"
+                },
+                "orderType": {
+                  "type": "number",
+                  "description": "订单类型（1进口；2出口）"
+                },
+                "checkStatus": {
+                  "type": "boolean",
+                  "description": "查验状态；false未查验；true已查验"
+                },
+                "billStatus": {
+                  "type": "boolean",
+                  "description": "费用状态，默认0；0未缴费；1已缴费；"
+                },
+                "processingStatus": {
+                  "type": "boolean",
+                  "description": "处理状态，默认0；0未完成；1已完成；"
+                },
+                "vessel": {
+                  "type": "number",
+                  "description": "船公司,1601-1607:马士基、长荣、ONE、中远、地中海、达飞、其它"
+                },
+                "voyage": {
+                  "type": "string",
+                  "description": "航次"
+                },
+                "businessNo": {
+                  "type": "string",
+                  "description": "订舱号"
+                },
+                "sealNo": {
+                  "type": "string",
+                  "description": "封条号"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注"
+                },
+                "projectTechnology": {
+                  "type": "string",
+                  "description": "项目技术"
+                },
+                "highestTemperatures": {
+                  "type": "number",
+                  "description": "最高温度"
+                },
+                "orderCredentials": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "入场信息附件照片"
+                },
+                "quarantineCredentials": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "检疫照片"
+                },
+                "customsDeclarationNum": {
+                  "type": "string",
+                  "description": "报关单号"
+                }
+              },
+              "$$ref": "#/definitions/ContainerEntryInfoUpdateReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/detail": {
+      "get": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "查询指定id入场信息",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "entry info id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "description": "订单 ID"
+                    },
+                    "orderNo": {
+                      "type": "string",
+                      "description": "订单编号（具有唯一性）"
+                    },
+                    "userMainId": {
+                      "type": "number",
+                      "description": "订单归属人（公司的总账号ID）"
+                    },
+                    "businessNo": {
+                      "type": "string",
+                      "description": "订舱号"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "description": "柜号"
+                    },
+                    "sealNo": {
+                      "type": "string",
+                      "description": "封条号"
+                    },
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "customerName": {
+                      "type": "string",
+                      "description": "客户名称"
+                    },
+                    "businessType": {
+                      "type": "number",
+                      "description": "业务类型（1蒸汽热处理；2气调热处理）"
+                    },
+                    "orderType": {
+                      "type": "number",
+                      "description": "订单类型（1进口；2出口）"
+                    },
+                    "commodityId": {
+                      "type": "number",
+                      "description": "货物ID"
+                    },
+                    "commodityName": {
+                      "type": "string",
+                      "description": "货物名称"
+                    },
+                    "containerPosition": {
+                      "type": "number",
+                      "description": "堆位号"
+                    },
+                    "arrivingTime": {
+                      "type": "string",
+                      "description": "到厂时间"
+                    },
+                    "leaveTime": {
+                      "type": "string",
+                      "description": "出厂时间"
+                    },
+                    "containerTypeId": {
+                      "type": "number",
+                      "description": "柜型（1、20GP 2、40GP 3、40HQ 4、45HQ）"
+                    },
+                    "sreeStorage": {
+                      "type": "string",
+                      "description": "仓期（免堆存期）"
+                    },
+                    "checkStatus": {
+                      "type": "boolean",
+                      "description": "查验状态，默认1；0未查验；1已查验；"
+                    },
+                    "billStatus": {
+                      "type": "boolean",
+                      "description": "费用状态，默认0；0未缴费；1已缴费；"
+                    },
+                    "processingStatus": {
+                      "type": "boolean",
+                      "description": "处理状态，默认0；0未完成；1已完成；"
+                    },
+                    "releaseStatus": {
+                      "type": "boolean",
+                      "description": "放行状态，默认O；0未放行；1已放行；"
+                    },
+                    "highestTemperatures": {
+                      "type": "number",
+                      "description": "最高温度"
+                    },
+                    "driverName": {
+                      "type": "string",
+                      "description": "司机姓名"
+                    },
+                    "tractorNo": {
+                      "type": "string",
+                      "description": "车牌号"
+                    },
+                    "driverTel": {
+                      "type": "string",
+                      "description": "司机电话号码"
+                    },
+                    "vessel": {
+                      "type": "number",
+                      "description": "船公司,1601-1607:马士基、长荣、ONE、中远、地中海、达飞、其它"
+                    },
+                    "voyage": {
+                      "type": "string",
+                      "description": "航次"
+                    },
+                    "remark": {
+                      "type": "string",
+                      "description": "备注"
+                    },
+                    "projectTechnology": {
+                      "type": "string",
+                      "description": "项目技术"
+                    },
+                    "isActive": {
+                      "type": "boolean",
+                      "description": "默认1；删除后置为0；"
+                    },
+                    "orderCredentials": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "入场信息附件照片"
+                    },
+                    "quarantineCredentials": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "检疫照片"
+                    },
+                    "createdTime": {
+                      "type": "string",
+                      "description": "创建时间"
+                    },
+                    "updatedTime": {
+                      "type": "string",
+                      "description": "更新时间"
+                    },
+                    "customsDeclarationNum": {
+                      "type": "string",
+                      "description": "报关单号"
+                    }
+                  },
+                  "$$ref": "#/definitions/ContainerEntryInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/reportInfo": {
+      "get": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "查询指定id报告信息",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "entry info id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "disposalCompany": {
+                      "type": "string",
+                      "description": "处理单位：堆场公司抬头"
+                    },
+                    "documentNumber": {
+                      "type": "string",
+                      "description": "处理书编号：委托单位：订单编号"
+                    },
+                    "entrustingParty": {
+                      "type": "string",
+                      "description": "委托单位：客户名称"
+                    },
+                    "processingPlace": {
+                      "type": "string",
+                      "description": "处理实施地点"
+                    },
+                    "specification": {
+                      "type": "integer",
+                      "description": "规格"
+                    },
+                    "containerNumber": {
+                      "type": "string",
+                      "description": "集装箱号"
+                    },
+                    "descriptionOfGoods": {
+                      "type": "string",
+                      "description": "品名：货物名称"
+                    },
+                    "paintingPlaceOfOrigin": {
+                      "type": "string",
+                      "description": "产地"
+                    },
+                    "shipOwningCompany": {
+                      "type": "integer",
+                      "description": "船公司"
+                    },
+                    "voyage": {
+                      "type": "string",
+                      "description": "航次"
+                    },
+                    "placeOfDeparture": {
+                      "type": "string",
+                      "description": "启运地"
+                    },
+                    "portOfDestination": {
+                      "type": "string",
+                      "description": "到达口岸"
+                    },
+                    "meansOfConveyanceBy": {
+                      "type": "string",
+                      "description": "运输工具"
+                    },
+                    "customsDeclarationNum": {
+                      "type": "string",
+                      "description": "报关单号"
+                    }
+                  },
+                  "$$ref": "#/definitions/ReportInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order-center/sender/order/detail1": {
+      "get": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "测试",
+        "description": "",
+        "parameters": [
+          {
+            "name": "name1",
+            "in": "query",
+            "required": true,
+            "description": "",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/container/entryInfo/reverseProcessingStatus": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "熏蒸状态反确认",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "description": "id列表",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/confirmProcessingStatus": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "熏蒸状态确认",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "description": "id列表",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/fee/list": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "订单费用列表查询",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "订单号",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "关联费用id"
+                          },
+                          "orderNo": {
+                            "type": "string",
+                            "description": "订单编号"
+                          },
+                          "feesId": {
+                            "type": "integer",
+                            "description": "费用名称id"
+                          },
+                          "feesName": {
+                            "type": "string",
+                            "description": "费用名称"
+                          },
+                          "amount": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "费用金额"
+                          },
+                          "isVerification": {
+                            "type": "integer",
+                            "description": "是否核销；0否1是；默认0"
+                          },
+                          "creator": {
+                            "type": "string",
+                            "description": "费用添加人"
+                          },
+                          "feeVerificationPerson": {
+                            "type": "string",
+                            "description": "费用核销人"
+                          },
+                          "verificationRemark": {
+                            "type": "string",
+                            "description": "核销备注"
+                          },
+                          "createdTime": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "创建时间"
+                          },
+                          "updatedTime": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "更新时间"
+                          },
+                          "feeCredentials": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "费用图片凭证URL列表（费用照片OSS链接)"
+                          }
+                        },
+                        "$$ref": "#/definitions/ContainerFee"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/fee/batchUpdate": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "订单费用批量更新",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "orderNo",
+            "in": "query",
+            "required": true,
+            "description": "订单号",
+            "type": "string"
+          },
+          {
+            "name": "root",
+            "in": "body",
+            "description": "订单费用列表",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "关联费用id"
+                  },
+                  "orderNo": {
+                    "type": "string",
+                    "description": "订单编号"
+                  },
+                  "feesId": {
+                    "type": "integer",
+                    "description": "费用名称id"
+                  },
+                  "feesName": {
+                    "type": "string",
+                    "description": "费用名称"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "format": "float",
+                    "description": "费用金额"
+                  },
+                  "isVerification": {
+                    "type": "integer",
+                    "description": "是否核销；0否1是；默认0"
+                  },
+                  "creator": {
+                    "type": "string",
+                    "description": "费用添加人"
+                  },
+                  "feeVerificationPerson": {
+                    "type": "string",
+                    "description": "费用核销人"
+                  },
+                  "verificationRemark": {
+                    "type": "string",
+                    "description": "核销备注"
+                  },
+                  "createdTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "创建时间"
+                  },
+                  "updatedTime": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "更新时间"
+                  },
+                  "feeCredentials": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "费用图片凭证URL列表（费用照片OSS链接)"
+                  }
+                },
+                "$$ref": "#/definitions/ContainerFee"
+              },
+              "description": "订单费用列表"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "list",
+                    "pageInfo"
+                  ],
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "关联费用id"
+                          },
+                          "orderNo": {
+                            "type": "string",
+                            "description": "订单编号"
+                          },
+                          "feesId": {
+                            "type": "integer",
+                            "description": "费用名称id"
+                          },
+                          "feesName": {
+                            "type": "string",
+                            "description": "费用名称"
+                          },
+                          "amount": {
+                            "type": "number",
+                            "format": "float",
+                            "description": "费用金额"
+                          },
+                          "isVerification": {
+                            "type": "integer",
+                            "description": "是否核销；0否1是；默认0"
+                          },
+                          "creator": {
+                            "type": "string",
+                            "description": "费用添加人"
+                          },
+                          "feeVerificationPerson": {
+                            "type": "string",
+                            "description": "费用核销人"
+                          },
+                          "verificationRemark": {
+                            "type": "string",
+                            "description": "核销备注"
+                          },
+                          "createdTime": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "创建时间"
+                          },
+                          "updatedTime": {
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "更新时间"
+                          },
+                          "feeCredentials": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "费用图片凭证URL列表（费用照片OSS链接)"
+                          }
+                        },
+                        "$$ref": "#/definitions/ContainerFee"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/reverseBillStatus": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "费用状态反确认",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "description": "id列表",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/container/entryInfo/confirmBillStatus": {
+      "post": {
+        "tags": [
+          "集装箱管理"
+        ],
+        "summary": "费用状态确认",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "description": "id列表",
+            "schema": {
+              "description": "id列表",
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/updateOrderFieldByUserId": {
+      "post": {
+        "tags": [
+          "表格字段自定义"
+        ],
+        "summary": "更新表格字段",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "field": {
+                        "type": "string"
+                      },
+                      "fieldName": {
+                        "type": "string"
+                      },
+                      "rankNumber": {
+                        "type": "number"
+                      },
+                      "isShow": {
+                        "type": "boolean"
+                      },
+                      "width": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "field",
+                      "fieldName",
+                      "rankNumber",
+                      "isShow",
+                      "width"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/getUserTableField": {
+      "post": {
+        "tags": [
+          "表格字段自定义"
+        ],
+        "summary": "获取用户表格字段",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "number",
+                  "description": "1集装箱管理；2应收对账单"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "createdTime": {
+                        "type": "string"
+                      },
+                      "updatedTime": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "number"
+                      },
+                      "userId": {
+                        "type": "number"
+                      },
+                      "field": {
+                        "type": "string",
+                        "description": "字段"
+                      },
+                      "fieldName": {
+                        "type": "string",
+                        "description": "字段名称"
+                      },
+                      "rankNumber": {
+                        "type": "number",
+                        "description": "排序"
+                      },
+                      "isShow": {
+                        "type": "boolean",
+                        "description": "是否展示 "
+                      },
+                      "width": {
+                        "type": "string",
+                        "description": "宽度"
+                      },
+                      "isCommon": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "createdTime",
+                      "updatedTime",
+                      "type",
+                      "userId",
+                      "field",
+                      "fieldName",
+                      "rankNumber",
+                      "isShow",
+                      "width",
+                      "isCommon"
+                    ]
+                  }
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/system/resetUserTableField": {
+      "post": {
+        "tags": [
+          "表格字段自定义"
+        ],
+        "summary": "重置表格字段",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "number",
+                  "description": "1集装箱管理；2应收对账单"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/basefunc/metadata/dictionary": {
+      "get": {
+        "tags": [
+          "basefunc"
+        ],
+        "summary": "get dictionary",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "specCode",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "number"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/basefunc/oss/getTemporaryCredential": {
+      "get": {
+        "tags": [
+          "basefunc"
+        ],
+        "summary": "获取阿里云sts临时凭证",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "code",
+                "msg",
+                "data"
+              ],
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "region",
+                    "stsToken",
+                    "accessKeyId",
+                    "accessKeySecret",
+                    "expiration"
+                  ],
+                  "properties": {
+                    "region": {
+                      "description": "存储区域",
+                      "type": "string"
+                    },
+                    "stsToken": {
+                      "description": "临时凭证",
+                      "type": "string"
+                    },
+                    "accessKeyId": {
+                      "description": "临时key",
+                      "type": "string"
+                    },
+                    "accessKeySecret": {
+                      "description": "临时密匙",
+                      "type": "string"
+                    },
+                    "expiration": {
+                      "example": "2023-11-20 22:53:52 +0800 CST",
+                      "description": "过期时间,格式：2023-11-20 22:53:52 +0800 CST",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/getFeesCheckInfo": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "财务对账单-应收对账单列表",
+        "description": "这个接口包含了表头和订单信息。\n1、订单信息直接根据表头渲染就行，不需要你再做额外转换。比如 billStatus 我这边直接返回了为 已支付/未支付，不需要你再转换。其它的字典类型也是一样。\n2、检索条件，feeCheckStatus注意默认传入2，表示筛选所有。\n3、这个页面的  自定义， <span class=\"colour\" style=\"color:rgb(31, 31, 31)\">getUserTableField接口，</span>传入type=2.\n4、表格最下面一行是求和，某一列是否求和，根据字段：isShowSum来。可以参考运运通的 应收对账单\n5、已对账的那一行，字体变成红色。字段：feeCheckStatus=1",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "number"
+                },
+                "current": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "feeCheckStatus": {
+                      "type": "number",
+                      "description": "2全部；1已对账 0未对账。 默认传入2"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "description": "柜号"
+                    },
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "description": "开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "description": "结束时间"
+                    }
+                  },
+                  "required": [
+                    "feeCheckStatus",
+                    "startArrivingTime",
+                    "endArrivingTime"
+                  ]
+                }
+              },
+              "required": [
+                "size",
+                "current",
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderInfo": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "订单信息"
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "properties": {
+                        "current": {
+                          "type": "number"
+                        },
+                        "pages": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "current",
+                        "pages",
+                        "size",
+                        "total"
+                      ],
+                      "description": "分页信息"
+                    },
+                    "tableHeader": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "field": {
+                            "type": "string",
+                            "description": "字段"
+                          },
+                          "fieldName": {
+                            "type": "string",
+                            "description": "字段中文名"
+                          },
+                          "width": {
+                            "type": "string",
+                            "description": "宽度"
+                          },
+                          "isShowSum": {
+                            "type": "boolean",
+                            "description": "是否求和。如果为true，那么该列要进行求和"
+                          },
+                          "fieldColor": {
+                            "type": "string",
+                            "description": "该列的文字颜色"
+                          },
+                          "rankNumber": {
+                            "type": "number",
+                            "description": "排序"
+                          }
+                        },
+                        "required": [
+                          "field",
+                          "fieldName",
+                          "width",
+                          "isShowSum",
+                          "fieldColor",
+                          "rankNumber"
+                        ]
+                      },
+                      "description": "表头"
+                    }
+                  },
+                  "required": [
+                    "orderInfo",
+                    "pageInfo",
+                    "tableHeader"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/downloadFeesCheckExcel": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "财务对账单-下载应收对账单",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "excelType": {
+                  "type": "number",
+                  "description": "1表示导出全部；2表示按照客户分类导出"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "feeCheckStatus": {
+                      "type": "number",
+                      "description": "2全部；1已对账 0未对账。 默认传入2"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "description": "柜号"
+                    },
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "description": "开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "description": "结束时间"
+                    }
+                  },
+                  "required": [
+                    "feeCheckStatus",
+                    "startArrivingTime",
+                    "endArrivingTime"
+                  ]
+                }
+              },
+              "required": [
+                "excelType",
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/updateFeesCheckStatus": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "财务对账单-对账/反对账",
+        "description": "1、点击“对账”按钮的时候，弹窗界面和之前运运通弄成一样（可以在这个界面输入备注）。\n\n2、另外，这个原型里面，有个：“费用批量备注”按钮就不要了，多余了。",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "orderNo": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "订单列表"
+                },
+                "feeCheckStatus": {
+                  "type": "number",
+                  "description": "1已对账；0未对账；"
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "对账备注，在点击“已对账”时，可以写入备注，非必选。"
+                }
+              },
+              "required": [
+                "orderNo",
+                "feeCheckStatus"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/updateFeesVerificationStatus": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "财务核销-已核销/反核销",
+        "description": "核销和反核销，两个按钮接口。",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "列表 返回的id，注意传入int型list，格式为：[3,4,5,2]"
+                },
+                "feeVerifyStatus": {
+                  "type": "number",
+                  "description": "1核销；0反核销"
+                },
+                "verificationRemark": {
+                  "type": "string",
+                  "description": "核销备注，feeVerifyStatus=1时有效。"
+                }
+              },
+              "required": [
+                "id",
+                "feeVerifyStatus",
+                "verificationRemark"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {},
+                  "required": []
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/getFeesVerifyInfo": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "财务核销-获取列表",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "number"
+                },
+                "current": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "feeVerifyStatus": {
+                      "type": "number",
+                      "description": "2全部；1已核销 0未核销。 默认传入2"
+                    },
+                    "containerNo": {
+                      "type": "string",
+                      "description": "柜号"
+                    },
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "description": "开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "description": "结束时间"
+                    }
+                  },
+                  "required": [
+                    "feeVerifyStatus",
+                    "startArrivingTime",
+                    "endArrivingTime"
+                  ]
+                }
+              },
+              "required": [
+                "size",
+                "current",
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "orderInfo": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "订单信息"
+                    },
+                    "pageInfo": {
+                      "type": "object",
+                      "properties": {
+                        "current": {
+                          "type": "number"
+                        },
+                        "pages": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "current",
+                        "pages",
+                        "size",
+                        "total"
+                      ],
+                      "description": "分页信息"
+                    },
+                    "tableHeader": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "field": {
+                            "type": "string",
+                            "description": "字段"
+                          },
+                          "fieldName": {
+                            "type": "string",
+                            "description": "字段中文名"
+                          },
+                          "width": {
+                            "type": "string",
+                            "description": "宽度"
+                          },
+                          "isShowSum": {
+                            "type": "boolean",
+                            "description": "是否求和。如果为true，那么该列要进行求和"
+                          },
+                          "fieldColor": {
+                            "type": "string",
+                            "description": "该列的文字颜色"
+                          },
+                          "rankNumber": {
+                            "type": "number",
+                            "description": "排序"
+                          }
+                        },
+                        "required": [
+                          "field",
+                          "fieldName",
+                          "width",
+                          "isShowSum",
+                          "fieldColor",
+                          "rankNumber"
+                        ]
+                      },
+                      "description": "表头"
+                    }
+                  },
+                  "required": [
+                    "orderInfo",
+                    "pageInfo",
+                    "tableHeader"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/customerStatistics": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "集装箱统计-列表获取",
+        "description": "直接根据表头熏染就行。\n表格最下面一行是求和，某一列是否求和，根据字段：isShowSum来。可以参考运运通的 应收对账单",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "number"
+                },
+                "current": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "description": "开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "description": "结束时间"
+                    }
+                  },
+                  "required": [
+                    "startArrivingTime",
+                    "endArrivingTime"
+                  ]
+                }
+              },
+              "required": [
+                "size",
+                "current",
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "pageInfo": {
+                      "type": "object",
+                      "properties": {
+                        "current": {
+                          "type": "number"
+                        },
+                        "pages": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "current",
+                        "pages",
+                        "size",
+                        "total"
+                      ]
+                    },
+                    "statisticInfo": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "containerNum": {
+                            "type": "number"
+                          },
+                          "customerName": {
+                            "type": "string"
+                          },
+                          "totalPrice": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "containerNum",
+                          "customerName",
+                          "totalPrice"
+                        ]
+                      }
+                    },
+                    "tableHeader": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "field": {
+                            "type": "string",
+                            "description": "字段"
+                          },
+                          "fieldName": {
+                            "type": "string",
+                            "description": "字段中文名称"
+                          },
+                          "width": {
+                            "type": "string",
+                            "description": "宽度"
+                          },
+                          "isShowSum": {
+                            "type": "boolean",
+                            "description": "该列是否求和"
+                          },
+                          "fieldColor": {
+                            "type": "string",
+                            "description": "该列字体颜色"
+                          },
+                          "rankNumber": {
+                            "type": "number",
+                            "description": "排序"
+                          }
+                        },
+                        "required": [
+                          "field",
+                          "fieldName",
+                          "width",
+                          "isShowSum",
+                          "fieldColor",
+                          "rankNumber"
+                        ]
+                      },
+                      "description": "表头"
+                    }
+                  },
+                  "required": [
+                    "pageInfo",
+                    "statisticInfo",
+                    "tableHeader"
+                  ]
+                },
+                "msg": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "msg"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/hyxt/finance/exportCustomerStatisticsByExcel": {
+      "post": {
+        "tags": [
+          "数据统计"
+        ],
+        "summary": "集装箱统计-导出excel",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "root",
+            "in": "body",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "size": {
+                  "type": "number"
+                },
+                "current": {
+                  "type": "number"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "customerId": {
+                      "type": "number",
+                      "description": "客户ID"
+                    },
+                    "startArrivingTime": {
+                      "type": "string",
+                      "description": "开始时间"
+                    },
+                    "endArrivingTime": {
+                      "type": "string",
+                      "description": "结束时间"
+                    }
+                  },
+                  "required": [
+                    "startArrivingTime",
+                    "endArrivingTime"
+                  ]
+                }
+              },
+              "required": [
+                "size",
+                "current",
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
