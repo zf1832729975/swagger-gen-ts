@@ -1,0 +1,1212 @@
+{
+  "definitions": {
+    "AddLocationRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "string",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "string",
+          "description": "经度"
+        }
+      },
+      "title": "AddLocationRequest"
+    },
+    "AddPhotoReq": {
+      "type": "object",
+      "properties": {
+        "fileUrls": {
+          "type": "array",
+          "description": "照片",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "AddPhotoReq"
+    },
+    "BaseBlacklistReq": {
+      "type": "object",
+      "properties": {
+        "targetUserId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "目标用户ID"
+        }
+      },
+      "title": "BaseBlacklistReq"
+    },
+    "BaseLimitReq": {
+      "type": "object",
+      "properties": {
+        "targetUserId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "目标用户ID"
+        }
+      },
+      "title": "BaseLimitReq"
+    },
+    "BaseUserPhoneReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        }
+      },
+      "title": "BaseUserPhoneReq"
+    },
+    "BaseUserVO": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "description": "年龄"
+        },
+        "location": {
+          "type": "string",
+          "description": "位置"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "昵称"
+        },
+        "profilePhotoUrl": {
+          "type": "string",
+          "description": "头像地址"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别,0=女 1=男"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户标识"
+        }
+      },
+      "title": "BaseUserVO"
+    },
+    "CPhotoDto": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间"
+        },
+        "fileUrl": {
+          "type": "string",
+          "description": "文件ID"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "照片ID"
+        }
+      },
+      "title": "CPhotoDto"
+    },
+    "CheckRechargeOrderReq": {
+      "type": "object",
+      "properties": {
+        "orderNo": {
+          "type": "string",
+          "description": "订单号"
+        },
+        "receipt": {
+          "type": "string",
+          "description": "凭证号"
+        }
+      },
+      "title": "CheckRechargeOrderReq"
+    },
+    "CheckRechargeOrderResp": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "消息"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "状态：10.支付成功，9.支付失败.8.处理中(不确定成功或失败)"
+        }
+      },
+      "title": "CheckRechargeOrderResp"
+    },
+    "CommentDTO": {
+      "type": "object",
+      "properties": {
+        "commentId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "被评论的评论标识,一级评论为0"
+        },
+        "content": {
+          "type": "string",
+          "description": "评论内容，长度不超过200字"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "description": "评论等级，搭子/动态下的第一层评论为1，第一层的子评论为2，子评论的评论叫回复，等级为3"
+        },
+        "themeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "搭子/动态主键"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "评论类型：1搭子，2动态"
+        }
+      },
+      "title": "CommentDTO"
+    },
+    "CommitFeedbackReq": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "反馈内容"
+        },
+        "enclosure": {
+          "type": "string",
+          "description": "附件"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "反馈类型1.无法充值 2.举报用户 3.问题反馈"
+        }
+      },
+      "title": "CommitFeedbackReq"
+    },
+    "CommonResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "具体数据"
+        },
+        "encryptData": {
+          "type": "string",
+          "description": "加密后的数据"
+        },
+        "resultCode": {
+          "type": "string",
+          "description": "响应码"
+        },
+        "resultMsg": {
+          "type": "string",
+          "description": "响应消息"
+        },
+        "signature": {
+          "type": "string",
+          "description": "签名"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "时间戳"
+        }
+      },
+      "title": "CommonResponse"
+    },
+    "CommonResponse«List«BaseUserVO»»": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "description": "具体数据",
+          "items": {
+            "$ref": "#/definitions/BaseUserVO"
+          }
+        },
+        "encryptData": {
+          "type": "string",
+          "description": "加密后的数据"
+        },
+        "resultCode": {
+          "type": "string",
+          "description": "响应码"
+        },
+        "resultMsg": {
+          "type": "string",
+          "description": "响应消息"
+        },
+        "signature": {
+          "type": "string",
+          "description": "签名"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "时间戳"
+        }
+      },
+      "title": "CommonResponse«List«BaseUserVO»»"
+    },
+    "CreateRechargeOrderReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "subType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "充值子类型"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "充值类型"
+        }
+      },
+      "title": "CreateRechargeOrderReq"
+    },
+    "CreateRechargeOrderResp": {
+      "type": "object",
+      "properties": {
+        "orderNo": {
+          "type": "string",
+          "description": "订单号"
+        },
+        "productId": {
+          "type": "string",
+          "description": "产品ID"
+        }
+      },
+      "title": "CreateRechargeOrderResp"
+    },
+    "DiamondReq": {
+      "type": "object",
+      "properties": {
+        "damount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "dtype": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "DiamondReq"
+    },
+    "EditInfoReq": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "description": "年龄"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "constellation": {
+          "type": "string",
+          "description": "星座"
+        },
+        "education": {
+          "type": "string",
+          "description": "学历"
+        },
+        "emotionalStatus": {
+          "type": "string",
+          "description": "感情状况"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "description": "身高"
+        },
+        "interest": {
+          "type": "array",
+          "description": "兴趣爱好",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nativePlace": {
+          "type": "string",
+          "description": "故乡详细地址"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "用户昵称"
+        },
+        "occupation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "职业"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "profile": {
+          "type": "string",
+          "description": "个人简介"
+        },
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "description": "体重"
+        },
+        "whatsUp": {
+          "type": "string",
+          "description": "个人签名"
+        },
+        "yearIncome": {
+          "type": "number",
+          "description": "年收入"
+        }
+      },
+      "title": "EditInfoReq"
+    },
+    "FindNearbyRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "经度"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FindNearbyRequest"
+    },
+    "FindUserByActiveRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "经度"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FindUserByActiveRequest"
+    },
+    "FindUserByRegisterRequest": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "description": "纬度"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "description": "经度"
+        },
+        "pageNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FindUserByRegisterRequest"
+    },
+    "FindUserListResp": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "string",
+          "description": "年龄"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "blackListFlag": {
+          "type": "boolean",
+          "description": "是否被对方拉黑"
+        },
+        "cert": {
+          "type": "boolean"
+        },
+        "certImage": {
+          "type": "string",
+          "description": "认证照片地址"
+        },
+        "city": {
+          "type": "string",
+          "description": "市"
+        },
+        "contactFlag": {
+          "type": "boolean",
+          "description": "是否是好友"
+        },
+        "distance": {
+          "type": "number",
+          "format": "double",
+          "description": "距离单位：米"
+        },
+        "height": {
+          "type": "string",
+          "description": "身高"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "用户昵称"
+        },
+        "occupation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "职业"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "photos": {
+          "type": "array",
+          "description": "照片信息",
+          "items": {
+            "$ref": "#/definitions/CPhotoDto"
+          }
+        },
+        "priChatFlag": {
+          "type": "boolean",
+          "description": "是否已经解锁私聊信息"
+        },
+        "province": {
+          "type": "string",
+          "description": "省"
+        },
+        "seeInfoFlag": {
+          "type": "boolean",
+          "description": "是否可以查看用户信息"
+        },
+        "seeWechatFlag": {
+          "type": "boolean",
+          "description": "是否已经解锁查询微信号"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "vip": {
+          "type": "boolean"
+        },
+        "vipExpireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "vip过期时间"
+        },
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        },
+        "weight": {
+          "type": "string",
+          "description": "体重"
+        },
+        "whatsUp": {
+          "type": "string",
+          "description": "个性签名"
+        }
+      },
+      "title": "FindUserListResp"
+    },
+    "FlagResp": {
+      "type": "object",
+      "properties": {
+        "flag": {
+          "type": "boolean",
+          "description": "true.false"
+        }
+      },
+      "title": "FlagResp"
+    },
+    "GetUserByIdReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        }
+      },
+      "title": "GetUserByIdReq"
+    },
+    "GetWechatResp": {
+      "type": "object",
+      "properties": {
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        }
+      },
+      "title": "GetWechatResp"
+    },
+    "IndexPageQuery": {
+      "type": "object",
+      "properties": {
+        "interest": {
+          "type": "array",
+          "description": "兴趣",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别,0=女 1=男,不限不传值"
+        }
+      },
+      "title": "IndexPageQuery"
+    },
+    "LoginByPhoneReq": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "string",
+          "description": "登录位置的GPS维度"
+        },
+        "lng": {
+          "type": "string",
+          "description": "登录位置的GPS经度"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "verifyCode": {
+          "type": "string",
+          "description": "验证码"
+        }
+      },
+      "title": "LoginByPhoneReq"
+    },
+    "LoginByUserNameReq": {
+      "type": "object",
+      "properties": {
+        "loginPwd": {
+          "type": "string",
+          "description": "登陆密码"
+        },
+        "userName": {
+          "type": "string",
+          "description": "用户名"
+        }
+      },
+      "title": "LoginByUserNameReq"
+    },
+    "MomentsDTO": {
+      "type": "object",
+      "properties": {
+        "activityPlace": {
+          "type": "string",
+          "description": "活动地点"
+        },
+        "activityTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "活动时间"
+        },
+        "content": {
+          "type": "string",
+          "description": "内容"
+        },
+        "label": {
+          "type": "string",
+          "description": "分类"
+        },
+        "lat": {
+          "type": "string",
+          "description": "GPS坐标纬度"
+        },
+        "lng": {
+          "type": "string",
+          "description": "GPS坐标经度"
+        },
+        "location": {
+          "type": "string",
+          "description": "发布位置，定位到市就可以，如深圳、上海"
+        },
+        "needMoon": {
+          "type": "integer",
+          "format": "int32",
+          "description": "moon币"
+        },
+        "needPeople": {
+          "type": "integer",
+          "format": "int32",
+          "description": "要求人数"
+        },
+        "photoUrl": {
+          "type": "array",
+          "description": "图片地址",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topic": {
+          "type": "array",
+          "description": "话题",
+          "items": {
+            "type": "string"
+          }
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "MomentsDTO"
+    },
+    "MomentsPageQuery": {
+      "type": "object",
+      "properties": {
+        "activityEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "活动起始时间"
+        },
+        "activityPlace": {
+          "type": "string",
+          "description": "活动地点"
+        },
+        "activityStarTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "活动起始时间"
+        },
+        "myFollow": {
+          "type": "boolean",
+          "description": "是否查询动态中的关注"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "查询类型,1：搭子，2：动态"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "被查看人的用户id"
+        }
+      },
+      "title": "MomentsPageQuery"
+    },
+    "PageInfo": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "PageInfo"
+    },
+    "PageVo«FindUserListResp»": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int64",
+          "description": "当前页"
+        },
+        "dataList": {
+          "type": "array",
+          "description": "结果集",
+          "items": {
+            "$ref": "#/definitions/FindUserListResp"
+          }
+        },
+        "pages": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总页数"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64",
+          "description": "每页行数"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总记录数"
+        }
+      },
+      "title": "PageVo«FindUserListResp»"
+    },
+    "PageableRequest": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求的当前页"
+        },
+        "data": {
+          "type": "object",
+          "description": "具体请求参数"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求条数"
+        },
+        "sort": {
+          "type": "string"
+        }
+      },
+      "title": "PageableRequest"
+    },
+    "PageableRequest«IndexPageQuery»": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求的当前页"
+        },
+        "data": {
+          "description": "具体请求参数",
+          "$ref": "#/definitions/IndexPageQuery"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求条数"
+        },
+        "sort": {
+          "type": "string"
+        }
+      },
+      "title": "PageableRequest«IndexPageQuery»"
+    },
+    "PageableRequest«MomentsPageQuery»": {
+      "type": "object",
+      "properties": {
+        "current": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求的当前页"
+        },
+        "data": {
+          "description": "具体请求参数",
+          "$ref": "#/definitions/MomentsPageQuery"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "请求条数"
+        },
+        "sort": {
+          "type": "string"
+        }
+      },
+      "title": "PageableRequest«MomentsPageQuery»"
+    },
+    "PageableResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "返回码0成功，其他失败"
+        },
+        "data": {
+          "type": "array",
+          "description": "返回的具体数据",
+          "items": {
+            "type": "object"
+          }
+        },
+        "msg": {
+          "type": "string",
+          "description": "返回信息说明"
+        },
+        "pageInfo": {
+          "description": "分页信息封装",
+          "$ref": "#/definitions/PageInfo"
+        }
+      },
+      "title": "PageableResponse"
+    },
+    "PageableResponse«FindUserListResp»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "返回码0成功，其他失败"
+        },
+        "data": {
+          "type": "array",
+          "description": "返回的具体数据",
+          "items": {
+            "$ref": "#/definitions/FindUserListResp"
+          }
+        },
+        "msg": {
+          "type": "string",
+          "description": "返回信息说明"
+        },
+        "pageInfo": {
+          "description": "分页信息封装",
+          "$ref": "#/definitions/PageInfo"
+        }
+      },
+      "title": "PageableResponse«FindUserListResp»"
+    },
+    "PublicUserDTO": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "string",
+          "description": "年龄"
+        },
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "cert": {
+          "type": "boolean"
+        },
+        "certImage": {
+          "type": "string",
+          "description": "认证照片地址"
+        },
+        "city": {
+          "type": "string",
+          "description": "市"
+        },
+        "height": {
+          "type": "string",
+          "description": "身高"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "用户昵称"
+        },
+        "occupation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "职业"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "province": {
+          "type": "string",
+          "description": "省"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "vip": {
+          "type": "boolean"
+        },
+        "vipExpireTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "vip过期时间"
+        },
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        },
+        "weight": {
+          "type": "string",
+          "description": "体重"
+        },
+        "whatsUp": {
+          "type": "string",
+          "description": "个性签名"
+        }
+      },
+      "title": "PublicUserDTO"
+    },
+    "RemovePhotoReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "description": "照片ID",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "title": "RemovePhotoReq"
+    },
+    "SendSmsReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "description": "类型:1.注册2.登陆"
+        }
+      },
+      "title": "SendSmsReq"
+    },
+    "SetCityReq": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string",
+          "description": "城市"
+        }
+      },
+      "title": "SetCityReq"
+    },
+    "SetWeChatReq": {
+      "type": "object",
+      "properties": {
+        "wechat": {
+          "type": "string",
+          "description": "微信"
+        }
+      },
+      "title": "SetWeChatReq"
+    },
+    "UserAccountDTO": {
+      "type": "object",
+      "properties": {
+        "diamond": {
+          "type": "integer",
+          "description": "砖石余额"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "账户状态"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        }
+      },
+      "title": "UserAccountDTO"
+    },
+    "UserCertReq": {
+      "type": "object",
+      "properties": {
+        "imageDataA": {
+          "type": "string",
+          "description": "base64图片"
+        },
+        "imageDataB": {
+          "type": "string",
+          "description": "base64图片"
+        }
+      },
+      "title": "UserCertReq"
+    },
+    "UserLimitDTO": {
+      "type": "object",
+      "properties": {
+        "priChatCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "priChatLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeInfoCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeInfoLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeWxCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seeWxLimit": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserLimitDTO"
+    },
+    "UserRegisterReq": {
+      "type": "object",
+      "properties": {
+        "birthday": {
+          "type": "string",
+          "description": "生日"
+        },
+        "expectRelation": {
+          "type": "integer",
+          "format": "int32",
+          "description": "交友目的"
+        },
+        "nickName": {
+          "type": "string",
+          "description": "昵称"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "头像"
+        },
+        "sex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "性别:0=女 1=男"
+        }
+      },
+      "title": "UserRegisterReq"
+    },
+    "VerifySmsReq": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "phoneCode": {
+          "type": "string",
+          "description": "手机编码"
+        },
+        "verifyCode": {
+          "type": "string",
+          "description": "验证码"
+        }
+      },
+      "title": "VerifySmsReq"
+    }
+  }
+}

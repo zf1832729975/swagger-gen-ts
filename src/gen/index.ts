@@ -17,7 +17,7 @@ const INSERT_LINE = '\n\n'
 
 // 两个代码片段拼接
 function codeSplicing(...args: string[]): string {
-  return args.map(text => text.trim()).join(INSERT_LINE)
+  return args.map(text => (text || '').trim()).join(INSERT_LINE)
 }
 
 export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConfig) => {
@@ -129,13 +129,13 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
       const jsFunctionCode = genApiFunctionCode(parseResult, 'js')
       const typeFunctionCode = genApiFunctionCode(parseResult, 'interface')
       // .d.ts
-      const dtsFilePath = filePath + '.d.ts'
+      const dtsFilePath = transformFilePath(filePath, '.d.ts')
       if (!map[dtsFilePath]) {
         map[dtsFilePath] = getHeadInterfaceCode(relativePath)
       }
       map[dtsFilePath] = codeSplicing(map[dtsFilePath], interfaceCode, typeFunctionCode)
 
-      const jsFilePath = filePath + '.js'
+      const jsFilePath = transformFilePath(filePath, '.js')
       if (!map[jsFilePath]) {
         map[jsFilePath] = getHeadJsCode(relativePath)
       }
@@ -153,13 +153,11 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
     }
   }
 
-  const writePath = requestFilePath.includes('.ts') ? requestFilePath : requestFilePath + '.ts'
-
-  if (!fs.existsSync(writePath)) {
-    writeFileInMultiLevelDirectorySync(
-      path.resolve(writePath),
-      fs.readFileSync(path.resolve(__dirname, '../template/request.d.ts'))
-    )
+  if (isGenJS) {
+    templateWrite(requestFilePath, '.js')
+    templateWrite(requestFilePath, '.d.ts')
+  } else if (isGenTS) {
+    templateWrite(requestFilePath, '.ts')
   }
 
   console.log('\n写入文件:')
@@ -194,5 +192,22 @@ export const cleanOutDir = (deletePath: string) => {
     deleteFilesInDirectory(deletePath)
   } else {
     throw new Error('不能删除要删除的目录必须是当前目录的子目录')
+  }
+}
+
+function transformFilePath(filePath: string, ext?: string) {
+  filePath = path.resolve(filePath)
+  if (!ext) {
+    return filePath
+  }
+  const extIndex = filePath.lastIndexOf(ext)
+  return filePath.slice(0, extIndex) + ext
+}
+
+// 模板写入
+function templateWrite(requestFilePath: string, ext) {
+  const filePath = transformFilePath(requestFilePath, ext)
+  if (!fs.existsSync(filePath)) {
+    writeFileInMultiLevelDirectorySync(filePath, fs.readFileSync(path.resolve(__dirname, '../template/request' + ext)))
   }
 }

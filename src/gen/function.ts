@@ -49,16 +49,6 @@ function getMimeType(str: string = '') {
   return str || MimeTypes.Json
 }
 
-function genObject(
-  list: {
-    key?: string
-    type?: string
-  }[],
-  indent: number
-) {
-  return list.filter(item => {})
-}
-
 export function genApiFunctionCode(result: ParseResultFull, genType: 'interface' | 'js' | 'ts' = 'ts') {
   const {
     method: _method,
@@ -82,12 +72,6 @@ export function genApiFunctionCode(result: ParseResultFull, genType: 'interface'
   // produces 响应内容类型
   const reqMimeType = getMimeType(methodConfig.consumes?.[0])
   const resMimeType = getMimeType(methodConfig.produces?.[0])
-  // const isJson = reqMimeType === MimeTypes.ApplicationJson
-  // const isFormData = reqMimeType === MimeTypes.MultipartFormData
-  // const isUrlencoded = reqMimeType == MimeTypes.ApplicationXWwwFormUrlencoded
-
-  const payloadRequired = requestQueryTypeName ? '' : '?'
-  const optionsRequired = requestQueryTypeName ? '' : '?'
 
   let functionCommon = genMultilineComment(
     {
@@ -117,46 +101,59 @@ export function genApiFunctionCode(result: ParseResultFull, genType: 'interface'
   )
 
   let headersCode = reqMimeType === MimeTypes.Json ? '' : ` , headers: { 'Content-Type': '${reqMimeType}' }`
+
+  const paramsCode = genFunctionKeyParams(
+    [
+      {
+        key: paramsKey,
+        type: requestTypeName,
+        required: !!requestQueryTypeName,
+      },
+      {
+        key: 'options',
+        type: requestQueryTypeName
+          ? `Omit<RequestOptions, "params"> & { params: ${requestQueryTypeName} }`
+          : 'RequestOptions',
+        required: !!requestQueryTypeName,
+      },
+    ],
+    genType
+  )
+
   // 实体文件内容
   let entityFunctionCode =
     `return request({ url: \`${url}\`, method: '${method}', ${paramsKey}` +
-    `${requestQueryTypeName ? `, params: options.params` : ''}${headersCode} }, options)`
+    `${requestQueryTypeName ? `, params: options && options.params` : ''}${headersCode} }, options)`
+
+  const functionReturnType = genType == 'js' ? '' : `: Promise<${responseTypeName}>`
+  let functionLine = `\nexport function ${apiFunctionName}(${paramsCode})${functionReturnType}`
 
   // 仅仅生成类型
   if (genType == 'interface') {
-    return `
-${functionCommon}
-export function ${apiFunctionName}(
-  ${paramsKey}${payloadRequired}: ${requestTypeName},
-  options${optionsRequired}: RequestOptions${requestQueryTypeName ? ` & { params: ${requestQueryTypeName} }` : ''}
-): Promise<${responseTypeName}>
-`.trim()
+    return functionCommon + '\n' + functionLine
   }
+
+  let functionCode = `${functionLine} {\n  ${entityFunctionCode}\n}`
 
   // 仅仅实现js代码
   if (genType === 'js') {
-    return `
-// ${tagName} ${title}
-export function ${apiFunctionName}(${paramsKey}, options) {
-  ${entityFunctionCode}
-}`.trim()
+    return `\n// ${tagName} ${title}${functionCode}`
   }
 
   // 有类型，有实体
-  return `
-${functionCommon}
-export function ${apiFunctionName}(
-  ${paramsKey}${payloadRequired}: ${requestTypeName},
-  options${optionsRequired}: RequestOptions${requestQueryTypeName ? ` & { params: ${requestQueryTypeName} }` : ''}
-): Promise<${responseTypeName}> {
-  ${entityFunctionCode}
-}`.trim()
+  return `${functionCommon}\n ${functionCode}`
 }
 
-function getDescription(description: string) {
-  description = description.replace(/\\\n(\d)/, '\n * - $1')
-  if (description.length > 80) {
-    return '\n' + description
+function genFunctionKeyParams(_list: Array<{ key?: string; type; required?: boolean }>, genType): string {
+  const list = _list.filter(item => Boolean(item.key))
+  if (genType === 'js') {
+    return list.map(item => item.key).join(', ')
   }
-  return description
+  return list
+    .map(item => {
+      const { type, required, key } = item
+      const split = required ? ': ' : '?: '
+      return key + split + type
+    })
+    .join(', ')
 }

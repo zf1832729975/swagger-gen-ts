@@ -4,6 +4,7 @@ export type Schema = OpenAPIV2.Schema
 export type Parameter = OpenAPIV2.Parameter
 export type ParameterBody = OpenAPIV2.InBodyParameterObject
 export type ParameterObject = OpenAPIV2.GeneralParameterObject
+export type SchemaObject = OpenAPIV2.SchemaObject
 export type Response = OpenAPIV2.Response
 
 export type SwaggerJson = OpenAPIV2.Document
