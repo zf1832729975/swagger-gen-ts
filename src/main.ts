@@ -6,9 +6,7 @@ import fs from 'fs'
 import path from 'path'
 import { defaultUserConfig } from './default'
 
-const loadSource = async (
-  source: string | SwaggerJson
-): Promise<SwaggerJson> => {
+const loadSource = async (source: string | SwaggerJson): Promise<SwaggerJson> => {
   if (!source) {
     throw '没有配置source'
   }
@@ -29,10 +27,30 @@ const loadSource = async (
 }
 
 export async function swaggerToTs(config: UserConfig) {
+  if ('group' in config && config.group) {
+    const group = config.group
+    if (group.length) {
+      for (let i = 0; i < group.length; i++) {
+        const childConfig = group[i]
+        await swaggerToTs({
+          ...config,
+          group: undefined,
+          ...childConfig,
+          include: [...(config.include || []), ...(childConfig.include || [])],
+          exclude: [...(config.exclude || []), ...(childConfig.exclude || [])],
+          output: path.resolve(config.output, childConfig.output),
+        })
+      }
+      return
+    }
+  }
+
+  // @ts-ignore
   const { source } = config
   const swaggerJson = await loadSource(source)
   await startGenerateCode(swaggerJson, {
     ...defaultUserConfig,
     ...config,
   })
+  return
 }

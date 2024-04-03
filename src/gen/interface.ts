@@ -1,14 +1,27 @@
 import { Schema, SwaggerJson, GenerateConfig, ParameterObject } from '../types'
-import { isArray, isObject } from '../utils/index'
+import { isArray, isObject, isString } from '../utils/index'
+
+const defaultMap = {
+  string: '',
+  number: 0,
+  integer: 0,
+  boolean: false,
+  null: null,
+}
+
+type ReturnResult = { code: string; defaultValue?: Object | string }
 
 function schemaToTsCode(
   schema: Schema,
   swaggerJson: SwaggerJson,
   userConfig: GenerateConfig,
   indent: number = 0
-): string {
+): ReturnResult {
   if (!schema) {
-    return '{}'
+    return {
+      code: '{}',
+      defaultValue: '',
+    }
   }
   let tsType = ''
   const {} = userConfig
@@ -26,6 +39,14 @@ function schemaToTsCode(
     return
   }
 
+  let defaultValue = defaultMap[isArray(schema.type) ? schema.type[0] : schema.type]
+  if (schema.enum) {
+    return {
+      code: schema.enum.map(text => (isString(text) ? `"${text}"` : String(text))).join(' | '),
+      defaultValue,
+    }
+  }
+  // schema.enum
   switch (schema.type) {
     case 'object':
       // 空对象
@@ -34,6 +55,7 @@ function schemaToTsCode(
         break
       }
       tsType += '{\n'
+      defaultValue = {}
       for (const key in schema.properties) {
         const prop = schema.properties[key]
         if (prop.description || prop.title) {
@@ -45,13 +67,9 @@ function schemaToTsCode(
         const isRequired = isArray(schema.required) ? schema.required.includes(key) : schema.required
 
         const required = isRequired ? '' : '?'
-
-        tsType += `${baseIndent}${indentBlock}${key}${required}: ${schemaToTsCode(
-          prop,
-          swaggerJson,
-          userConfig,
-          indent + 1
-        )};`
+        const result = schemaToTsCode(prop, swaggerJson, userConfig, indent + 1)
+        defaultValue[key] = result.defaultValue
+        tsType += `${baseIndent}${indentBlock}${key}${required}: ${result.code};`
 
         tsType += '\n'
       }
@@ -59,8 +77,11 @@ function schemaToTsCode(
       break
 
     case 'array':
+      defaultValue = []
       if (schema.items) {
-        tsType += `Array<${schemaToTsCode(schema.items, swaggerJson, userConfig, indent)}>`
+        const result = schemaToTsCode(schema.items, swaggerJson, userConfig, indent)
+        defaultValue.push(result.defaultValue)
+        tsType += `Array<${result.code}>`
       } else {
         tsType += 'Array<any>'
       }
@@ -88,7 +109,10 @@ function schemaToTsCode(
       break
   }
 
-  return tsType
+  return {
+    code: tsType,
+    defaultValue,
+  }
 }
 
 interface GenInterfaceCode {
@@ -98,7 +122,13 @@ interface GenInterfaceCode {
   userConfig: GenerateConfig
 }
 
-export const genInterfaceCode = ({ schema, swaggerJson, interfaceName, userConfig }: GenInterfaceCode) => {
+export const genInterfaceCode = ({
+  schema,
+  swaggerJson,
+  interfaceName,
+  userConfig,
+}: GenInterfaceCode): ReturnResult => {
+  // params
   if (isArray(schema)) {
     const indentBlock = userConfig.indent || '\t'
 
@@ -115,19 +145,31 @@ export const genInterfaceCode = ({ schema, swaggerJson, interfaceName, userConfi
         const map = {
           integer: 'number',
           file: 'File',
+          array: 'Array<any>',
         }
+
         const type = map[prop.type] || prop.type
         tsType += `${indentBlock}${key}${required}: ${type}`
         return tsType
       })
       .join('\n')
-    return `export interface ${interfaceName} {\n${code}\n}`
+    return {
+      code: `export interface ${interfaceName} {\n${code}\n}`,
+      defaultValue: undefined,
+    }
   }
 
-  const code = schemaToTsCode(schema, swaggerJson, userConfig)
+  const { code, defaultValue } = schemaToTsCode(schema, swaggerJson, userConfig)
+
   // 只要不是 { 开头
   if (!code.trimStart().startsWith('{')) {
-    return `export type ${interfaceName} = ${code}`
+    return {
+      code: `export type ${interfaceName} = ${code}`,
+      defaultValue,
+    }
   }
-  return `export interface ${interfaceName} ${code}`
+  return {
+    code: `export interface ${interfaceName} ${code}`,
+    defaultValue,
+  }
 }

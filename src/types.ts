@@ -44,12 +44,18 @@ export interface ParseResultFull extends ParseResult {
   requestQueryTypeName?: string
 }
 
-export interface UserConfig {
+export interface UserGroupConfig extends BaseUserConfig {
+  group: UserConfig[]
+}
+
+export interface SourceConfig extends BaseUserConfig {
   /**
    * url 或者 json，本地path
    */
   source: string
+}
 
+export interface BaseUserConfig {
   /**
    * 输出目录
    * @default './services'
@@ -91,7 +97,7 @@ export interface UserConfig {
 
   /**
    * 最大生成文件层级
-   * @default 2
+   * @default 1
    */
   maxFolderDepth?: number
   // /**
@@ -128,5 +134,7 @@ export interface UserConfig {
    */
   generateApiName?: (url: string, options: any) => string
 }
+
+export type UserConfig = UserGroupConfig | SourceConfig
 
 export type GenerateConfig = Required<UserConfig>

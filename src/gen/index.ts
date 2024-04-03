@@ -30,12 +30,22 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
   if (config.clean) {
     cleanOutDir(outDir)
   }
+
+  //
+  const swaggerJsonPath = path.resolve(
+    apiDir,
+    ((apiDir.split('/').pop() || swaggerJson.basePath)?.split('/').shift() || 'by') + '.swagger.json'
+  )
+  writeFileInMultiLevelDirectorySync(swaggerJsonPath, JSON.stringify(swaggerJson, undefined, 2))
+
   const parseResultList = parseSwaggerJson(swaggerJson, config)
 
   const map: Record<string, string> = {}
 
+  const defaultJson = {}
+
   for (let parseResult of parseResultList) {
-    const { requestTypeName, responseTypeName, filePath: _filePath, methodConfig } = parseResult
+    const { requestTypeName, responseTypeName, filePath: _filePath, methodConfig, url, apiFunctionName } = parseResult
     const { responses, parameters = [] } = methodConfig
 
     const filePath = path.resolve(apiDir, _filePath)
@@ -55,7 +65,12 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
       }
       // "in": "query"
       // 有 in formData 就不可能两个都有了
-      if (parameter.in === 'query' || parameter.in === 'formData') {
+      else if (parameter.in === 'query' || parameter.in === 'formData') {
+        // @ts-ignore TODO
+        query.push(parameter)
+      }
+      // in path
+      else if (parameter.in === 'path') {
         // @ts-ignore TODO
         query.push(parameter)
       }
@@ -76,49 +91,51 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
       INSERT_LINE +
       body
         .map(parameter => {
-          return genInterfaceCode({
+          const result = genInterfaceCode({
             schema: parameter.schema,
             swaggerJson,
             interfaceName: requestTypeName,
             userConfig: config,
           })
+          defaultJson[`${url} Request`] = result.defaultValue
+          return result.code
         })
         .join(INSERT_LINE)
 
     // get
     if (query.length) {
+      const result = genInterfaceCode({
+        schema: query,
+        swaggerJson,
+        interfaceName: requestQueryTypeName || requestTypeName,
+        userConfig: config,
+      })
       // 请求 params
-      requestTypeCode +=
-        INSERT_LINE +
-        genInterfaceCode({
-          schema: query,
-          swaggerJson,
-          interfaceName: requestQueryTypeName || requestTypeName,
-          userConfig: config,
-        })
+      requestTypeCode = codeSplicing(requestTypeCode, result.code)
     }
 
     if (isEmpty(query) && isEmpty(body)) {
+      const result = genInterfaceCode({
+        schema: undefined,
+        swaggerJson,
+        interfaceName: requestTypeName,
+        userConfig: config,
+      })
       // 没有参数
-      requestTypeCode +=
-        INSERT_LINE +
-        genInterfaceCode({
-          schema: undefined,
-          swaggerJson,
-          interfaceName: requestTypeName,
-          userConfig: config,
-        })
+      requestTypeCode = codeSplicing(requestTypeCode, result.code)
     }
 
     // 响应 ===============
-    const responseTypeCode = genInterfaceCode({
+    const responseTypeResult = genInterfaceCode({
       schema: (responses['200'] as any)?.schema,
       swaggerJson,
       interfaceName: responseTypeName,
       userConfig: config,
     })
 
-    const interfaceCode = codeSplicing(requestTypeCode, responseTypeCode)
+    defaultJson[`${url} Response`] = responseTypeResult.defaultValue
+
+    const interfaceCode = codeSplicing(requestTypeCode, responseTypeResult.code)
 
     const reP = getRelativePath(filePath, requestFilePath)
     // 没有./的时候需要添加
@@ -165,7 +182,25 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
     console.log(path)
     writeFileInMultiLevelDirectorySync(path, content.trim() + '\n')
   }
-  console.log()
+  console.log(apiDir)
+  const testJsonName = (apiDir.split('/').pop() || swaggerJson.basePath?.split('/').shift() || 'default').replace(
+    '/',
+    ''
+  )
+  const testJsonPath = path.resolve(apiDir, testJsonName + '.default.test.json')
+  console.log(testJsonPath)
+  writeFileInMultiLevelDirectorySync(
+    testJsonPath,
+    JSON.stringify(
+      {
+        title: '*** 请求的默认值json文件 ***',
+        description: '当后端提交字段特别多的时候，就可以直接拷贝，方便映射，知道要提交哪些字段',
+        ...defaultJson,
+      },
+      undefined,
+      2
+    )
+  )
 }
 
 // const noCheckComment = `/* eslint-disable */\n// @ts-nocheck`
@@ -200,14 +235,17 @@ function transformFilePath(filePath: string, ext?: string) {
   if (!ext) {
     return filePath
   }
-  const extIndex = filePath.lastIndexOf(ext)
-  return filePath.slice(0, extIndex) + ext
+  if (filePath.endsWith(ext)) {
+    return filePath
+  }
+  return filePath + ext
 }
 
 // 模板写入
 function templateWrite(requestFilePath: string, ext) {
   const filePath = transformFilePath(requestFilePath, ext)
   if (!fs.existsSync(filePath)) {
-    writeFileInMultiLevelDirectorySync(filePath, fs.readFileSync(path.resolve(__dirname, '../template/request' + ext)))
+    let templateContent = fs.readFileSync(path.resolve(__dirname, '../../template/request' + ext))
+    writeFileInMultiLevelDirectorySync(filePath, templateContent)
   }
 }

@@ -11,12 +11,15 @@ export const defaultUserConfig: GenerateConfig = {
 
   indent: '\t', // 缩进
   clean: false, // 是否清空目录
-  maxFolderDepth: 2, // a/b/c 生成的最大文件目录
-  apiFunctionContainFileName: true,
+  maxFolderDepth: 1, // a/b/c 生成的最大文件目录
+  apiFunctionContainFileName: false,
   apiFunctionNameMaxDepth: 5,
   generateNameUrlReplace: (url: string) => url,
   // ${outDir}目录到文件的路径，不含文件后缀名  a/b => `${outDir}/a/b`
   generateFilePath(url: string, options: ParseResult) {
+    // 处理路径参数 `/pet/{id}` => `/pet/${id}`
+    url = url.replace(/{(.*?)}/g, '$1')
+
     const names = options.config.generateNameUrlReplace(url).split('/').filter(Boolean)
     // 最后一级不要
     if (names.length > 1) {
@@ -31,10 +34,14 @@ export const defaultUserConfig: GenerateConfig = {
     return names.slice(0, options.maxFolderDepth).join('/')
   },
   generateApiName(url: string, options: ParseResult) {
+    // 处理路径参数 `/pet/{id}` => `/pet/${id}`
+    url = url.replace(/{(.*?)}/g, '$1')
+
     const { apiFunctionContainFileName, apiFunctionNameMaxDepth } = options.config
     const urlNames = options.config.generateNameUrlReplace(url).split('/').filter(Boolean)
     const urlLength = urlNames.length
-    const maxFolderDepth = options.maxFolderDepth
+    const maxFolderDepth =
+      options.maxFolderDepth <= 0 && !options.config.apiFunctionContainFileName ? 1 : options.maxFolderDepth
     // maxFolderDepth 1   urlLength = 4
     // /order-center/sender/order/detail [order-center, sender, order, detail]
     // order-center.ts  =>  orderCenterSenderOrderDetail

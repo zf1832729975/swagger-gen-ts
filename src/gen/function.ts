@@ -62,6 +62,7 @@ export function genApiFunctionCode(result: ParseResultFull, genType: 'interface'
     tagName,
     methodConfig,
   } = result
+  // const { parameters } =  methodConfig
 
   const method = _method.toLowerCase()
   const paramsKey = method === 'get' ? 'params' : 'data'
@@ -107,7 +108,7 @@ export function genApiFunctionCode(result: ParseResultFull, genType: 'interface'
       {
         key: paramsKey,
         type: requestTypeName,
-        required: !!requestQueryTypeName,
+        required: !!requestQueryTypeName || /{.*}/.test(url),
       },
       {
         key: 'options',
@@ -120,13 +121,17 @@ export function genApiFunctionCode(result: ParseResultFull, genType: 'interface'
     genType
   )
 
+  // 处理路径参数 `/pet/{id}` => `/pet/${params.id}`
+  const resultUrl = url.replace(/{(.*?)}/g, '${' + paramsKey + '.$1}') // 应该永远都是 params.xx
+
+  const functionReturnType = genType !== 'interface' ? '' : `: Promise<${responseTypeName}>`
+  const returnTs = genType === 'ts' ? `<${responseTypeName}>` : ''
+  let functionLine = `\nexport function ${apiFunctionName}(${paramsCode})${functionReturnType}`
+
   // 实体文件内容
   let entityFunctionCode =
-    `return request({ url: \`${url}\`, method: '${method}', ${paramsKey}` +
+    `return request${returnTs}({ url: \`${resultUrl}\`, method: '${method}', ${paramsKey}` +
     `${requestQueryTypeName ? `, params: options && options.params` : ''}${headersCode} }, options)`
-
-  const functionReturnType = genType == 'js' ? '' : `: Promise<${responseTypeName}>`
-  let functionLine = `\nexport function ${apiFunctionName}(${paramsCode})${functionReturnType}`
 
   // 仅仅生成类型
   if (genType == 'interface') {

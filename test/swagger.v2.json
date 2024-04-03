@@ -952,7 +952,9 @@
                     "enum": [
                         "available",
                         "pending",
-                        "sold"
+                        0,
+                        2,
+                        null
                     ]
                 }
             },

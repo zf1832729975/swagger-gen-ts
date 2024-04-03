@@ -5,14 +5,20 @@ const checkoutSwaggerJson = (swaggerJson: SwaggerJson) => {
   if (isObject(swaggerJson) && swaggerJson.swagger) {
     return
   }
-  console.log('swagger 类型', typeof swaggerJson)
   throw new Error('swagger.json格式错误')
 }
 
 export const parseSwaggerJson = (swaggerJson: SwaggerJson, userConfig: GenerateConfig) => {
   const { include = [], exclude = [], generateApiName, generateFilePath } = userConfig
 
-  checkoutSwaggerJson(swaggerJson)
+  try {
+    checkoutSwaggerJson(swaggerJson)
+  } catch (err) {
+    console.log()
+    console.log(JSON.stringify(swaggerJson).slice(0, 400))
+    console.log(userConfig)
+    throw err
+  }
 
   let parseResultList: ParseResultFull[] = []
   for (let [path, pathItem] of Object.entries(swaggerJson.paths)) {
@@ -102,9 +108,20 @@ function checkApiExist(include: ApiRegExp[], url: string) {
   })
 }
 
+function isValidFunctionName(name) {
+  // 检查是否为空或undefined
+  if (name === undefined || name === null || name.trim() === '') {
+    return false
+  }
+
+  // 使用正则表达式检查格式，允许中文字符、字母、数字、美元符号($)和下划线(_)
+  const isValidIdentifier = /^[$\w\u4e00-\u9fa5]+$/
+  return isValidIdentifier.test(name)
+}
+
 function transformApiFunctionName(apiFunctionName: string) {
   // 如果以数字开头
-  if (/^\d+/.test(apiFunctionName)) {
+  if (!isValidFunctionName(apiFunctionName)) {
     return `fetch${apiFunctionName}`
   }
   return apiFunctionName
