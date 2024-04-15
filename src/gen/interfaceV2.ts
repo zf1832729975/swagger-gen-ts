@@ -2,7 +2,6 @@ import { Schema, SwaggerJson, GenerateConfig, ParameterObject } from '../types'
 import { isArray, isObject } from '../utils/index'
 import { OpenAPIV2 } from 'openapi-types'
 
-
 function parseSchema(schema: Schema, definitions?: OpenAPIV2.DefinitionsObject) {
   function parseDefinitions(ref: string) {
     if (!definitions) {
@@ -13,8 +12,13 @@ function parseSchema(schema: Schema, definitions?: OpenAPIV2.DefinitionsObject) 
     return parseSchemaObject(schemaObject)
   }
 
+  // CommonResponse«List«BaseUserVO»»
+  // CommonResponse<List<BaseUserVO>>
   function getRefName(ref: string) {
-    return ref.split('/').pop() || ''
+    const nameT = ref.split('/').pop().replace(/«/, '<').replace(/»/, '>')
+    // return
+    // 拿到最里面的
+    return nameT.split('<').pop().split('>').shift()
   }
 
   function parseSchemaObject(schemaObject: OpenAPIV2.SchemaObject) {

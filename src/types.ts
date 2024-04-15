@@ -18,6 +18,9 @@ export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete'
 export interface ParseResult {
   url: string
   method: Method
+  /**
+   * 是否是重复的URL，url相同method不同的情况
+   */
   isRepeatUrl: boolean
 
   path: string
