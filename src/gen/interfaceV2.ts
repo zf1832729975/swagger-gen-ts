@@ -184,7 +184,7 @@ const userParsedInterface: InterfaceDesc = {
       required: false,
       // type: petInterfaceDesc,
       type: 'array',
-      items: petInterfaceDesc,
+      // items: petInterfaceDesc,
     },
   },
 }
