@@ -47,6 +47,11 @@ swaggerToTs({
           source:
             'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=6&status=all&isWiki=false&token=d92f36ba1999094d5e32ef6fadf3c5e0e90dbf56b7e235dbe10228582800d4ef',
         },
+        {
+          output: 'auth',
+          source:
+            'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=5283&status=all&isWiki=false&token=2925d424f041867e8401e742dccaed56bd7e3c0014a82bd897161d5e330ec584',
+        },
       ],
     },
     {
