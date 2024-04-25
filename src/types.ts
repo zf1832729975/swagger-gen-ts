@@ -15,7 +15,13 @@ export type ApiRegExp = RegExp | string | ((url: string) => string)
 
 export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete'
 
+/**
+ * 解析结果
+ */
 export interface ParseResult {
+  /**
+   * url，是 baseURL + path
+   */
   url: string
   method: Method
   /**
@@ -28,6 +34,9 @@ export interface ParseResult {
 
   swaggerJson: SwaggerJson
   methodConfig: OperationObject
+  /**
+   * 用户的生成配置
+   */
   config: GenerateConfig
   maxFolderDepth: number
 
@@ -48,6 +57,9 @@ export interface ParseResultFull extends ParseResult {
 }
 
 export interface UserGroupConfig extends BaseUserConfig {
+  /**
+   * 组，group 里面的配置会继承于当前配置和上一级的配置
+   */
   group: UserConfig[]
 }
 
@@ -104,7 +116,8 @@ export interface BaseUserConfig {
    */
   maxFolderDepth?: number
   // /**
-  //  * 更加URL来生成api的级别
+  //  * TODO：
+  //  * 更改URL来生成api的级别
   //  * @description
   //  * 比如/api/system/user/detail
   //  * 传2生成的函数名为 userDetail
@@ -119,25 +132,37 @@ export interface BaseUserConfig {
    */
   apiFunctionContainFileName?: boolean
   /**
-   * 接口名最大深度
+   * 函数名最大深度
+   * 默认生成的函数名是通过url来生成的，那么URL很长时截取多少位的合理值
    * @default 5
    */
   apiFunctionNameMaxDepth?: number
 
+  /**
+   * 生成函数名的时候替换URL
+   * 生成api函数名的时候，url 替换
+   * @example
+   *  generateNameUrlReplace: url => url.replace('/c-', '/')
+   * /api/c-user-limit/diamond-get-wechat => /api/user-limit/diamond-get-wechat
+   * 这样生成的函数名就是 userLimitDiamondGetWechat
+   */
   generateNameUrlReplace?: (url: string) => string
 
   /**
    * 生成的文件路径
    * @description ${outDir}目录到文件的路径，不含文件后缀名  a/b => `${outDir}/a/b`
    */
-  generateFilePath?: (url: string, options: any) => string
+  generateFilePath?: (url: string, options: ParseResult) => string
 
   /**
    * 生成的函数名
    */
-  generateApiName?: (url: string, options: any) => string
+  generateApiName?: (url: string, options: ParseResult) => string
 }
 
+/**
+ * 用户的配置
+ */
 export type UserConfig = UserGroupConfig | SourceConfig
 
 export type GenerateConfig = Required<UserConfig>

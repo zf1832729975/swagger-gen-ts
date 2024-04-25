@@ -1,22 +1,24 @@
-import { GenerateConfig, ParseResult } from './types'
+import { GenerateConfig } from './types'
 import { snakeToCamel, toUpperCaseCamelCase } from './utils'
 
 export const defaultUserConfig: GenerateConfig = {
   source: '', // url 或者 json，本地path
-  output: './services', // 输出目录
-  lang: 'ts', // 'js' | 'ts'
+  output: './src/apis', // 输出目录
+  lang: 'ts', // 输出模板、ts | js
   include: [], // 包含哪些接口
   exclude: [], // 排除哪些接口
-  requestFilePath: './request',
+  requestFilePath: './src/request',
 
   indent: '\t', // 缩进
   clean: false, // 是否清空目录
-  maxFolderDepth: 1, // a/b/c 生成的最大文件目录
-  apiFunctionContainFileName: false,
-  apiFunctionNameMaxDepth: 5,
-  generateNameUrlReplace: (url: string) => url,
+  maxFolderDepth: 1, // 生成的文件目录层级最多少层
+  apiFunctionContainFileName: false, // 生成的api函数名包含文件名
+  apiFunctionNameMaxDepth: 5, // 函数名最大深度、默认生成的函数名是通过url来生成的，那么URL很长时截取多少位的合理值
+  generateNameUrlReplace: url => url, // 生成函数替换的url
+
+  // 生成的文件目录
   // ${outDir}目录到文件的路径，不含文件后缀名  a/b => `${outDir}/a/b`
-  generateFilePath(url: string, options: ParseResult) {
+  generateFilePath(url, options) {
     // 处理路径参数 `/pet/{id}` => `/pet/${id}`
     url = url.replace(/{(.*?)}/g, '$1')
 
@@ -33,7 +35,8 @@ export const defaultUserConfig: GenerateConfig = {
     // /a/a1/a2/a3/a4/a5 => a/a1/a2
     return names.slice(0, options.maxFolderDepth).join('/')
   },
-  generateApiName(url: string, options: ParseResult) {
+  // 生成
+  generateApiName(url, options) {
     // 处理路径参数 `/pet/{id}` => `/pet/${id}`
     url = url.replace(/{(.*?)}/g, '$1')
 

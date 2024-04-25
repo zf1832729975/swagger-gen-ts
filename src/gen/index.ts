@@ -203,8 +203,8 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
   )
 }
 
-// const noCheckComment = `/* eslint-disable */\n// @ts-nocheck`
-const noCheckComment = ''
+const noCheckComment = `/* eslint-disable */\n// @ts-nocheck`
+// const noCheckComment = ''
 
 export const getHeadInterfaceCode = (importPath: string) => {
   const comment = noCheckComment
