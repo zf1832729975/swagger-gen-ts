@@ -1,6 +1,6 @@
 # swagger-gen-ts
 
-swagger 转 ts 类型
+swagger 文档 生成 ts 类型的 api 代码
 
 > 目前只支持 swagger 2.x
 
@@ -19,7 +19,7 @@ npm install swagger-gen-ts
 - 生成的 api 函数名是未知的： 一般有的是按照 swagger.json 的 operationId，而我们的文档都是后端给的，一般接口随意变化的，你根本就不知道 operationId 是什么，并且还不语义化，有的是按照 URL 和随机生成的
 - 生成的文件文件夹不稳定：找了几个，发现有的是用 swagger.json 的 tag 来生成，我的哥，tag 是很容易变化的好吧，还是中文命名，一变化就出错了
 - 所有的都不支持 remark 的备注提示，这个一个都没有、下面的有备注和其他信息，但发现生成出来的注释，只有其他信息，没有备注；这个我是看了网上所有的，都发现没有这个备注，所以就决定重写了，因为我们这个文档的都是备注栏里面的
-  <img src="./img/why-remark.png" />
+  <img src="https://p.ipic.vip/s49qoj.png" />
 - 生成的 api 函数，连基本的 config 都不能支持，生成的差不多都是下面这个格式
 
   ```
@@ -111,20 +111,20 @@ node ./gen-api.js
 ```
 
 **生成如下**
-<img src="./img/gen-api-ts.png" alt="gen-api-ts.png" />
+<img src="https://p.ipic.vip/8sz1yv.png" alt="gen-api-ts.png" />
 
 **自定义请求文件**
-<img src="./img/custom-request-origin.png" alt="custom-request-origin.png" />
+<img src="https://p.ipic.vip/zmqbza.png" alt="custom-request-origin.png" />
 
 **结合实际的业务编写 custom-request**
 
 - `data` 是 提交的 body 部分数据
 - `params` 是 url 上的数据
 - `post` 请求可能也会有 `params` 的
-  <img src="./img/custom-request-adapter.png" alt="custom-request-adapter.png" />
+  <img src="https://p.ipic.vip/m6bepz.png" alt="custom-request-adapter.png" />
 
 **页面使用**
-<img src="./img/page-use.png" alt="page-use.png" />
+<img src="https://p.ipic.vip/xiq1mo.png" alt="page-use.png" />
 
 ### 生成 JS
 
@@ -143,22 +143,22 @@ swaggerToTs({
       output: '2.0/finance-center',
       // yapi 的 SwaggerJson 链接
       source:
-        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=70&status=all&isWiki=false&token=50e6d5dca36cc27a84d7e9fa84f33cdfb08018a29106ec7918f6d8eeba61a857',
+        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=70&status=all&isWiki=false&token=${token}',
     },
     {
       output: '2.0/basefunc',
       source:
-        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=62&status=all&isWiki=false&token=20459cba45138a0b84cd989aa3fb61312e56edc8e37ea677e869b9cfb8038bf2',
+        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=62&status=all&isWiki=false&token=${token}',
     },
     {
       output: '2.0/order-center',
       source:
-        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=67&status=all&isWiki=false&token=fae8db9cd092f28bc905a630a77c8b7de2fb90970f76d9a4c255e01b81fe257a',
+        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=67&status=all&isWiki=false&token=${token}',
     },
     {
       output: '2.0/auth',
       source:
-        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=5283&status=all&isWiki=false&token=2925d424f041867e8401e742dccaed56bd7e3c0014a82bd897161d5e330ec584',
+        'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=5283&status=all&isWiki=false&token=${token}',
     },
     {
       output: '3.0',
@@ -166,7 +166,7 @@ swaggerToTs({
         {
           output: 'order-center',
           source:
-            'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=520&status=all&isWiki=false&token=5806f9230cd1129ead1f795c38fec80cbab7f1df7d9fde84d95ca94a109faa30',
+            'https://api.zaitugongda.com/api/plugin/exportSwagger?type=OpenAPIV2&pid=520&status=all&isWiki=false&token=${token}',
         },
       ],
     },
@@ -175,7 +175,7 @@ swaggerToTs({
 ```
 
 生成的结果如下
-<img src="./img/gen-api-js.png" alt="gen-api-js.png">
+<img src="https://p.ipic.vip/coz973.png" alt="gen-api-js.png">
 
 ## 默认配置
 
