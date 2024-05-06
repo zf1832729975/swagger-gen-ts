@@ -8,7 +8,7 @@ import {
   isEmpty,
 } from '../utils/index'
 import path from 'path'
-import { genInterfaceCode } from './interface'
+import { genInterfaceCode, definitionsGenCode } from './interface'
 import { genApiFunctionCode } from './function'
 import { parseSwaggerJson } from '../parse/index'
 import fs from 'fs'
@@ -40,9 +40,17 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
 
   const parseResultList = parseSwaggerJson(swaggerJson, config)
 
-  const map: Record<string, string> = {}
+  const files: Record<
+    string,
+    {
+      code: string
+      suffix: '.d.ts' | '.ts' | '.js'
+    }
+  > = {}
 
   const defaultJson = {}
+
+  const definitionResult = definitionsGenCode(swaggerJson, config)
 
   for (let parseResult of parseResultList) {
     const { requestTypeName, responseTypeName, filePath: _filePath, methodConfig, url, apiFunctionName } = parseResult
@@ -147,27 +155,51 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
       const typeFunctionCode = genApiFunctionCode(parseResult, 'interface')
       // .d.ts
       const dtsFilePath = transformFilePath(filePath, '.d.ts')
-      if (!map[dtsFilePath]) {
-        map[dtsFilePath] = getHeadInterfaceCode(relativePath)
+      if (!files[dtsFilePath]) {
+        files[dtsFilePath] = {
+          code: getHeadInterfaceCode(relativePath),
+          suffix: '.d.ts',
+        }
       }
-      map[dtsFilePath] = codeSplicing(map[dtsFilePath], interfaceCode, typeFunctionCode)
+      files[dtsFilePath] = {
+        code: codeSplicing(files[dtsFilePath].code, interfaceCode, typeFunctionCode),
+        suffix: '.d.ts',
+      }
 
       const jsFilePath = transformFilePath(filePath, '.js')
-      if (!map[jsFilePath]) {
-        map[jsFilePath] = getHeadJsCode(relativePath)
+      if (!files[jsFilePath]) {
+        files[jsFilePath] = {
+          code: getHeadJsCode(relativePath),
+          suffix: '.js',
+        }
       }
-      map[jsFilePath] = codeSplicing(map[jsFilePath], jsFunctionCode)
+      files[jsFilePath] = {
+        suffix: '.js',
+        code: codeSplicing(files[jsFilePath].code, jsFunctionCode),
+      }
     }
     // ts
     else if (isGenTS) {
       const tsFunctionCode = genApiFunctionCode(parseResult, 'ts')
       const tsFilePath = filePath + '.ts'
-      if (!map[tsFilePath]) {
-        map[tsFilePath] = getHeadInterfaceCode(relativePath)
+      if (!files[tsFilePath]) {
+        files[tsFilePath] = {
+          code: getHeadInterfaceCode(relativePath),
+          suffix: '.ts',
+        }
       }
       const insetCode = codeSplicing(interfaceCode, tsFunctionCode)
-      map[tsFilePath] = codeSplicing(map[tsFilePath], insetCode)
+      files[tsFilePath] = {
+        code: codeSplicing(files[tsFilePath].code, insetCode),
+        suffix: '.ts',
+      }
     }
+  }
+
+  // 写入 types
+  const typingsIndexTs = path.resolve(apiDir, 'typings/index.d.ts')
+  if (definitionResult.code) {
+    writeFileInMultiLevelDirectorySync(typingsIndexTs, definitionResult.code)
   }
 
   if (isGenJS) {
@@ -178,9 +210,14 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
   }
 
   console.log('\n写入文件:')
-  for (let [path, content] of Object.entries(map)) {
+  for (let [path, content] of Object.entries(files)) {
     console.log(path)
-    writeFileInMultiLevelDirectorySync(path, content.trim() + '\n')
+    let typingsImport = ''
+    if ((definitionResult.code && content.suffix === '.d.ts') || content.suffix == '.ts') {
+      const typePath = getRelativePath(path, typingsIndexTs)
+      typingsImport = `import * as types from "./${typePath}";\n`
+    }
+    writeFileInMultiLevelDirectorySync(path, typingsImport + (content.code || '').trim() + '\n')
   }
   console.log(apiDir)
   const testJsonName = (apiDir.split('/').pop() || swaggerJson.basePath?.split('/').shift() || 'default').replace(
@@ -206,12 +243,12 @@ export const startGenerateCode = (swaggerJson: SwaggerJson, config: GenerateConf
 const noCheckComment = `/* eslint-disable */\n// @ts-nocheck`
 // const noCheckComment = ''
 
-export const getHeadInterfaceCode = (importPath: string) => {
+const getHeadInterfaceCode = (importPath: string) => {
   const comment = noCheckComment
   return `${comment}\n\nimport request, { RequestOptions } from '${importPath}'\n`
 }
 
-export const getHeadJsCode = (importPath: string) => {
+const getHeadJsCode = (importPath: string) => {
   const comment = noCheckComment
   return `${comment}\n\nimport request from '${importPath}'\n`
 }

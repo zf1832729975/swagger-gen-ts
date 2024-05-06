@@ -1,11 +1,12 @@
 {
   "name": "swagger-gen-ts",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.2-alpha.1",
+  "description": "swagger 文档 生成 ts 类型的 api 代码",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "auth": "1832829975@qq.com",
   "repository": {
+    "type": "git",
     "url": "https://github.com/zf1832729975/swagger-gen-ts"
   },
   "files": [
@@ -25,7 +26,8 @@
     "openapi-types": "^12.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "openapi-typescript-codegen": "0.29.0"
   },
   "keywords": [
     "generate",
@@ -36,6 +38,7 @@
     "swagger-generate-ts",
     "swagger-to-typescript",
     "swagger-to-ts",
+    "swagger-to-api",
     "yapi"
   ],
   "license": "ISC"

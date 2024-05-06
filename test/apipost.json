@@ -1,0 +1,364 @@
+{
+  "info": {
+    "title": "蓬托波瑞亚的私有项目",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "我的",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/create/user": {
+      "post": {
+        "summary": "新建接口",
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "mock": {
+                    "mock": ""
+                  },
+                  "description": "用户名"
+                },
+                "age": {
+                  "type": "number",
+                  "description": "年龄"
+                },
+                "sex": {
+                  "type": "number",
+                  "description": ""
+                }
+              },
+              "APIPOST_ORDERS": ["username", "age", "sex"],
+              "required": []
+            },
+            "type": "string",
+            "example": "{\n\t\"username\": \"联较江门分年都求数十究布会过有切工做传信手品还才便\",\n\t\"age\": 3361690166722407,\n\t\"sex\": 3347039562665587\n}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": []
+              }
+            }
+          },
+          "404": {
+            "description": "失败",
+            "content": {
+              "application/json": {
+                "schema": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "/use/id": {
+      "get": {
+        "summary": "新建接口",
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "example": "1",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": []
+              }
+            }
+          },
+          "404": {
+            "description": "失败",
+            "content": {
+              "application/json": {
+                "schema": []
+              }
+            }
+          }
+        }
+      }
+    },
+    "https://demo-api.apipost.cn/api/demo/news_details": {
+      "get": {
+        "summary": "新闻详情",
+        "description": "",
+        "tags": ["我的"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "新闻ID",
+            "required": false,
+            "example": "20",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "状态 1-正常  0-删除",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "{{token}}",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {},
+            "type": "string",
+            "example": ""
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "https://demo-api.apipost.cn/api/demo/delete_comment": {
+      "delete": {
+        "summary": "删除评论",
+        "description": "",
+        "tags": ["我的"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {},
+            "type": "string",
+            "example": "{\n\t\"id\": \"20\",\n\t\"comment_id\": \"98\"\n}"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "https://demo-api.apipost.cn/api/demo/collect_news": {
+      "post": {
+        "summary": "收藏新闻",
+        "description": "",
+        "tags": ["我的"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "{{token}}",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "in": "formData",
+            "name": "body",
+            "type": "string",
+            "description": "新闻ID",
+            "default": "20"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "https://demo-api.apipost.cn/api/demo/login": {
+      "post": {
+        "summary": "登录功能",
+        "description": "",
+        "tags": ["我的"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "body",
+            "type": "string",
+            "description": "手机号",
+            "default": "18289454846"
+          },
+          {
+            "in": "formData",
+            "name": "body",
+            "type": "string",
+            "description": "验证码",
+            "default": "123456"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "https://demo-api.apipost.cn/api/demo/news_list": {
+      "get": {
+        "summary": "新闻列表",
+        "description": "",
+        "tags": ["我的"],
+        "parameters": [
+          {
+            "name": "mobile",
+            "in": "query",
+            "description": "手机号",
+            "required": false,
+            "example": "18289454846",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "theme_news",
+            "in": "query",
+            "description": "新闻专题",
+            "required": false,
+            "example": "国际新闻",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "分页",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "每页条数",
+            "required": false,
+            "example": "20",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "{{token}}",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {},
+            "type": "string",
+            "example": ""
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "https://demo-api.apipost.cn/api/demo/news_comment": {
+      "post": {
+        "summary": "评论新闻",
+        "description": "",
+        "tags": ["我的"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "新闻ID",
+            "required": false,
+            "example": "20",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "description": "评论内容",
+            "required": false,
+            "example": "这篇文章写很棒!!",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "{{token}}",
+            "schema": {
+              "type": ""
+            }
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {},
+            "type": "string",
+            "example": ""
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "",
+      "description": "默认环境",
+      "variables": {}
+    },
+    {
+      "url": "https://console-mock.apipost.cn/mock/9ce3f5f3-6b41-4701-a444-98e0941b321d/",
+      "description": "Mock环境",
+      "variables": {}
+    }
+  ]
+}

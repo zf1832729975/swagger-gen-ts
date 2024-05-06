@@ -1,0 +1,41 @@
+{
+  "CommonResponse": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "object",
+        "description": "具体数据"
+      },
+      "encryptData": {
+        "type": "string",
+        "description": "加密后的数据"
+      },
+      "resultCode": {
+        "type": "string",
+        "description": "响应码"
+      }
+    },
+    "title": "CommonResponse"
+  },
+  "CommonResponse«List«BaseUserVO»»": {
+    "type": "object",
+    "properties": {
+      "data": {
+        "type": "array",
+        "description": "具体数据",
+        "items": {
+          "$ref": "#/definitions/BaseUserVO"
+        }
+      },
+      "encryptData": {
+        "type": "string",
+        "description": "加密后的数据"
+      },
+      "resultCode": {
+        "type": "string",
+        "description": "响应码"
+      }
+    },
+    "title": "CommonResponse«List«BaseUserVO»»"
+  }
+}

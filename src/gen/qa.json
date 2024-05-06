@@ -1,0 +1,119 @@
+{
+  "definitions": {
+    "Pet": {
+      "type": "object",
+      "required": ["name", "photoUrls"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "name": {
+          "type": "string",
+          "example": "doggie"
+        },
+        "photoUrls": {
+          "type": "array",
+          "xml": {
+            "wrapped": true
+          },
+          "items": {
+            "type": "string",
+            "xml": {
+              "name": "photoUrl"
+            }
+          }
+        },
+        "tags": {
+          "type": "array",
+          "xml": {
+            "wrapped": true
+          },
+          "items": {
+            "xml": {
+              "name": "tag"
+            },
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "pet status in the store",
+          "enum": ["available", "pending", 0, 2, null]
+        }
+      },
+      "xml": {
+        "name": "Pet"
+      }
+    },
+
+    "CommonResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "具体数据"
+        },
+        "encryptData": {
+          "type": "string",
+          "description": "加密后的数据"
+        },
+        "resultCode": {
+          "type": "string",
+          "description": "响应码"
+        },
+        "resultMsg": {
+          "type": "string",
+          "description": "响应消息"
+        },
+        "signature": {
+          "type": "string",
+          "description": "签名"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "时间戳"
+        }
+      },
+      "title": "CommonResponse"
+    },
+    "CommonResponse«List«BaseUserVO»»": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "description": "具体数据",
+          "items": {
+            "$ref": "#/definitions/BaseUserVO"
+          }
+        },
+        "encryptData": {
+          "type": "string",
+          "description": "加密后的数据"
+        },
+        "resultCode": {
+          "type": "string",
+          "description": "响应码"
+        },
+        "resultMsg": {
+          "type": "string",
+          "description": "响应消息"
+        },
+        "signature": {
+          "type": "string",
+          "description": "签名"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "时间戳"
+        }
+      },
+      "title": "CommonResponse«List«BaseUserVO»»"
+    }
+  }
+}

@@ -62,6 +62,12 @@ function parseSchema(schema: Schema, definitions?: OpenAPIV2.DefinitionsObject) 
   }
 }
 
+// function parseDefinitions(definitions: OpenAPIV2.DefinitionsObject) {
+//   for (let [name, schema] of Object.entries(definitions)) {
+//     parseSchema(schema)
+//   }
+// }
+
 function transformField({ field, required, description, title, typeCode }) {
   let comment = [description, title].filter(Boolean).join('  ')
   if (comment) {
@@ -77,9 +83,6 @@ function transformField({ field, required, description, title, typeCode }) {
 }
 
 function joinRowCode(codes: string[], indent: 0) {
-  // ['中国', '日本]  \n'中国'\n  日本
-  //  index
-  //  '日本
   const indentBlock = '  '.repeat(indent)
   return indentBlock + codes.filter(Boolean).join(`${indentBlock}\n`)
 }
@@ -162,6 +165,11 @@ const petInterfaceDesc: InterfaceDesc = {
   },
 }
 
+interface CommonResponse<T> {
+  data?: T
+  encryptData?: string
+}
+
 const userParsedInterface: InterfaceDesc = {
   name: 'UserInfo',
   type: 'object', // 下面
@@ -188,3 +196,56 @@ const userParsedInterface: InterfaceDesc = {
     },
   },
 }
+
+type StatusType = 'success' | 'error'
+
+const v = {
+  name: 'StatusType',
+  enums: ['success', 'error'],
+}
+
+const commonResponseInterfaceV1: InterfaceDesc = {
+  name: 'CommonResponse',
+  type: 'object',
+  props: {
+    data: {
+      field: 'data',
+      required: false,
+      type: 'object',
+    },
+    encryptData: {
+      field: 'encryptData',
+      required: false,
+      type: 'string',
+    },
+  },
+}
+
+const commonResponseInterfaceV2: InterfaceDesc = {
+  name: 'CommonResponse',
+  // oriinKey: 'CommonResponse«List«BaseUserVO»»',
+  outputType: 'CommonResponse<T>',
+  type: 'object',
+  // generics
+  isGeneric: true, // 泛型
+  genericsKeys: ['T'],
+  props: {
+    data: {
+      field: 'data',
+      required: false,
+      type: 'array',
+      outputType: 'T',
+      items: [2],
+    },
+    encryptData: {
+      field: 'encryptData',
+      required: false,
+      type: 'string',
+    },
+  },
+}
+// [number]  number[]
+;({
+  type: 'array',
+  items: {},
+})

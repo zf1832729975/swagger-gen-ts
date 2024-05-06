@@ -1,4 +1,4 @@
-import { Schema, SwaggerJson, GenerateConfig, ParameterObject, SchemaObject } from '../types'
+import { Schema, SwaggerJson, GenerateConfig, ParameterObject } from '../types'
 import { isArray, isObject, isString } from '../utils/index'
 
 const defaultMap = {
@@ -13,17 +13,15 @@ type ReturnResult = {
   code: string
   defaultValue?: Object | string
   isRef?: boolean
+  genericKeys?: string[]
 }
-
-//  CommonResponse«List«BaseUserVO»» => ['CommonResponse','List','BaseUserVO']
 
 const AlternateGenericKey = ['T', 'U', 'P', 'V']
 
 interface GenerateOptions {
   indent?: number
   isDefinition?: boolean
-  interfaceGenericKeys?: string[]
-  returnGenericKeys?: string[]
+  genericKeys?: string[]
 }
 
 export const addGenericKey = (arr: string[]) => {
@@ -41,15 +39,15 @@ function schemaToTsCode(
   options = {
     indent: 0,
     isDefinition: false,
-    returnGenericKeys: [],
+    genericKeys: [],
     ...options,
   }
-  const { indent = 0, isDefinition, returnGenericKeys = [], interfaceGenericKeys = [] } = options
+  const { indent = 0, isDefinition, genericKeys = [] } = options
   if (!schema) {
     return {
       code: '{}',
       defaultValue: '',
-      // returnGenericKeys: returnGenericKeys,
+      genericKeys: genericKeys,
     }
   }
   let tsType = ''
@@ -57,56 +55,27 @@ function schemaToTsCode(
   const indentBlock = userConfig.indent || '  '
   const baseIndent = indentBlock.repeat(indent)
 
-  const definitions = swaggerJson.definitions
   // CommonResponse«List«BaseUserVO»»
-  // 解析ref
   if (isObject(schema) && '$ref' in schema) {
     const refName = schema.$ref.split('/').pop() || ''
-    // const typeName = refName
-    //   .replace(/«/g, '<')
-    //   .replace(/»/g, '>')
-    //   .replace('<List<', '<Array<')
-    //   .replace(/^List</, 'Array<')
+    const typeName = refName
+      .replace(/«/g, '<')
+      .replace(/»/g, '>')
+      .replace('<List<', '<Array<')
+      .replace(/^List</, 'Array<')
 
-    const names = refNameToArray(refName)
-    const name = names[0]
+    const name = refNameToArray(refName)[0]
     const definitionsMap = getDefinitionsMap(swaggerJson)
     // let genericKey = ''
     // if (isDefinition) {
     //   genericKey = addGenericKey(genericKeys)
     // }
-    // ['a', 'b', 'c' ] => 'a<b<c>>'
-
-    const result = definitionGenCode({
-      interfaceName: refName.replace(/[«»]/g, '_'),
-      schema: swaggerJson.definitions[refName] as any,
-      swaggerJson,
-      userConfig,
-    })
-
-    return result
-
-    // const isGeneric = interfaceGenericKeys.includes(name)
-    // const addTypes =
-    //   names
-    //     .map((item, index) => {
-    //       let typeName = ''
-    //       if (!isDefinition && item !== 'List' && item !== 'Array') {
-    //         typeName = `types.${item}`
-    //       } else {
-    //         typeName = item
-    //       }
-    //       return typeName
-    //     })
-    //     .join('<') + '>'.repeat(names.length - 1)
-
-    // return {
-    //   isRef: true,
-    //   returnGenericKeys: returnGenericKeys,
-    //   code: isGeneric ? addGenericKey(returnGenericKeys) : addTypes,
-    //   defaultValue: definitionsMap[name]?.defaultValue,
-    //   isGeneric,
-    // }
+    return {
+      isRef: true,
+      genericKeys,
+      code: isDefinition ? addGenericKey(genericKeys) : `types.${typeName}`,
+      defaultValue: definitionsMap[name]?.defaultValue,
+    }
   }
 
   let defaultValue = defaultMap[isArray(schema.type) ? schema.type[0] : schema.type]
@@ -114,7 +83,7 @@ function schemaToTsCode(
     return {
       code: schema.enum.map(text => (isString(text) ? `"${text}"` : String(text))).join(' | '),
       defaultValue,
-      returnGenericKeys: returnGenericKeys,
+      genericKeys: genericKeys,
     }
   }
   // schema.enum
@@ -138,10 +107,7 @@ function schemaToTsCode(
         const isRequired = isArray(schema.required) ? schema.required.includes(key) : schema.required
 
         const required = isRequired ? '' : '?'
-        const result = schemaToTsCode(prop, swaggerJson, userConfig, {
-          ...options,
-          indent: options.indent + 1,
-        })
+        const result = schemaToTsCode(prop, swaggerJson, userConfig, { ...options, indent: options.indent + 1 })
         defaultValue[key] = result.defaultValue
         tsType += `${baseIndent}${indentBlock}${key}${required}: ${result.code};`
 
@@ -153,9 +119,7 @@ function schemaToTsCode(
     case 'array':
       defaultValue = []
       if (schema.items) {
-        const result = schemaToTsCode(schema.items, swaggerJson, userConfig, {
-          ...options,
-        })
+        const result = schemaToTsCode(schema.items, swaggerJson, userConfig, options)
         defaultValue.push(result.defaultValue)
         tsType += `Array<${result.code}>`
       } else {
@@ -188,7 +152,7 @@ function schemaToTsCode(
   return {
     code: tsType,
     defaultValue,
-    returnGenericKeys: returnGenericKeys,
+    genericKeys: genericKeys,
   }
 }
 
@@ -205,6 +169,8 @@ const getDefinitionsMap = (swaggerJson: SwaggerJson) => {
   return allDefinitionsMap.get(swaggerJson)
 }
 
+// const
+
 // 优先调用
 export function definitionsGenCode(swaggerJson: SwaggerJson, userConfig: GenerateConfig) {
   const { definitions } = swaggerJson
@@ -212,7 +178,7 @@ export function definitionsGenCode(swaggerJson: SwaggerJson, userConfig: Generat
     .map(key => {
       const schema = definitions[key]
       const typeNames = refNameToArray(key)
-      let genericsKeys = typeNames.length > 1 ? typeNames.slice(1) : []
+      let genericsKeys = typeNames.length > 1 ? typeNames.slice(1) : undefined
       return {
         typeName: typeNames[0],
         typeNames,
@@ -227,6 +193,7 @@ export function definitionsGenCode(swaggerJson: SwaggerJson, userConfig: Generat
     })
 
   const definitionsMap = getDefinitionsMap(swaggerJson)
+  // 存在泛型
   const genResult = result.map(item => {
     // 存在就不解析了
     if (definitionsMap[item.typeName]) {
@@ -235,13 +202,13 @@ export function definitionsGenCode(swaggerJson: SwaggerJson, userConfig: Generat
     const parseResult = schemaToTsCode(item.schema, swaggerJson, userConfig, {
       indent: 0,
       isDefinition: true,
-      interfaceGenericKeys: item.genericsKeys,
+      genericsKeys: item.genericsKeys,
     })
 
     let genericCode = ''
-    // if (parseResult.returnGenericKeys?.length) {
-    //   genericCode = `<${parseResult.returnGenericKeys.map(key => `${key} = any`).join(', ')}>`
-    // }
+    if (parseResult.genericKeys?.length) {
+      genericCode = `<${parseResult.genericKeys.join(', ')}>`
+    }
 
     definitionsMap[item.typeName] = parseResult
     return {
@@ -258,41 +225,6 @@ export function definitionsGenCode(swaggerJson: SwaggerJson, userConfig: Generat
   }
 }
 
-export function definitionGenCode({
-  schema,
-  swaggerJson,
-  interfaceName,
-  userConfig,
-  genericsKeys,
-}: {
-  genericsKeys?: string[]
-  interfaceName: string
-  schema: SchemaObject
-  swaggerJson: SwaggerJson
-  userConfig: GenerateConfig
-}) {
-  const definitionsMap = getDefinitionsMap(swaggerJson)
-  const val = definitionsMap[interfaceName]
-  if (val) {
-    return val
-  }
-  const parseResult = schemaToTsCode(schema, swaggerJson, userConfig, {
-    indent: 0,
-    isDefinition: true,
-    interfaceGenericKeys: genericsKeys,
-  })
-  let genericCode = ''
-  // if (parseResult.returnGenericKeys?.length) {
-  //   genericCode = `<${parseResult.returnGenericKeys.map(key => `${key} = any`).join(', ')}>`
-  // }
-
-  definitionsMap[interfaceName] = parseResult
-  return {
-    code: `export interface ${interfaceName}${genericCode} ${parseResult.code}`,
-    defaultValue: parseResult.defaultValue,
-  }
-}
-
 interface GenInterfaceCode {
   schema: Schema | Array<ParameterObject> | undefined
   swaggerJson: SwaggerJson
@@ -306,6 +238,7 @@ export const genInterfaceCode = ({
   interfaceName,
   userConfig,
 }: GenInterfaceCode): ReturnResult => {
+  // params
   if (isArray(schema)) {
     const indentBlock = userConfig.indent || '\t'
 
@@ -349,4 +282,32 @@ export const genInterfaceCode = ({
     code: `export interface ${interfaceName} ${code}`,
     defaultValue,
   }
+}
+
+interface CommonResponse {
+  data?: object
+  /** 加密后的数据 */
+  encryptData?: string
+  /** 响应码 */
+  resultCode?: string
+}
+interface CommonResponse<T = object> {
+  data?: T
+  /** 加密后的数据 */
+  encryptData?: string
+  /** 响应码 */
+  resultCode?: string
+}
+
+interface BaseUserVO {
+  /** 年龄 */
+  age?: number
+  /** 位置 */
+  location?: string
+}
+
+type Res = CommonResponse<number>
+
+const obk: Res = {
+  data: [],
 }

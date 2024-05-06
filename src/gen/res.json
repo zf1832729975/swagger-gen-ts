@@ -1,0 +1,5 @@
+{
+  "CommonResponse": "interface CommonResponse {\n  data?: object; /** 具体数据 */\n  encryptData?: string; /** 加密后的数据 */\n  resultCode?: string; /** 响应码 */\n}",
+  "CommonResponse«List«BaseUserVO»»": "interface CommonResponse<T = BaseUserVO[]> {\n  data?: BaseUserVO[]; /** 具体数据 */\n  encryptData?: string; /** 加密后的数据 */\n  resultCode?: string; /** 响应码 */\n}",
+  "BaseUserVO": "interface BaseUserVO {\n  age?: number; /** 年龄 */\n  location?: string; /** 位置 */\n}"
+}
