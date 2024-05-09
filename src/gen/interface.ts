@@ -34,6 +34,7 @@ function schemaToTsCode(
     const refName = schema.$ref.split('/').pop() || ''
     const refSchema = definitions[refName]
     if (refSchema) {
+      // TODO: 循环引用
       return schemaToTsCode(refSchema, swaggerJson, userConfig, indent)
     }
     return
@@ -159,17 +160,25 @@ export const genInterfaceCode = ({
     }
   }
 
-  const { code, defaultValue } = schemaToTsCode(schema, swaggerJson, userConfig)
+  try {
+    const { code, defaultValue } = schemaToTsCode(schema, swaggerJson, userConfig)
 
-  // 只要不是 { 开头
-  if (!code.trimStart().startsWith('{')) {
+    // 只要不是 { 开头
+    if (!code.trimStart().startsWith('{')) {
+      return {
+        code: `export type ${interfaceName} = ${code}`,
+        defaultValue,
+      }
+    }
     return {
-      code: `export type ${interfaceName} = ${code}`,
+      code: `export interface ${interfaceName} ${code}`,
       defaultValue,
     }
-  }
-  return {
-    code: `export interface ${interfaceName} ${code}`,
-    defaultValue,
+  } catch (err) {
+    console.error(err)
+    return {
+      code: `/* 这个生成错误\nerror: ${err} */\nexport type ${interfaceName} = any`,
+      defaultValue: '',
+    }
   }
 }

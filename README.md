@@ -4,6 +4,10 @@ swagger 文档 生成 ts 类型的 api 代码
 
 > 目前只支持 swagger 2.x
 
+TODO:
+
+> 泛型，发现泛型的默认值生成有点麻烦、容易出现生成错误的情况，暂时不用泛型
+
 ## 安装
 
 ```base
@@ -12,7 +16,11 @@ npm install swagger-gen-ts
 
 ## 前言
 
-### 为什么写这个工具？
+## 为什么写这个工具？
+
+<details>
+
+<summary>展开/收起</summary>
 
 我在网上找了所有的 swagger.json 生成 typescript 的，我都下载下来过尝试了，发现各种问题
 
@@ -33,9 +41,12 @@ npm install swagger-gen-ts
 
 - 配置复杂：大多数你想要自定义，配置超级复杂，还需要自己去写模板；在小公司的话就要快准狠，根本就没有那么多时间去弄，还可能出问题，还写了半天发现根本和自己想的不一样，费了很多时间
 - 不支持 ts，好多都是弄成什么配置文件 xxx.config.js，两个提示都没有，每次还得去看文档，很痛苦
+</details>
 
 ### 这个工具优势
 
+<details>
+<summary>展开/收起</summary>
 没啥优势，就一个很轻量的 swagger 转 ts，正常的使用，不能自定义太多
 
 - 我们都知道 url 基本上不会变化的，所以默认的生函数名和文件夹名都是基于 url 来生成的，就比较稳定
@@ -83,9 +94,11 @@ npm install swagger-gen-ts
   这个内容有什么用呢？你在 vue 中可以直接拷贝这些字段，就不用一个个的写了，减少时间，也不用不用担心少写 key，还有如果 key 比较多的时候，我遇到表单有四五十个 key 的，那么这样比较多，
   这样也可以直接拷贝，一个个的复制，或者通过 Object.keys({}) 这样拿到所有的 key，就减少时间减少错误可以方便做很多操作；刚好看见是 0 的，也知道是 Number 类型，我们在提交的时候要转换下处理
 
+</details>
+
 ## 基本使用
 
-在中新建一个 js 文件，名字自定义，例如 `gen-api.ts`
+在中新建一个 js 文件，名字自定义，例如 `gen-api.js`
 
 ```js
 const { swaggerToTs } = require('swagger-gen-ts')
